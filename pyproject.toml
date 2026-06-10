@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "commensa-audit"
+version = "0.2.0"
+description = "Commensa audit CLI — point it at a GitHub repo, get a one-page AI Rework Report."
+readme = "README.md"
+license = { file = "LICENSE" }
+authors = [{ name = "Matt Buscher" }]
+requires-python = ">=3.10"
+# Guardrail (SPEC.md): stdlib + requests + jinja2 max — both now in use
+# (jinja2 added in Phase C for the report; justification in BUILD_LOG S3).
+dependencies = ["requests>=2.28", "jinja2>=3.1"]
+
+[project.urls]
+Homepage = "https://commensa.ai"
+Repository = "https://github.com/commensa-ai/commensa-audit"
+
+[project.scripts]
+commensa-audit = "commensa_audit.cli:main"
+
+[tool.setuptools]
+packages = ["commensa_audit", "commensa_audit.extractors"]

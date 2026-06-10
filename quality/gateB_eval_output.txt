@@ -1,0 +1,41 @@
+unit     label    pilot       classifier  signal           superseded_by  agree
+PR-138   slop     corrective  generative  —                PR-141         ✗ DISAGREE
+PR-139   win      generative  corrective  churn_cluster    PR-141         ✗ DISAGREE
+PR-100   neutral  generative  generative  —                               ✓
+PR-103   win      generative  generative  —                               ✓
+PR-112   win      generative  generative  —                               ✓
+PR-117   win      corrective  corrective  explicit                        ✓
+PR-119   slop     corrective  corrective  explicit                        ✓
+PR-123   slop     generative  generative  —                               ✓
+PR-125   slop     corrective  corrective  explicit                        ✓
+PR-133   win      generative  generative  —                               ✓
+PR-135   slop     generative  generative  —                               ✓
+PR-136   win      corrective  corrective  explicit         PR-141         ✓
+PR-140   slop     generative  generative  —                               ✓
+PR-143   win      generative  generative  —                               ✓
+PR-144   win      generative  generative  —                               ✓
+PR-147   win      generative  generative  —                               ✓
+PR-162   win      generative  generative  —                               ✓
+PR-18    win      generative  generative  —                               ✓
+PR-3     win      generative  generative  —                               ✓
+PR-31    slop     corrective  corrective  explicit                        ✓
+PR-42    win      generative  generative  —                               ✓
+PR-43    win      generative  generative  —                               ✓
+PR-47    win      generative  generative  —                               ✓
+PR-49    slop     generative  generative  —                               ✓
+PR-61    win      generative  generative  —                               ✓
+PR-74    win      generative  generative  —                               ✓
+PR-79    win      generative  generative  —                               ✓
+PR-8     neutral  generative  generative  —                PR-10          ✓
+PR-80    win      generative  generative  —                               ✓
+PR-9     neutral  corrective  corrective  explicit                        ✓
+
+agreement (classification only):           28/30 = 93.3%
+agreement (corrective-or-superseded,
+           the pilot's own grouping rule):  28/30 = 93.3%
+
+GATE B (≥80%): MET — pending Matt spot-check of 10 classifications
+
+disagreements (documented, not hidden — product learning):
+  PR-139 (win): pilot=generative, classifier=corrective via churn_cluster; superseded_by PR-141
+  PR-138 (slop): pilot=corrective, classifier=generative; superseded_by PR-141

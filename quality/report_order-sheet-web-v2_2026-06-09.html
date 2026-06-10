@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Rework Report — mattlaptopsanytime-collab/order-sheet-web-v2</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; margin: 0; }
+  body { background:#f6f7f9; color:#1d2b4d; font:15px/1.5 ui-sans-serif,-apple-system,"Segoe UI",Inter,Helvetica,Arial,sans-serif; padding:28px 16px; }
+  .page { max-width:860px; margin:0 auto; }
+  header { display:flex; align-items:center; gap:14px; margin-bottom:6px; }
+  .word { font-size:22px; font-weight:600; letter-spacing:-0.02em; }
+  .tag  { color:#5b6770; font-size:13px; }
+  .meta { margin-left:auto; text-align:right; color:#5b6770; font-size:12.5px; }
+  .meta b { color:#1d2b4d; font-size:14px; }
+  h1 { font-size:19px; margin:22px 0 10px; letter-spacing:-0.01em; }
+  h2 { font-size:14px; text-transform:uppercase; letter-spacing:0.06em; color:#5b6770; margin-bottom:8px; }
+  .cards2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  @media (max-width:640px){ .cards2 { grid-template-columns:1fr; } }
+  .card { background:#fff; border:1px solid #e4e7ec; border-radius:14px; padding:18px 20px; }
+  .big { font-size:40px; font-weight:700; letter-spacing:-0.03em; line-height:1.1; }
+  .big small { font-size:17px; font-weight:600; color:#5b6770; letter-spacing:0; }
+  .sub { color:#5b6770; font-size:13.5px; margin-top:6px; }
+  .est { margin-top:10px; padding:8px 12px; background:#f6f7f9; border-radius:9px; font-size:13.5px; }
+  .est b { color:#1d2b4d; }
+  .durable { background:linear-gradient(135deg,#22325a,#152138); border-radius:14px; padding:20px 24px; margin-top:14px; color:#fff; }
+  .durable .lbl { font-size:12px; letter-spacing:0.05em; text-transform:uppercase; opacity:.75; margin-bottom:6px; }
+  .barrow { display:flex; gap:6px; height:16px; margin:6px 0 4px; }
+  .frag { border-radius:8px; min-width:8px; }
+  .solid { height:16px; border-radius:8px; background:#18a06b; margin-top:12px; }
+  .panel3 { display:grid; grid-template-columns:1fr; gap:14px; margin-top:14px; }
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  th { text-align:left; color:#5b6770; font-weight:600; padding:4px 8px 4px 0; border-bottom:1px solid #e4e7ec; }
+  td { padding:5px 8px 5px 0; border-bottom:1px solid #f0f2f5; vertical-align:top; }
+  .pct { font-variant-numeric:tabular-nums; white-space:nowrap; }
+  .pill { display:inline-block; padding:1px 8px; border-radius:99px; font-size:11.5px; font-weight:600; }
+  .pill.c { background:#fdeeee; color:#b33; }
+  .pill.g { background:#e9f6f0; color:#18a06b; }
+  .quiet { color:#5b6770; }
+  .ctx { display:flex; flex-wrap:wrap; gap:18px; font-size:13px; color:#5b6770; margin-top:14px; padding:12px 16px; background:#fff; border:1px solid #e4e7ec; border-radius:12px; }
+  .ctx b { color:#1d2b4d; display:block; font-size:16px; }
+  details { margin-top:14px; }
+  summary { cursor:pointer; color:#5b6770; font-size:13px; }
+  footer { margin-top:22px; font-size:12.5px; color:#5b6770; }
+  footer ul { margin:6px 0 0 18px; padding:0; }
+  footer li { margin-bottom:3px; }
+  .cta { margin-top:16px; background:#1d2b4d; color:#fff; border-radius:14px; padding:16px 20px; display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+  .cta a { color:#7be0b4; font-weight:700; text-decoration:none; font-size:16px; }
+  .cta .fine { font-size:12px; opacity:.75; flex-basis:100%; }
+</style></head><body><div class="page">
+
+<header>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="40" height="40" role="img" aria-label="Commensa — the Durable Equals">
+  <defs><linearGradient id="t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#22325a"/><stop offset="1" stop-color="#152138"/></linearGradient></defs>
+  <rect width="200" height="200" rx="44" fill="url(#t)"/>
+  <g fill="#ffffff">
+    <rect x="46" y="74" width="26" height="18" rx="9" fill-opacity="0.92"/>
+    <rect x="80" y="74" width="30" height="18" rx="9" fill-opacity="0.55"/>
+    <rect x="118" y="74" width="14" height="18" rx="7" fill-opacity="0.35"/>
+    <rect x="140" y="74" width="14" height="18" rx="7" fill-opacity="0.20"/>
+  </g>
+  <rect x="46" y="108" width="108" height="18" rx="9" fill="#18a06b"/>
+</svg>
+  <div><div class="word">commensa</div><div class="tag">measure the durable work, not the noise.</div></div>
+  <div class="meta"><b>AI Rework Report</b><br>mattlaptopsanytime-collab/order-sheet-web-v2<br>2026-06-09 · 162 PRs · 14-day window</div>
+</header>
+
+<h1>The waste, in two lines</h1>
+<div class="cards2">
+  <div class="card">
+    <h2>1 · Rework tax — correcting its own work</h2>
+    <div class="big">27.2%<small> of PRs</small></div>
+    <div class="sub"><b>44 of 162</b> PRs — 12.9% of all changed lines — were corrective:
+      37 said so in the title, 5 mostly deleted week-old work, 2 sat in churn chains.</div>
+    <div class="est">≈ <b>$17,600</b> of effort — <i>estimate</i>, basis: $400 per PR (your input) × 44 corrective PRs</div>
+  </div>
+  <div class="card">
+    <h2>2 · Superseded — work that didn't last</h2>
+    <div class="big">7<small> PRs replaced</small></div>
+    <div class="sub">Entirely or mostly rewritten by later PRs within 14 days — 448 lines of finished, merged work discarded.
+      A different failure mode than correction; the two numbers are shown together, never merged.</div>
+  </div>
+</div>
+
+<div class="durable">
+  <div class="lbl">what the agents generated</div>
+  <div class="barrow">
+    <div class="frag" style="flex:30339;background:#fff;opacity:0.92" title="kept (generative): 89.9%"></div><div class="frag" style="flex:163;background:#fff;opacity:0.45" title="superseded only: 0.5%"></div><div class="frag" style="flex:3264;background:#fff;opacity:0.22" title="corrective: 9.7%"></div>
+  </div>
+  <div style="font-size:12px;opacity:.8">kept (generative) 89.9% · superseded only 0.5% · corrective 9.7%</div>
+  <div class="lbl" style="margin-top:14px">what survived</div>
+  <div class="solid" style="width:91.7%"></div>
+  <div style="font-size:12px;opacity:.8;margin-top:4px">91.7% of attributable merged lines still live at measurement</div>
+</div>
+
+<div class="panel3">
+  <div class="card">
+    <h2>Evidence · churn clusters — N PRs to get one thing right</h2>
+    
+      <p style="margin-bottom:6px"><b>4 PRs</b> rewriting each other around <code>frontend/components/OrderSubmitForm.tsx</code> (350 lines of internal rework):</p>
+      <table><tr><th>PR</th><th>title</th></tr>
+      <tr><td class="pct">PR-136</td><td>Fix light/dark mixing + padding on Installed / Service / Order entry / Archive</td></tr><tr><td class="pct">PR-138</td><td>Unify dark theme on a single navy/slate palette site-wide</td></tr><tr><td class="pct">PR-139</td><td>Dark-mode the remaining white components site-wide</td></tr><tr><td class="pct">PR-141</td><td>Revert to neutral palette site-wide; remap Devices-merge blue to theme vars</td></tr></table>
+      <hr style="border:none;border-top:1px solid #f0f2f5;margin:10px 0">
+    
+      <p style="margin-bottom:6px"><b>3 PRs</b> rewriting each other around <code>frontend/components/PillStack.tsx</code> (45 lines of internal rework):</p>
+      <table><tr><th>PR</th><th>title</th></tr>
+      <tr><td class="pct">PR-8</td><td>ops: PillStack split — ops top, sales bottom, no duplicates</td></tr><tr><td class="pct">PR-10</td><td>ops: PillStack always shows two pills (sales top, ops bottom)</td></tr><tr><td class="pct">PR-12</td><td>ops: editable status pills with audit log (who/when)</td></tr></table>
+      
+    
+  </div>
+
+  <div class="card">
+    <h2>Evidence · supersession — who replaced whom</h2>
+    <table><tr><th>PR</th><th>title</th><th>replaced</th><th>mainly by</th></tr>
+    <tr><td class="pct">PR-6</td><td>ops: cabinet rows render in physical kiosk layout (Host: Row 1 = Screen)</td><td class="pct">64%</td><td class="pct">PR-13</td></tr><tr><td class="pct">PR-8</td><td>ops: PillStack split — ops top, sales bottom, no duplicates</td><td class="pct">79%</td><td class="pct">PR-10</td></tr><tr><td class="pct">PR-10</td><td>ops: PillStack always shows two pills (sales top, ops bottom)</td><td class="pct">81%</td><td class="pct">PR-12</td></tr><tr><td class="pct">PR-136</td><td>Fix light/dark mixing + padding on Installed / Service / Order entry / Archive</td><td class="pct">95%</td><td class="pct">PR-141</td></tr><tr><td class="pct">PR-138</td><td>Unify dark theme on a single navy/slate palette site-wide</td><td class="pct">100%</td><td class="pct">PR-141</td></tr><tr><td class="pct">PR-139</td><td>Dark-mode the remaining white components site-wide</td><td class="pct">100%</td><td class="pct">PR-141</td></tr><tr><td class="pct">PR-148</td><td>docs(migration): fill Gitea host (NAS 10.0.1.67) + reflect existing accounts</td><td class="pct">69%</td><td class="pct">PR-149</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>Evidence · survival — durability of merged lines</h2>
+    <p><b>91.7%</b> overall · median per-PR 98% — lowest survivors:</p>
+    <table><tr><th>PR</th><th>title</th><th>added</th><th>survived</th></tr>
+    <tr><td class="pct">PR-139</td><td>Dark-mode the remaining white components site-wide</td><td class="pct">247</td><td class="pct">0%</td></tr><tr><td class="pct">PR-136</td><td>Fix light/dark mixing + padding on Installed / Service / Order entry / Archive</td><td class="pct">97</td><td class="pct">5%</td></tr><tr><td class="pct">PR-8</td><td>ops: PillStack split — ops top, sales bottom, no duplicates</td><td class="pct">39</td><td class="pct">18%</td></tr><tr><td class="pct">PR-10</td><td>ops: PillStack always shows two pills (sales top, ops bottom)</td><td class="pct">32</td><td class="pct">19%</td></tr><tr><td class="pct">PR-6</td><td>ops: cabinet rows render in physical kiosk layout (Host: Row 1 = Screen)</td><td class="pct">63</td><td class="pct">36%</td></tr>
+    </table>
+    <p class="quiet" style="margin-top:6px;font-size:12.5px">line-attribution replay of PR patches (see rework.py docstring for limits: exact-content match, trivial lines excluded, renames followed via PR file entries, direct pushes invisible)</p>
+  </div>
+</div>
+
+<div class="ctx">
+  <div><b>92.9</b>PRs / week</div>
+  <div><b>98.8%</b>merge rate</div>
+  <div><b>93</b>median PR (+lines)</div>
+  <div><b>247</b>p75 (+lines)</div>
+  <div style="align-self:center">context only — velocity is never a target (LOC trap)</div>
+</div>
+
+<details><summary>Every PR, every verdict (162 rows — transparency: each carries the signal that fired)</summary>
+  <div class="card" style="margin-top:8px"><table>
+  <tr><th>PR</th><th>title</th><th>verdict</th><th>why</th><th>survival</th></tr>
+  <tr><td class="pct">PR-1</td><td>ops: kill global .editable hover side-effects (flash artifact root cause)</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">100%</td></tr><tr><td class="pct">PR-2</td><td>ops: lazy-render EquipmentArrivalsDrawer (kills the real flash artifact)</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">100%</td></tr><tr><td class="pct">PR-3</td><td>import: live Google Sheet CSV path + staged master snapshot</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">100%</td></tr><tr><td class="pct">PR-4</td><td>import: source-agnostic customers + skip Installed (active pipeline only)</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">100%</td></tr><tr><td class="pct">PR-5</td><td>ops: cabinet-grouped-by-opportunity view, oldest-first</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">95%</td></tr><tr><td class="pct">PR-6</td><td>ops: cabinet rows render in physical kiosk layout (Host: Row 1 = Screen)</td>
+    <td><span class="pill g">generative</span> <span class="quiet" style="font-size:11px">superseded by PR-13</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">36%</td></tr><tr><td class="pct">PR-7</td><td>script: backfill real kiosk_id from SF for refresh cycles (40/41)</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">100%</td></tr><tr><td class="pct">PR-8</td><td>ops: PillStack split — ops top, sales bottom, no duplicates</td>
+    <td><span class="pill g">generative</span> <span class="quiet" style="font-size:11px">superseded by PR-10</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">18%</td></tr><tr><td class="pct">PR-9</td><td>ops: PillStack — correct order (sales top, ops bottom)</td>
+    <td><span class="pill c">corrective</span></td>
+    <td class="quiet">title token &#39;correct&#39;</td><td class="pct">0%</td></tr><tr><td class="pct">PR-10</td><td>ops: PillStack always shows two pills (sales top, ops bottom)</td>
+    <td><span class="pill g">generative</span> <span class="quiet" style="font-size:11px">superseded by PR-12</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">19%</td></tr><tr><td class="pct">PR-11</td><td>ops: not-started pill chip — visible on dark mode</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">100%</td></tr><tr><td class="pct">PR-12</td><td>ops: editable status pills with audit log (who/when)</td>
+    <td><span class="pill c">corrective</span></td>
+    <td class="quiet">PR 3/3 in churn cluster #2 (frontend/components/PillStack.tsx, backend/app/Http/Controllers/Api/BuildCycleController.php)</td><td class="pct">87%</td></tr><tr><td class="pct">PR-13</td><td>ops: inline cabinet rows + status block stacked underneath</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">98%</td></tr><tr><td class="pct">PR-14</td><td>ops: fix cabinet 422 + scope row-click to title only</td>
+    <td><span class="pill c">corrective</span></td>
+    <td class="quiet">title token &#39;fix&#39;</td><td class="pct">92%</td></tr><tr><td class="pct">PR-15</td><td>ops: prepopulate Equipment Arrivals from cabinet rows + capture received date</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">96%</td></tr><tr><td class="pct">PR-16</td><td>order-entry: SF Opportunity picker + flagged quote #</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">88%</td></tr><tr><td class="pct">PR-17</td><td>sf_sync: handle SF datetime with .000+0000 suffix</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">100%</td></tr><tr><td class="pct">PR-18</td><td>order-entry: create BuildCycle stamped with SF Opp + Quote #</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">97%</td></tr><tr><td class="pct">PR-19</td><td>order-entry: show fetch errors in Opp autocomplete</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">100%</td></tr><tr><td class="pct">PR-20</td><td>sf_sync: scrape quote #s from Opp names + attachment filenames</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">98%</td></tr><tr><td class="pct">PR-21</td><td>order-entry: clickable quote chips + auto-create Customer</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">72%</td></tr><tr><td class="pct">PR-22</td><td>order-entry: default sales_region + provisioning_workflow on cycle create</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">100%</td></tr><tr><td class="pct">PR-23</td><td>order-entry: inline cabinet builder (Host/Companion + bay rows)</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">90%</td></tr><tr><td class="pct">PR-24</td><td>order-entry: multi-kiosk + order-level fields + auth picklist + bar code</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">77%</td></tr><tr><td class="pct">PR-25</td><td>order-entry: foundation — PATCH + full capture per lifecycle design</td>
+    <td><span class="pill c">corrective</span></td>
+    <td class="quiet">title token &#39;patch&#39;</td><td class="pct">90%</td></tr><tr><td class="pct">PR-26</td><td>ops: context-aware PO + Install pills</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">82%</td></tr><tr><td class="pct">PR-27</td><td>ops: on-hold + cancel lifecycle</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">91%</td></tr><tr><td class="pct">PR-28</td><td>order-entry: per-cabinet cycle_action (6 enum values)</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">85%</td></tr><tr><td class="pct">PR-29</td><td>order-entry: remove Kiosk style field</td>
+    <td><span class="pill c">corrective</span></td>
+    <td class="quiet">deletes 22 lines added &lt;14d earlier (mainly PR-24 (22))</td><td class="pct">0%</td></tr><tr><td class="pct">PR-30</td><td>order-entry: auto-create arrivals per cabinet row at submit</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">100%</td></tr><tr><td class="pct">PR-31</td><td>fix: kiosk validator allows Bar Code + nullable kiosk_style</td>
+    <td><span class="pill c">corrective</span></td>
+    <td class="quiet">title token &#39;fix&#39;</td><td class="pct">100%</td></tr><tr><td class="pct">PR-32</td><td>ops: row actions treat 404 as cycle-already-gone</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">78%</td></tr><tr><td class="pct">PR-33</td><td>ops: 422 &#39;already canceled&#39; drops row like 404</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">100%</td></tr><tr><td class="pct">PR-34</td><td>fix: cast on_hold + canceled_at as datetime on BuildCycle</td>
+    <td><span class="pill c">corrective</span></td>
+    <td class="quiet">title token &#39;fix&#39;</td><td class="pct">100%</td></tr><tr><td class="pct">PR-35</td><td>ops: on-hold gains &#39;until&#39; date — chip shows &#39;on hold until: Aug 15&#39;</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">72%</td></tr><tr><td class="pct">PR-36</td><td>ops: hold UX — auto-refresh, update-while-held, calendar popup</td>
+    <td><span class="pill c">corrective</span></td>
+    <td class="quiet">deletes 35 lines added &lt;14d earlier (mainly PR-27 (29), PR-35 (6))</td><td class="pct">87%</td></tr><tr><td class="pct">PR-37</td><td>fix: showPicker NotAllowedError on onFocus</td>
+    <td><span class="pill c">corrective</span></td>
+    <td class="quiet">title token &#39;fix&#39;</td><td class="pct">98%</td></tr><tr><td class="pct">PR-38</td><td>ops: inline-edit install target chip</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">98%</td></tr><tr><td class="pct">PR-39</td><td>S-04 wrap-up: PICKUP + patterns + lifecycle doc + session log</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">96%</td></tr><tr><td class="pct">PR-40</td><td>PICKUP: bump valid_as_of to wrap-up SHA</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">0%</td></tr><tr><td class="pct">PR-41</td><td>ops: inline-edit PO Est date pill — split sales pill into date + status zones</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">92%</td></tr><tr><td class="pct">PR-42</td><td>ops: cabinet parts UI — Add Part / +1 / Mark All / Delete in StatusBlock</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">99%</td></tr><tr><td class="pct">PR-43</td><td>ops: amber over-receipt warning in arrivals drawer + log shipment form</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">92%</td></tr><tr><td class="pct">PR-44</td><td>fix: eager-load cabinets.parts so parts survive page refresh (regression in #42)</td>
+    <td><span class="pill c">corrective</span></td>
+    <td class="quiet">title token &#39;fix&#39;</td><td class="pct">100%</td></tr><tr><td class="pct">PR-45</td><td>ops: editable Qty expected on arrivals (customer changed order mid-flight)</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">94%</td></tr><tr><td class="pct">PR-46</td><td>ops: delete shipment row from Equipment Arrivals drawer</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">97%</td></tr><tr><td class="pct">PR-47</td><td>ops: device_model canonical picklist + datalist typeahead (Order Entry + Log Sh…</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">88%</td></tr><tr><td class="pct">PR-48</td><td>ops: artisan backfill for legacy device_model variants → canonical (PR #47 foll…</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">100%</td></tr><tr><td class="pct">PR-49</td><td>ops: wire Filters popover + Group-by toggle on /operations board</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">99%</td></tr><tr><td class="pct">PR-50</td><td>ops: cabinet-centric detail page redesign — /cabinets/[id] (slice 1 of 4)</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">94%</td></tr><tr><td class="pct">PR-51</td><td>ops: /operations nav rewire — cabinet row → /cabinets/[id], Opp header → /order…</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">99%</td></tr><tr><td class="pct">PR-52</td><td>ops: per-row USB-C/ethernet docks + visible save indicator (cabinet detail feed…</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">96%</td></tr><tr><td class="pct">PR-53</td><td>ops: cabinet detail polish — drop redundant tag, sort rows ASC, dynamic popover…</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">67%</td></tr><tr><td class="pct">PR-54</td><td>ops: refresh kiosk picker + chronological kiosk_id auto-suggest in Order Entry</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">95%</td></tr><tr><td class="pct">PR-55</td><td>ops: Order Entry surfaces existing kiosks under this Opp (slice 3 of 4)</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">92%</td></tr><tr><td class="pct">PR-56</td><td>ops: PO Received prompt — required PO# (or Signed Quote), SF-upload check, popo…</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">100%</td></tr><tr><td class="pct">PR-57</td><td>ops: extend audit logging to cabinet + row + part mutations + build-cycle rollu…</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">99%</td></tr><tr><td class="pct">PR-58</td><td>fix: InlineDateEditor/InlineTextEditor popover overflow on far-right triggers (…</td>
+    <td><span class="pill c">corrective</span></td>
+    <td class="quiet">title token &#39;fix&#39;</td><td class="pct">100%</td></tr><tr><td class="pct">PR-59</td><td>fix: sales-pill tooltip overlap — replace native title with positioned audit-tip</td>
+    <td><span class="pill c">corrective</span></td>
+    <td class="quiet">title token &#39;fix&#39;</td><td class="pct">55%</td></tr><tr><td class="pct">PR-60</td><td>fix: /operations column widths + render Signed-Quote PO as a quiet badge (not &#39;…</td>
+    <td><span class="pill c">corrective</span></td>
+    <td class="quiet">title token &#39;fix&#39;</td><td class="pct">98%</td></tr><tr><td class="pct">PR-61</td><td>ops: wire sales + ops pill audit-tips to real field-changes data (no more stubs)</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">71%</td></tr><tr><td class="pct">PR-62</td><td>ops: wire StatusBlock audit-tips (Graphics + Power cords) to real cabinet data</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">99%</td></tr><tr><td class="pct">PR-63</td><td>fix: audit-tip overflows left edge on /cabinets/[id] sticky header</td>
+    <td><span class="pill c">corrective</span></td>
+    <td class="quiet">title token &#39;fix&#39;</td><td class="pct">100%</td></tr><tr><td class="pct">PR-64</td><td>ops: auto-refresh audit-tip context after edits (no more stale tooltips)</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">100%</td></tr><tr><td class="pct">PR-65</td><td>fix: Order Entry quote # picker — separate Assign from Open-SF affordances</td>
+    <td><span class="pill c">corrective</span></td>
+    <td class="quiet">title token &#39;fix&#39;</td><td class="pct">86%</td></tr><tr><td class="pct">PR-66</td><td>ops: legacy /build-cycles/[id] auto-redirects to first cabinet&#39;s detail page</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">100%</td></tr><tr><td class="pct">PR-67</td><td>ops: cabinet detail PO # editor matches Mark PO Received (Signed Quote shortcut)</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">100%</td></tr><tr><td class="pct">PR-68</td><td>ops: refresh vs new cabinet badges + refetch-on-focus</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">99%</td></tr><tr><td class="pct">PR-69</td><td>ops: Host-before-Companion cabinet sort + pin New/Refresh badge to title row end</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">100%</td></tr><tr><td class="pct">PR-70</td><td>ops: bay_style refresh (Easy Swap Bay / Drawer / Charger) + per-row picker + op…</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">94%</td></tr><tr><td class="pct">PR-71</td><td>ops: /operations filters add device_model search + install-target month picker</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">70%</td></tr><tr><td class="pct">PR-72</td><td>ops: cabinet size composite (Host-24&#34; / Companion-30&#34;) + auto-derive + operator…</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">98%</td></tr><tr><td class="pct">PR-73</td><td>ops: backfill Laptop→Easy Swap Bay + install-target filter as date range</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">100%</td></tr><tr><td class="pct">PR-74</td><td>PICKUP+session_log: S-05 close (34 PRs)</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">86%</td></tr><tr><td class="pct">PR-75</td><td>ops: cabinet style filter (Host-24&#34;/30&#34; + Companion-24&#34;/30&#34;)</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">100%</td></tr><tr><td class="pct">PR-76</td><td>docs: S-05 close-out (data-reingest-plan + patterns §16-20 + Phase 7 PICKUP)</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">73%</td></tr><tr><td class="pct">PR-77</td><td>PICKUP: remove duplicate External blockers block</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">—</td></tr><tr><td class="pct">PR-78</td><td>Phase 7: osw:reingest-orders artisan + plan amendments + import_signature column</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">100%</td></tr><tr><td class="pct">PR-79</td><td>Phase 8 step 2.5c-e: flags pages + manual flag UI + Playwright</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">95%</td></tr><tr><td class="pct">PR-80</td><td>docs(S-06): close-out paperwork — PICKUP + session log for Phase 8</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">99%</td></tr><tr><td class="pct">PR-81</td><td>feat: /installed page — SF Asset sync + hero tiles + region/quarter/range filte…</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">98%</td></tr><tr><td class="pct">PR-82</td><td>feat(orders): capture customer&#39;s expected device counts per cycle</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">99%</td></tr><tr><td class="pct">PR-83</td><td>feat(orders): surface devices-expected rollup on /operations</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">100%</td></tr><tr><td class="pct">PR-84</td><td>feat(orders): per-cabinet devices chip on /operations rows</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">100%</td></tr><tr><td class="pct">PR-85</td><td>feat(flags): device-shortfall triggers (Phase 8)</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">100%</td></tr><tr><td class="pct">PR-86</td><td>fix(installed): region routing — pull correct SF address field</td>
+    <td><span class="pill c">corrective</span></td>
+    <td class="quiet">title token &#39;fix&#39;</td><td class="pct">93%</td></tr><tr><td class="pct">PR-87</td><td>fix(installed): use parent-kiosk asset for region detection</td>
+    <td><span class="pill c">corrective</span></td>
+    <td class="quiet">title token &#39;fix&#39;</td><td class="pct">100%</td></tr><tr><td class="pct">PR-88</td><td>fix(cabinets): inline-edit failure — stale UpdateCabinetRequest picklists</td>
+    <td><span class="pill c">corrective</span></td>
+    <td class="quiet">title token &#39;fix&#39;</td><td class="pct">100%</td></tr><tr><td class="pct">PR-89</td><td>fix(order-entry): quote PDF link broken for ContentVersion attachments</td>
+    <td><span class="pill c">corrective</span></td>
+    <td class="quiet">title token &#39;fix&#39;</td><td class="pct">100%</td></tr><tr><td class="pct">PR-90</td><td>fix(reingest): tighten fuzzy account match so Orange County can&#39;t link to Midla…</td>
+    <td><span class="pill c">corrective</span></td>
+    <td class="quiet">title token &#39;fix&#39;</td><td class="pct">100%</td></tr><tr><td class="pct">PR-91</td><td>feat(admin): Phase 9 v1 — admin picklist CRUD + /admin UI</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">99%</td></tr><tr><td class="pct">PR-92</td><td>fix(picklists): wire 4 dropdowns that were developed but never exposed</td>
+    <td><span class="pill c">corrective</span></td>
+    <td class="quiet">title token &#39;fix&#39;</td><td class="pct">86%</td></tr><tr><td class="pct">PR-93</td><td>feat(picklists): Phase 9 v2 — live wiring (admin edits go live app-wide)</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">99%</td></tr><tr><td class="pct">PR-94</td><td>feat(auth): Cognito Hosted UI sign-in — wait-state until pool is provisioned</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">89%</td></tr><tr><td class="pct">PR-95</td><td>chore(cleanup): polish batch — TS fix + orphan removal + installed customer-nam…</td>
+    <td><span class="pill c">corrective</span></td>
+    <td class="quiet">title token &#39;fix&#39;</td><td class="pct">100%</td></tr><tr><td class="pct">PR-96</td><td>feat(kiosk): PATCH /api/kiosks/{id} + inline editors for card_reader + auth_met…</td>
+    <td><span class="pill c">corrective</span></td>
+    <td class="quiet">title token &#39;patch&#39;</td><td class="pct">100%</td></tr><tr><td class="pct">PR-97</td><td>feat(flags): Snooze button + quick-pick popover</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">98%</td></tr><tr><td class="pct">PR-98</td><td>feat(flags): per-user &#39;mine vs all&#39; scope toggle</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">100%</td></tr><tr><td class="pct">PR-99</td><td>docs(S-07): close-out paperwork + D-066..D-068</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">94%</td></tr><tr><td class="pct">PR-100</td><td>docs(S-07): Cognito activation attempt + Morgan deploy handoff</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">99%</td></tr><tr><td class="pct">PR-101</td><td>docs(PICKUP): fix stale Q-021 Cognito note</td>
+    <td><span class="pill c">corrective</span></td>
+    <td class="quiet">title token &#39;fix&#39;</td><td class="pct">0%</td></tr><tr><td class="pct">PR-102</td><td>docs(PICKUP): Notion mirror created + current</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">100%</td></tr><tr><td class="pct">PR-103</td><td>docs: backfill build-emerged decisions (D-029 canonical home)</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">100%</td></tr><tr><td class="pct">PR-104</td><td>feat(auth): staff-onboarding page + server-side Cognito token exchange</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">91%</td></tr><tr><td class="pct">PR-105</td><td>fix(cognito): temp-file payload for admin-create-user</td>
+    <td><span class="pill c">corrective</span></td>
+    <td class="quiet">title token &#39;fix&#39;</td><td class="pct">100%</td></tr><tr><td class="pct">PR-106</td><td>fix(cognito): UUID username for email-alias pool</td>
+    <td><span class="pill c">corrective</span></td>
+    <td class="quiet">title token &#39;fix&#39;</td><td class="pct">100%</td></tr><tr><td class="pct">PR-107</td><td>fix(cognito): pin region to pool + real navbar identity</td>
+    <td><span class="pill c">corrective</span></td>
+    <td class="quiet">title token &#39;fix&#39;</td><td class="pct">94%</td></tr><tr><td class="pct">PR-108</td><td>feat(closeout): ops Service/Closeout queue + Shipped→Installed</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">94%</td></tr><tr><td class="pct">PR-109</td><td>feat(closeout): LA-employee overseer + self-install shortcut</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">98%</td></tr><tr><td class="pct">PR-110</td><td>docs(S-08): session close-out — Cognito live + Service/Closeout</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">100%</td></tr><tr><td class="pct">PR-111</td><td>Integrate devices catalog and admin features</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">82%</td></tr><tr><td class="pct">PR-112</td><td>feat(devices): catalog as device_model picklist source of truth</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">97%</td></tr><tr><td class="pct">PR-113</td><td>fix(theme): unify dark mode under the OSW toggle (single source of truth)</td>
+    <td><span class="pill c">corrective</span></td>
+    <td class="quiet">title token &#39;fix&#39;</td><td class="pct">100%</td></tr><tr><td class="pct">PR-114</td><td>feat(devices): Manufacturer Web Link on integrated detail page (parity to retir…</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">100%</td></tr><tr><td class="pct">PR-115</td><td>fix(devices): restore :8001 fidelity on integrated detail page (model name + CP…</td>
+    <td><span class="pill c">corrective</span></td>
+    <td class="quiet">title token &#39;fix&#39;</td><td class="pct">75%</td></tr><tr><td class="pct">PR-116</td><td>feat(backfill): osw:backfill-device-shortnames — legacy device_model → catalog …</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">100%</td></tr><tr><td class="pct">PR-117</td><td>fix(devices): admin gate case-insensitive on role</td>
+    <td><span class="pill c">corrective</span></td>
+    <td class="quiet">title token &#39;fix&#39;</td><td class="pct">100%</td></tr><tr><td class="pct">PR-118</td><td>fix(auth): guard Cognito callback against double code exchange</td>
+    <td><span class="pill c">corrective</span></td>
+    <td class="quiet">title token &#39;fix&#39;</td><td class="pct">75%</td></tr><tr><td class="pct">PR-119</td><td>fix(devices): serve device photos via /api/media route (D-077)</td>
+    <td><span class="pill c">corrective</span></td>
+    <td class="quiet">title token &#39;fix&#39;</td><td class="pct">80%</td></tr><tr><td class="pct">PR-120</td><td>fix(devices): media route — drop realpath containment (media dir is a symlink)</td>
+    <td><span class="pill c">corrective</span></td>
+    <td class="quiet">title token &#39;fix&#39;</td><td class="pct">86%</td></tr><tr><td class="pct">PR-121</td><td>fix(devices): media route — plain read+Response (BinaryFileResponse hangs artis…</td>
+    <td><span class="pill c">corrective</span></td>
+    <td class="quiet">title token &#39;fix&#39;</td><td class="pct">100%</td></tr><tr><td class="pct">PR-122</td><td>fix(devices): only render media with a file, deduped (no more &#34;File missing&#34; bo…</td>
+    <td><span class="pill c">corrective</span></td>
+    <td class="quiet">title token &#39;fix&#39;</td><td class="pct">55%</td></tr><tr><td class="pct">PR-123</td><td>feat(devices): restructure detail page to :8001 two-column layout</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">not merged</td><td class="pct">—</td></tr><tr><td class="pct">PR-124</td><td>feat(devices): restructure detail page to :8001 two-column layout</td>
+    <td><span class="pill c">corrective</span></td>
+    <td class="quiet">deletes 232 lines added &lt;14d earlier (mainly PR-111 (223), PR-122 (5), PR-115 (4))</td><td class="pct">72%</td></tr><tr><td class="pct">PR-125</td><td>fix(devices): compact detail page to fit one screen (:8001 parity)</td>
+    <td><span class="pill c">corrective</span></td>
+    <td class="quiet">title token &#39;fix&#39;</td><td class="pct">81%</td></tr><tr><td class="pct">PR-126</td><td>fix(devices): 25px outer padding on detail page</td>
+    <td><span class="pill c">corrective</span></td>
+    <td class="quiet">title token &#39;fix&#39;</td><td class="pct">100%</td></tr><tr><td class="pct">PR-127</td><td>feat(devices): admin import device from output_schema JSON + images (draft → pu…</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">96%</td></tr><tr><td class="pct">PR-128</td><td>feat(devices): import captures release dates + re-import updates a draft</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">100%</td></tr><tr><td class="pct">PR-129</td><td>feat(devices): admin-editable Commercial Info fields (dates, notes, MSRP)</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">87%</td></tr><tr><td class="pct">PR-130</td><td>Operations board: hide terminal stages + add &#34;Uploaded SF&#34; status</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">100%</td></tr><tr><td class="pct">PR-131</td><td>Separate admin privilege from job role (is_admin) + roster admin toggle</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">96%</td></tr><tr><td class="pct">PR-132</td><td>Region-scoped notifications/attention default + Devices page polish</td>
+    <td><span class="pill c">corrective</span></td>
+    <td class="quiet">deletes 19 lines added &lt;14d earlier (mainly PR-111 (14), PR-79 (3), PR-107 (2))</td><td class="pct">100%</td></tr><tr><td class="pct">PR-133</td><td>Admin · Picklists: pad both pages</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">100%</td></tr><tr><td class="pct">PR-134</td><td>Fix FlagsList hooks crash + drop resolved/dismissed from notifications</td>
+    <td><span class="pill c">corrective</span></td>
+    <td class="quiet">title token &#39;fix&#39;</td><td class="pct">56%</td></tr><tr><td class="pct">PR-135</td><td>Flags: 7-day resolved grace + &#34;Not resolved&#34; reopen; remove Database nav</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">100%</td></tr><tr><td class="pct">PR-136</td><td>Fix light/dark mixing + padding on Installed / Service / Order entry / Archive</td>
+    <td><span class="pill c">corrective</span> <span class="quiet" style="font-size:11px">superseded by PR-141</span></td>
+    <td class="quiet">title token &#39;fix&#39;</td><td class="pct">5%</td></tr><tr><td class="pct">PR-137</td><td>Notifications: resolved sort to bottom + counts reflect active only</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">100%</td></tr><tr><td class="pct">PR-138</td><td>Unify dark theme on a single navy/slate palette site-wide</td>
+    <td><span class="pill g">generative</span> <span class="quiet" style="font-size:11px">superseded by PR-141</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">0%</td></tr><tr><td class="pct">PR-139</td><td>Dark-mode the remaining white components site-wide</td>
+    <td><span class="pill c">corrective</span> <span class="quiet" style="font-size:11px">superseded by PR-141</span></td>
+    <td class="quiet">PR 3/4 in churn cluster #1 (frontend/components/OrderSubmitForm.tsx, frontend/components/BuildCycleDetail.tsx)</td><td class="pct">0%</td></tr><tr><td class="pct">PR-140</td><td>Dark-mode bare form fields (white SF search box + dozens more)</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">93%</td></tr><tr><td class="pct">PR-141</td><td>Revert to neutral palette site-wide; remap Devices-merge blue to theme vars</td>
+    <td><span class="pill c">corrective</span></td>
+    <td class="quiet">title token &#39;revert&#39;</td><td class="pct">100%</td></tr><tr><td class="pct">PR-142</td><td>Dark-mode status pills: muted tint + light text + outline</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">100%</td></tr><tr><td class="pct">PR-143</td><td>Dark-mode accent buttons: muted instead of bright fill</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">87%</td></tr><tr><td class="pct">PR-144</td><td>Table is the default landing; Kanban moves to /kanban with a Table toggle</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">100%</td></tr><tr><td class="pct">PR-145</td><td>Dark-mode SSO sign-in button: muted</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">100%</td></tr><tr><td class="pct">PR-146</td><td>Add in-app user guide (/help) + help icon in the nav</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">100%</td></tr><tr><td class="pct">PR-147</td><td>CI: typecheck/lint gate on PRs + Morgan migration runbook (Gitea/NAS + 11:11 ho…</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">96%</td></tr><tr><td class="pct">PR-148</td><td>docs(migration): fill Gitea host (NAS 10.0.1.67) + reflect existing accounts</td>
+    <td><span class="pill g">generative</span> <span class="quiet" style="font-size:11px">superseded by PR-149</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">31%</td></tr><tr><td class="pct">PR-149</td><td>docs(migration): pin confirmed Gitea URL (http://10.0.1.48:8418, v1.21.11)</td>
+    <td><span class="pill c">corrective</span></td>
+    <td class="quiet">deletes 15 lines added &lt;14d earlier (mainly PR-148 (11), PR-147 (4))</td><td class="pct">100%</td></tr><tr><td class="pct">PR-150</td><td>docs(cognito): add paste-ready env blocks (backend + frontend)</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">100%</td></tr><tr><td class="pct">PR-151</td><td>chore: Session 9 close-out — session_log + PICKUP + decisions D-077..D-086 + gi…</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">98%</td></tr><tr><td class="pct">PR-152</td><td>security: upgrade Next.js 14.2.35 → 15.5.19 (clears all 5 npm-audit vulns)</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">91%</td></tr><tr><td class="pct">PR-153</td><td>security: upgrade Laravel 11.52 → 12.61 (clears 9 of 12 backend advisories incl…</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">not merged</td><td class="pct">—</td></tr><tr><td class="pct">PR-154</td><td>security: upgrade Laravel 11.52 → 13.13 (clears 9 of 12 backend advisories incl…</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">100%</td></tr><tr><td class="pct">PR-155</td><td>security(api): gate open endpoints + security headers + rate limit + env CORS</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">100%</td></tr><tr><td class="pct">PR-156</td><td>security(model): guard User privilege fields against mass assignment</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">100%</td></tr><tr><td class="pct">PR-157</td><td>security(frontend): CSP + security headers on HTML + production checklist</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">100%</td></tr><tr><td class="pct">PR-158</td><td>security(auth): move JWT from localStorage to an httpOnly cookie</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">100%</td></tr><tr><td class="pct">PR-159</td><td>docs(morgan): Podman containerization handoff (Brainy-style build/ship)</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">100%</td></tr><tr><td class="pct">PR-160</td><td>chore: Session 10 close-out — session_log + PICKUP + decisions D-087..D-093</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">100%</td></tr><tr><td class="pct">PR-161</td><td>docs: MORGAN-HANDOFF (run-with-it migration) + CHANGES-AND-HARDENING</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">84%</td></tr><tr><td class="pct">PR-162</td><td>docs(morgan): refresh handoff + hardening for L13/Next15, security pass, cookie…</td>
+    <td><span class="pill g">generative</span></td>
+    <td class="quiet">no corrective signal</td><td class="pct">100%</td></tr>
+  </table></div>
+</details>
+
+<footer>
+  <b>Method &amp; confidence — we grade our own certainty; no false precision.</b>
+  <ul>
+    <li>Classification is heuristic and transparent: every PR above carries the objective signal that fired (explicit title · self-correction · churn chain). No hand labels, no model attribution, no token or energy claims — git does not record them.</li>
+    <li>Attribution is by exact line content per file. Duplicate contents are resolved most-recent-first; moved lines look like delete+add.</li><li>Trivial lines (blanks, lone braces/brackets — see TRIVIAL_RE) carry no attribution and are excluded from survival denominators.</li><li>Renames are followed via the PR files API previous_filename. Renames done outside PRs are invisible.</li><li>Commits pushed directly to the default branch (no PR) are invisible; lines they delete still count as surviving here.</li><li>PRs with missing patches (binary / &gt;3000-file diffs) contribute no line attribution; their lines_added/deleted totals still exist in units.csv.</li><li>Survival is measured at extraction time (the end of the data), which for a repo younger than --window equals &#34;now&#34;.</li>
+    <li>Generated locally by commensa-audit v0.1.0a1 (read-only GitHub access; your data never left this machine).</li>
+  </ul>
+</footer>
+
+<div class="cta">
+  <div>Want this continuously, with the cost side?</div><a href="https://commensa.ai">commensa.ai</a>
+  <div class="fine">This one-page audit is the free, open-source snapshot. The continuous version adds the spend numerator — cost per durable line, trending week over week.</div>
+</div>
+
+</div></body></html>

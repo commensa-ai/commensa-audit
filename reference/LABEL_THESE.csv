@@ -1,0 +1,31 @@
+unit_id,title,label
+PR-136,Fix light/dark mixing + padding on Installed / Service / Order entry / Archive,win
+PR-43,ops: amber over-receipt warning in arrivals drawer + log shipment form,win
+PR-31,fix: kiosk validator allows Bar Code + nullable kiosk_style,slop
+PR-139,Dark-mode the remaining white components site-wide,win
+PR-119,fix(devices): serve device photos via /api/media route (D-077),slop
+PR-80,docs(S-06): close-out paperwork — PICKUP + session log for Phase 8,win
+PR-74,PICKUP+session_log: S-05 close (34 PRs),win
+PR-49,ops: wire Filters popover + Group-by toggle on /operations board,slop
+PR-133,Admin · Picklists: pad both pages,win
+PR-125,fix(devices): compact detail page to fit one screen (:8001 parity),slop
+PR-144,Table is the default landing; Kanban moves to /kanban with a Table toggle,win
+PR-162,docs(morgan): refresh handoff + hardening for L13/Next15 security pass cookie auth Podman,win
+PR-117,fix(devices): admin gate case-insensitive on role,win
+PR-143,Dark-mode accent buttons: muted instead of bright fill,win
+PR-61,ops: wire sales + ops pill audit-tips to real field-changes data (no more stubs),win
+PR-100,docs(S-07): Cognito activation attempt + Morgan deploy handoff,neutral
+PR-8,ops: PillStack split — ops top sales bottom no duplicates,neutral
+PR-9,ops: PillStack — correct order (sales top ops bottom),neutral
+PR-3,import: live Google Sheet CSV path + staged master snapshot,win
+PR-42,ops: cabinet parts UI — Add Part / +1 / Mark All / Delete in StatusBlock,win
+PR-112,feat(devices): catalog as device_model picklist source of truth,win
+PR-138,Unify dark theme on a single navy/slate palette site-wide,slop
+PR-140,Dark-mode bare form fields (white SF search box + dozens more),slop
+PR-135,Flags: 7-day resolved grace + Not resolved reopen; remove Database nav,slop
+PR-18,order-entry: create BuildCycle stamped with SF Opp + Quote #,win
+PR-79,Phase 8 step 2.5c-e: flags pages + manual flag UI + Playwright,win
+PR-47,ops: device_model canonical picklist + datalist typeahead (Order Entry + Log Shipment),win
+PR-123,feat(devices): restructure detail page to :8001 two-column layout,slop
+PR-103,docs: backfill build-emerged decisions (D-029 canonical home),win
+PR-147,CI: typecheck/lint gate on PRs + Morgan migration runbook (Gitea/NAS + 11:11 hosting),win

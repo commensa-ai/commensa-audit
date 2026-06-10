@@ -1,0 +1,1667 @@
+{
+  "repo": "mattlaptopsanytime-collab/order-sheet-web-v2",
+  "window_days": 14,
+  "rework_tax": {
+    "pct_prs_corrective": 27.2,
+    "pct_changed_lines_corrective": 12.9,
+    "corrective_prs": 44,
+    "total_prs": 162,
+    "by_signal": {
+      "explicit": 37,
+      "churn_cluster": 2,
+      "self_correction": 5
+    },
+    "estimated_rework_cost_usd": 17600.0,
+    "estimate_basis": "$400 per PR (your input) × 44 corrective PRs"
+  },
+  "churn_clusters": [
+    {
+      "members": [
+        "PR-136",
+        "PR-138",
+        "PR-139",
+        "PR-141"
+      ],
+      "internal_rework_lines": 350,
+      "top_files": [
+        "frontend/components/OrderSubmitForm.tsx",
+        "frontend/components/BuildCycleDetail.tsx",
+        "frontend/components/CabinetBuilderInline.tsx",
+        "frontend/components/EquipmentArrivalsDrawer.tsx",
+        "frontend/app/order-entry/page.tsx"
+      ]
+    },
+    {
+      "members": [
+        "PR-8",
+        "PR-10",
+        "PR-12"
+      ],
+      "internal_rework_lines": 45,
+      "top_files": [
+        "frontend/components/PillStack.tsx",
+        "backend/app/Http/Controllers/Api/BuildCycleController.php",
+        "backend/app/Http/Requests/AdvanceBuildStatusRequest.php",
+        "backend/app/Http/Requests/UpdateSalesStatusRequest.php",
+        "backend/routes/api.php"
+      ]
+    }
+  ],
+  "supersessions": {
+    "PR-6": {
+      "by": [
+        "PR-13",
+        "PR-11"
+      ],
+      "lines": 35,
+      "frac": 0.636,
+      "mainly": "PR-13"
+    },
+    "PR-8": {
+      "by": [
+        "PR-10",
+        "PR-12",
+        "PR-9",
+        "PR-26"
+      ],
+      "lines": 26,
+      "frac": 0.788,
+      "mainly": "PR-10"
+    },
+    "PR-10": {
+      "by": [
+        "PR-12",
+        "PR-61",
+        "PR-26"
+      ],
+      "lines": 25,
+      "frac": 0.806,
+      "mainly": "PR-12"
+    },
+    "PR-136": {
+      "by": [
+        "PR-141"
+      ],
+      "lines": 92,
+      "frac": 0.948,
+      "mainly": "PR-141"
+    },
+    "PR-138": {
+      "by": [
+        "PR-141"
+      ],
+      "lines": 12,
+      "frac": 1.0,
+      "mainly": "PR-141"
+    },
+    "PR-139": {
+      "by": [
+        "PR-141",
+        "PR-140"
+      ],
+      "lines": 247,
+      "frac": 1.0,
+      "mainly": "PR-141"
+    },
+    "PR-148": {
+      "by": [
+        "PR-149"
+      ],
+      "lines": 11,
+      "frac": 0.688,
+      "mainly": "PR-149"
+    }
+  },
+  "survival": {
+    "method": "line-attribution replay of PR patches (see rework.py docstring for limits: exact-content match, trivial lines excluded, renames followed via PR file entries, direct pushes invisible)",
+    "overall_rate": 0.917,
+    "median_rate": 0.984,
+    "per_unit": {
+      "PR-1": 1.0,
+      "PR-2": 1.0,
+      "PR-3": 1.0,
+      "PR-4": 1.0,
+      "PR-5": 0.951,
+      "PR-6": 0.364,
+      "PR-7": 1.0,
+      "PR-8": 0.182,
+      "PR-9": 0.0,
+      "PR-10": 0.194,
+      "PR-11": 1.0,
+      "PR-12": 0.872,
+      "PR-13": 0.98,
+      "PR-14": 0.923,
+      "PR-15": 0.958,
+      "PR-16": 0.883,
+      "PR-17": 1.0,
+      "PR-18": 0.973,
+      "PR-19": 1.0,
+      "PR-20": 0.98,
+      "PR-21": 0.72,
+      "PR-22": 1.0,
+      "PR-23": 0.9,
+      "PR-24": 0.77,
+      "PR-25": 0.901,
+      "PR-26": 0.815,
+      "PR-27": 0.91,
+      "PR-28": 0.849,
+      "PR-29": 0.0,
+      "PR-30": 1.0,
+      "PR-31": 1.0,
+      "PR-32": 0.778,
+      "PR-33": 1.0,
+      "PR-34": 1.0,
+      "PR-35": 0.717,
+      "PR-36": 0.867,
+      "PR-37": 0.984,
+      "PR-38": 0.981,
+      "PR-39": 0.964,
+      "PR-40": 0.0,
+      "PR-41": 0.924,
+      "PR-43": 0.92,
+      "PR-42": 0.988,
+      "PR-44": 1.0,
+      "PR-45": 0.944,
+      "PR-46": 0.966,
+      "PR-47": 0.875,
+      "PR-48": 1.0,
+      "PR-49": 0.99,
+      "PR-50": 0.936,
+      "PR-51": 0.99,
+      "PR-52": 0.959,
+      "PR-53": 0.673,
+      "PR-54": 0.946,
+      "PR-55": 0.923,
+      "PR-56": 1.0,
+      "PR-57": 0.988,
+      "PR-58": 1.0,
+      "PR-59": 0.55,
+      "PR-60": 0.977,
+      "PR-61": 0.713,
+      "PR-62": 0.993,
+      "PR-63": 1.0,
+      "PR-64": 1.0,
+      "PR-65": 0.857,
+      "PR-66": 1.0,
+      "PR-67": 1.0,
+      "PR-68": 0.988,
+      "PR-69": 1.0,
+      "PR-70": 0.939,
+      "PR-71": 0.695,
+      "PR-72": 0.976,
+      "PR-73": 1.0,
+      "PR-74": 0.865,
+      "PR-75": 1.0,
+      "PR-76": 0.732,
+      "PR-77": null,
+      "PR-78": 0.998,
+      "PR-79": 0.954,
+      "PR-80": 0.987,
+      "PR-81": 0.979,
+      "PR-82": 0.99,
+      "PR-83": 1.0,
+      "PR-84": 1.0,
+      "PR-85": 1.0,
+      "PR-86": 0.927,
+      "PR-87": 1.0,
+      "PR-88": 1.0,
+      "PR-89": 1.0,
+      "PR-90": 1.0,
+      "PR-91": 0.987,
+      "PR-92": 0.857,
+      "PR-93": 0.992,
+      "PR-94": 0.887,
+      "PR-95": 1.0,
+      "PR-96": 1.0,
+      "PR-97": 0.98,
+      "PR-98": 1.0,
+      "PR-99": 0.944,
+      "PR-100": 0.988,
+      "PR-101": 0.0,
+      "PR-102": 1.0,
+      "PR-103": 1.0,
+      "PR-104": 0.906,
+      "PR-105": 1.0,
+      "PR-106": 1.0,
+      "PR-107": 0.938,
+      "PR-108": 0.944,
+      "PR-109": 0.981,
+      "PR-110": 1.0,
+      "PR-111": 0.821,
+      "PR-112": 0.97,
+      "PR-113": 1.0,
+      "PR-114": 1.0,
+      "PR-115": 0.75,
+      "PR-116": 1.0,
+      "PR-117": 1.0,
+      "PR-118": 0.75,
+      "PR-119": 0.8,
+      "PR-120": 0.857,
+      "PR-121": 1.0,
+      "PR-122": 0.545,
+      "PR-124": 0.717,
+      "PR-125": 0.812,
+      "PR-126": 1.0,
+      "PR-127": 0.965,
+      "PR-128": 1.0,
+      "PR-129": 0.869,
+      "PR-130": 1.0,
+      "PR-131": 0.956,
+      "PR-132": 1.0,
+      "PR-133": 1.0,
+      "PR-134": 0.556,
+      "PR-135": 1.0,
+      "PR-136": 0.052,
+      "PR-137": 1.0,
+      "PR-138": 0.0,
+      "PR-139": 0.0,
+      "PR-140": 0.929,
+      "PR-141": 1.0,
+      "PR-142": 1.0,
+      "PR-143": 0.867,
+      "PR-144": 1.0,
+      "PR-145": 1.0,
+      "PR-146": 1.0,
+      "PR-147": 0.965,
+      "PR-148": 0.312,
+      "PR-149": 1.0,
+      "PR-150": 1.0,
+      "PR-151": 0.985,
+      "PR-152": 0.907,
+      "PR-154": 0.995,
+      "PR-155": 1.0,
+      "PR-156": 1.0,
+      "PR-157": 1.0,
+      "PR-158": 1.0,
+      "PR-159": 1.0,
+      "PR-160": 1.0,
+      "PR-161": 0.835,
+      "PR-162": 1.0
+    }
+  },
+  "velocity_context": {
+    "prs_per_week": 92.9,
+    "merge_rate": 98.8,
+    "size_lines_added": {
+      "p25": 19,
+      "median": 93,
+      "p75": 247,
+      "max": 2378
+    },
+    "note": "context only — velocity is never a target (LOC trap)"
+  },
+  "abandoned": {
+    "count": 2,
+    "pct_of_prs": 1.2,
+    "units": [
+      "PR-123",
+      "PR-153"
+    ],
+    "in_flight_open_prs": 0,
+    "method": "PRs closed without merging (GitHub state=closed, merged_at null). Invisible to merge-based metrics; open PRs are in-flight, not counted."
+  },
+  "hotspots": {
+    "top": [
+      {
+        "dir": "frontend",
+        "prs": 115,
+        "corrective": 31,
+        "pct_corrective": 27.0
+      },
+      {
+        "dir": "backend",
+        "prs": 70,
+        "corrective": 18,
+        "pct_corrective": 25.7
+      },
+      {
+        "dir": "scripts",
+        "prs": 9,
+        "corrective": 2,
+        "pct_corrective": 22.2
+      },
+      {
+        "dir": "docs",
+        "prs": 14,
+        "corrective": 2,
+        "pct_corrective": 14.3
+      },
+      {
+        "dir": "(root)",
+        "prs": 14,
+        "corrective": 1,
+        "pct_corrective": 7.1
+      }
+    ],
+    "min_prs": 5,
+    "suppressed_dirs": 1,
+    "method": "corrective share of PRs touching each top-level directory; a PR counts in every directory it touches; dirs with <5 PRs suppressed."
+  },
+  "ai_marked": {
+    "count": 123,
+    "pct_of_prs_lower_bound": 75.9,
+    "per_unit": {
+      "PR-1": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-2": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-3": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-4": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-5": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-6": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-7": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-8": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-9": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-10": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-11": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-12": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-13": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-14": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-15": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-16": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-17": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-18": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-19": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-20": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-21": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-22": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-23": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-24": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-25": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-26": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-27": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-28": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-29": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-30": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-31": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-32": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-33": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-34": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-35": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-36": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-37": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-38": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-39": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-40": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-74": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-75": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-76": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-78": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-79": [
+        "body: Generated with [Claude Code](https://claude.com/claude",
+        "body: 🤖 Generated",
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-80": [
+        "body: Generated with [Claude Code](https://claude.com/claude",
+        "body: 🤖 Generated",
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-81": [
+        "body: Generated with [Claude Code](https://claude.com/claude",
+        "body: 🤖 Generated",
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-82": [
+        "body: Generated with [Claude Code](https://claude.com/claude",
+        "body: 🤖 Generated",
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-83": [
+        "body: Generated with [Claude Code](https://claude.com/claude",
+        "body: 🤖 Generated",
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-84": [
+        "body: Generated with [Claude Code](https://claude.com/claude",
+        "body: 🤖 Generated",
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-85": [
+        "body: Generated with [Claude Code](https://claude.com/claude",
+        "body: 🤖 Generated",
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-86": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-88": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-89": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-90": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-91": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-92": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-93": [
+        "body: Generated with [Claude Code](https://claude.com/claude",
+        "body: 🤖 Generated"
+      ],
+      "PR-94": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-95": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-99": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-100": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 <noreply@anthropic.com>"
+      ],
+      "PR-101": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 <noreply@anthropic.com>"
+      ],
+      "PR-102": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 <noreply@anthropic.com>"
+      ],
+      "PR-103": [
+        "body: Generated with [Claude Code](https://claude.com/claude",
+        "body: 🤖 Generated",
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 <noreply@anthropic.com>"
+      ],
+      "PR-104": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 <noreply@anthropic.com>"
+      ],
+      "PR-105": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 <noreply@anthropic.com>"
+      ],
+      "PR-106": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 <noreply@anthropic.com>"
+      ],
+      "PR-107": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 <noreply@anthropic.com>"
+      ],
+      "PR-108": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 <noreply@anthropic.com>"
+      ],
+      "PR-109": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 <noreply@anthropic.com>"
+      ],
+      "PR-110": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 <noreply@anthropic.com>"
+      ],
+      "PR-112": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.7 <noreply@anthropic.com>"
+      ],
+      "PR-113": [
+        "body: Generated with [Claude Code](https://claude.com/claude",
+        "body: 🤖 Generated",
+        "commit trailer: Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-114": [
+        "body: Generated with [Claude Code](https://claude.com/claude",
+        "body: 🤖 Generated",
+        "commit trailer: Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-115": [
+        "body: Generated with [Claude Code](https://claude.com/claude",
+        "body: 🤖 Generated",
+        "commit trailer: Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-116": [
+        "body: Generated with [Claude Code](https://claude.com/claude",
+        "body: 🤖 Generated",
+        "commit trailer: Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-117": [
+        "body: Generated with [Claude Code](https://claude.com/claude",
+        "body: 🤖 Generated",
+        "commit trailer: Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-118": [
+        "body: Generated with [Claude Code](https://claude.com/claude",
+        "body: 🤖 Generated",
+        "commit trailer: Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-119": [
+        "body: Generated with [Claude Code](https://claude.com/claude",
+        "body: 🤖 Generated",
+        "commit trailer: Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-120": [
+        "body: Generated with [Claude Code](https://claude.com/claude",
+        "body: 🤖 Generated",
+        "commit trailer: Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-121": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-122": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-123": [
+        "body: Generated with [Claude Code](https://claude.com/claude",
+        "body: 🤖 Generated",
+        "commit trailer: Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-124": [
+        "body: Generated with [Claude Code](https://claude.com/claude",
+        "body: 🤖 Generated",
+        "commit trailer: Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-125": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-126": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-127": [
+        "body: Generated with [Claude Code](https://claude.com/claude",
+        "body: 🤖 Generated",
+        "commit trailer: Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-128": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-129": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-130": [
+        "body: Generated with [Claude Code](https://claude.com/claude",
+        "body: 🤖 Generated",
+        "commit trailer: Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-131": [
+        "body: Generated with [Claude Code](https://claude.com/claude",
+        "body: 🤖 Generated",
+        "commit trailer: Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-132": [
+        "body: Generated with [Claude Code](https://claude.com/claude",
+        "body: 🤖 Generated",
+        "commit trailer: Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-133": [
+        "body: Generated with [Claude Code](https://claude.com/claude",
+        "body: 🤖 Generated",
+        "commit trailer: Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-134": [
+        "body: Generated with [Claude Code](https://claude.com/claude",
+        "body: 🤖 Generated",
+        "commit trailer: Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-135": [
+        "body: Generated with [Claude Code](https://claude.com/claude",
+        "body: 🤖 Generated",
+        "commit trailer: Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-136": [
+        "body: Generated with [Claude Code](https://claude.com/claude",
+        "body: 🤖 Generated",
+        "commit trailer: Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-137": [
+        "body: Generated with [Claude Code](https://claude.com/claude",
+        "body: 🤖 Generated",
+        "commit trailer: Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-138": [
+        "body: Generated with [Claude Code](https://claude.com/claude",
+        "body: 🤖 Generated",
+        "commit trailer: Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-139": [
+        "body: Generated with [Claude Code](https://claude.com/claude",
+        "body: 🤖 Generated",
+        "commit trailer: Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-140": [
+        "body: Generated with [Claude Code](https://claude.com/claude",
+        "body: 🤖 Generated",
+        "commit trailer: Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-141": [
+        "body: Generated with [Claude Code](https://claude.com/claude",
+        "body: 🤖 Generated",
+        "commit trailer: Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-142": [
+        "body: Generated with [Claude Code](https://claude.com/claude",
+        "body: 🤖 Generated",
+        "commit trailer: Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-143": [
+        "body: Generated with [Claude Code](https://claude.com/claude",
+        "body: 🤖 Generated",
+        "commit trailer: Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-144": [
+        "body: Generated with [Claude Code](https://claude.com/claude",
+        "body: 🤖 Generated",
+        "commit trailer: Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-145": [
+        "body: Generated with [Claude Code](https://claude.com/claude",
+        "body: 🤖 Generated",
+        "commit trailer: Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-146": [
+        "body: Generated with [Claude Code](https://claude.com/claude",
+        "body: 🤖 Generated",
+        "commit trailer: Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-147": [
+        "body: Generated with [Claude Code](https://claude.com/claude",
+        "body: 🤖 Generated",
+        "commit trailer: Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-148": [
+        "body: Generated with [Claude Code](https://claude.com/claude",
+        "body: 🤖 Generated",
+        "commit trailer: Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-149": [
+        "body: Generated with [Claude Code](https://claude.com/claude",
+        "body: 🤖 Generated",
+        "commit trailer: Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-150": [
+        "body: Generated with [Claude Code](https://claude.com/claude",
+        "body: 🤖 Generated",
+        "commit trailer: Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-151": [
+        "body: Generated with [Claude Code](https://claude.com/claude",
+        "body: 🤖 Generated",
+        "commit trailer: Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-152": [
+        "body: Generated with [Claude Code](https://claude.com/claude",
+        "body: 🤖 Generated",
+        "commit trailer: Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-153": [
+        "commit trailer: Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-154": [
+        "body: Generated with [Claude Code](https://claude.com/claude",
+        "body: 🤖 Generated",
+        "commit trailer: Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-155": [
+        "body: Generated with [Claude Code](https://claude.com/claude",
+        "body: 🤖 Generated",
+        "commit trailer: Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-156": [
+        "body: Generated with [Claude Code](https://claude.com/claude",
+        "body: 🤖 Generated",
+        "commit trailer: Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-157": [
+        "body: Generated with [Claude Code](https://claude.com/claude",
+        "body: 🤖 Generated",
+        "commit trailer: Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-158": [
+        "body: Generated with [Claude Code](https://claude.com/claude",
+        "body: 🤖 Generated",
+        "commit trailer: Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-159": [
+        "body: Generated with [Claude Code](https://claude.com/claude",
+        "body: 🤖 Generated",
+        "commit trailer: Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-160": [
+        "body: Generated with [Claude Code](https://claude.com/claude",
+        "body: 🤖 Generated",
+        "commit trailer: Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-161": [
+        "body: Generated with [Claude Code](https://claude.com/claude",
+        "body: 🤖 Generated",
+        "commit trailer: Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
+      ],
+      "PR-162": [
+        "body: Generated with [Claude Code](https://claude.com/claude",
+        "body: 🤖 Generated",
+        "commit trailer: Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
+      ]
+    },
+    "method": "PRs with ≥1 agent marker: Co-Authored-By trailer naming a known agent identity (commit messages, capped at 250 commits/PR by the API) or a tool signature in the PR body. Lower bound — unmarked agent work is invisible; absence of a marker is not evidence of human authorship."
+  },
+  "external_norms": {
+    "metric": "Code Turnover Rate — share of merged code reverted/rewritten within 30 days",
+    "healthy": "< 15%",
+    "ai_vs_human": "AI-assisted teams measured at 1.8–2.5× human baselines (target < 1.5×)",
+    "label": "external published research, not a Commensa benchmark; methods differ from the rework tax above"
+  },
+  "classifications": {
+    "PR-1": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-2": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-3": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-4": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-5": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-6": {
+      "classification": "generative",
+      "signal": null,
+      "detail": "",
+      "superseded_by": "PR-13",
+      "superseded_frac": 0.636
+    },
+    "PR-7": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-8": {
+      "classification": "generative",
+      "signal": null,
+      "detail": "",
+      "superseded_by": "PR-10",
+      "superseded_frac": 0.788
+    },
+    "PR-9": {
+      "classification": "corrective",
+      "signal": "explicit",
+      "detail": "title token 'correct'"
+    },
+    "PR-10": {
+      "classification": "generative",
+      "signal": null,
+      "detail": "",
+      "superseded_by": "PR-12",
+      "superseded_frac": 0.806
+    },
+    "PR-11": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-12": {
+      "classification": "corrective",
+      "signal": "churn_cluster",
+      "detail": "PR 3/3 in churn cluster #2 (frontend/components/PillStack.tsx, backend/app/Http/Controllers/Api/BuildCycleController.php)"
+    },
+    "PR-13": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-14": {
+      "classification": "corrective",
+      "signal": "explicit",
+      "detail": "title token 'fix'"
+    },
+    "PR-15": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-16": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-17": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-18": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-19": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-20": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-21": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-22": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-23": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-24": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-25": {
+      "classification": "corrective",
+      "signal": "explicit",
+      "detail": "title token 'patch'"
+    },
+    "PR-26": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-27": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-28": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-29": {
+      "classification": "corrective",
+      "signal": "self_correction",
+      "detail": "deletes 22 lines added <14d earlier (mainly PR-24 (22))"
+    },
+    "PR-30": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-31": {
+      "classification": "corrective",
+      "signal": "explicit",
+      "detail": "title token 'fix'"
+    },
+    "PR-32": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-33": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-34": {
+      "classification": "corrective",
+      "signal": "explicit",
+      "detail": "title token 'fix'"
+    },
+    "PR-35": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-36": {
+      "classification": "corrective",
+      "signal": "self_correction",
+      "detail": "deletes 35 lines added <14d earlier (mainly PR-27 (29), PR-35 (6))"
+    },
+    "PR-37": {
+      "classification": "corrective",
+      "signal": "explicit",
+      "detail": "title token 'fix'"
+    },
+    "PR-38": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-39": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-40": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-41": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-42": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-43": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-44": {
+      "classification": "corrective",
+      "signal": "explicit",
+      "detail": "title token 'fix'"
+    },
+    "PR-45": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-46": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-47": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-48": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-49": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-50": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-51": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-52": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-53": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-54": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-55": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-56": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-57": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-58": {
+      "classification": "corrective",
+      "signal": "explicit",
+      "detail": "title token 'fix'"
+    },
+    "PR-59": {
+      "classification": "corrective",
+      "signal": "explicit",
+      "detail": "title token 'fix'"
+    },
+    "PR-60": {
+      "classification": "corrective",
+      "signal": "explicit",
+      "detail": "title token 'fix'"
+    },
+    "PR-61": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-62": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-63": {
+      "classification": "corrective",
+      "signal": "explicit",
+      "detail": "title token 'fix'"
+    },
+    "PR-64": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-65": {
+      "classification": "corrective",
+      "signal": "explicit",
+      "detail": "title token 'fix'"
+    },
+    "PR-66": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-67": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-68": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-69": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-70": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-71": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-72": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-73": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-74": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-75": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-76": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-77": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-78": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-79": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-80": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-81": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-82": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-83": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-84": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-85": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-86": {
+      "classification": "corrective",
+      "signal": "explicit",
+      "detail": "title token 'fix'"
+    },
+    "PR-87": {
+      "classification": "corrective",
+      "signal": "explicit",
+      "detail": "title token 'fix'"
+    },
+    "PR-88": {
+      "classification": "corrective",
+      "signal": "explicit",
+      "detail": "title token 'fix'"
+    },
+    "PR-89": {
+      "classification": "corrective",
+      "signal": "explicit",
+      "detail": "title token 'fix'"
+    },
+    "PR-90": {
+      "classification": "corrective",
+      "signal": "explicit",
+      "detail": "title token 'fix'"
+    },
+    "PR-91": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-92": {
+      "classification": "corrective",
+      "signal": "explicit",
+      "detail": "title token 'fix'"
+    },
+    "PR-93": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-94": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-95": {
+      "classification": "corrective",
+      "signal": "explicit",
+      "detail": "title token 'fix'"
+    },
+    "PR-96": {
+      "classification": "corrective",
+      "signal": "explicit",
+      "detail": "title token 'patch'"
+    },
+    "PR-97": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-98": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-99": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-100": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-101": {
+      "classification": "corrective",
+      "signal": "explicit",
+      "detail": "title token 'fix'"
+    },
+    "PR-102": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-103": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-104": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-105": {
+      "classification": "corrective",
+      "signal": "explicit",
+      "detail": "title token 'fix'"
+    },
+    "PR-106": {
+      "classification": "corrective",
+      "signal": "explicit",
+      "detail": "title token 'fix'"
+    },
+    "PR-107": {
+      "classification": "corrective",
+      "signal": "explicit",
+      "detail": "title token 'fix'"
+    },
+    "PR-108": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-109": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-110": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-111": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-112": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-113": {
+      "classification": "corrective",
+      "signal": "explicit",
+      "detail": "title token 'fix'"
+    },
+    "PR-114": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-115": {
+      "classification": "corrective",
+      "signal": "explicit",
+      "detail": "title token 'fix'"
+    },
+    "PR-116": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-117": {
+      "classification": "corrective",
+      "signal": "explicit",
+      "detail": "title token 'fix'"
+    },
+    "PR-118": {
+      "classification": "corrective",
+      "signal": "explicit",
+      "detail": "title token 'fix'"
+    },
+    "PR-119": {
+      "classification": "corrective",
+      "signal": "explicit",
+      "detail": "title token 'fix'"
+    },
+    "PR-120": {
+      "classification": "corrective",
+      "signal": "explicit",
+      "detail": "title token 'fix'"
+    },
+    "PR-121": {
+      "classification": "corrective",
+      "signal": "explicit",
+      "detail": "title token 'fix'"
+    },
+    "PR-122": {
+      "classification": "corrective",
+      "signal": "explicit",
+      "detail": "title token 'fix'"
+    },
+    "PR-123": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-124": {
+      "classification": "corrective",
+      "signal": "self_correction",
+      "detail": "deletes 232 lines added <14d earlier (mainly PR-111 (223), PR-122 (5), PR-115 (4))"
+    },
+    "PR-125": {
+      "classification": "corrective",
+      "signal": "explicit",
+      "detail": "title token 'fix'"
+    },
+    "PR-126": {
+      "classification": "corrective",
+      "signal": "explicit",
+      "detail": "title token 'fix'"
+    },
+    "PR-127": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-128": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-129": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-130": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-131": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-132": {
+      "classification": "corrective",
+      "signal": "self_correction",
+      "detail": "deletes 19 lines added <14d earlier (mainly PR-111 (14), PR-79 (3), PR-107 (2))"
+    },
+    "PR-133": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-134": {
+      "classification": "corrective",
+      "signal": "explicit",
+      "detail": "title token 'fix'"
+    },
+    "PR-135": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-136": {
+      "classification": "corrective",
+      "signal": "explicit",
+      "detail": "title token 'fix'",
+      "superseded_by": "PR-141",
+      "superseded_frac": 0.948
+    },
+    "PR-137": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-138": {
+      "classification": "generative",
+      "signal": null,
+      "detail": "",
+      "superseded_by": "PR-141",
+      "superseded_frac": 1.0
+    },
+    "PR-139": {
+      "classification": "corrective",
+      "signal": "churn_cluster",
+      "detail": "PR 3/4 in churn cluster #1 (frontend/components/OrderSubmitForm.tsx, frontend/components/BuildCycleDetail.tsx)",
+      "superseded_by": "PR-141",
+      "superseded_frac": 1.0
+    },
+    "PR-140": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-141": {
+      "classification": "corrective",
+      "signal": "explicit",
+      "detail": "title token 'revert'"
+    },
+    "PR-142": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-143": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-144": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-145": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-146": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-147": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-148": {
+      "classification": "generative",
+      "signal": null,
+      "detail": "",
+      "superseded_by": "PR-149",
+      "superseded_frac": 0.688
+    },
+    "PR-149": {
+      "classification": "corrective",
+      "signal": "self_correction",
+      "detail": "deletes 15 lines added <14d earlier (mainly PR-148 (11), PR-147 (4))"
+    },
+    "PR-150": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-151": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-152": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-153": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-154": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-155": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-156": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-157": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-158": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-159": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-160": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-161": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    },
+    "PR-162": {
+      "classification": "generative",
+      "signal": null,
+      "detail": ""
+    }
+  },
+  "config": {
+    "window_days": 14,
+    "title_re": "(?<![\\w-])(fix(es|ed|ing)?|revert(s|ed|ing)?|redo(ne|es|ing)?|correct(s|ed|ing|ion|ions)?|hotfix(es)?|patch(es|ed|ing)?|repair(s|ed|ing)?|undo(es|ne|ing)?)(?![\\w-])",
+    "selfcorr_min_lines": 10,
+    "selfcorr_min_share": 0.33,
+    "cluster_min_size": 3,
+    "cluster_min_edge_lines": 10,
+    "cluster_edge_min_frac": 0.25,
+    "supersede_min_frac": 0.5,
+    "supersede_min_lines": 10
+  },
+  "confidence_notes": [
+    "classification is heuristic; every PR carries the signal that fired",
+    "survival/supersession use exact-content line attribution from PR patches; squash merges, direct pushes, and moved lines limit attribution",
+    "no token, model, or energy claims — git does not record them"
+  ]
+}

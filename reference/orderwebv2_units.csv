@@ -1,0 +1,163 @@
+unit_id,title,created_at,merged,lines_added,lines_deleted,changed_files,looks_revert
+PR-1,ops: kill global .editable hover side-effects (flash artifact root cause),2026-05-22T23:03:52Z,1,6,16,1,0
+PR-2,ops: lazy-render EquipmentArrivalsDrawer (kills the real flash artifact),2026-05-22T23:11:02Z,1,8,0,1,0
+PR-3,import: live Google Sheet CSV path + staged master snapshot,2026-05-22T23:29:21Z,1,1393,0,2,0
+PR-4,import: source-agnostic customers + skip Installed (active pipeline only),2026-05-22T23:32:22Z,1,15,1,1,0
+PR-5,ops: cabinet-grouped-by-opportunity view oldest-first,2026-05-22T23:52:26Z,1,216,43,4,0
+PR-6,ops: cabinet rows render in physical kiosk layout (Host: Row 1 = Screen),2026-05-22T23:57:29Z,1,63,15,2,0
+PR-7,script: backfill real kiosk_id from SF for refresh cycles (40/41),2026-05-23T02:53:10Z,1,248,0,1,0
+PR-8,ops: PillStack split — ops top sales bottom no duplicates,2026-05-23T03:01:02Z,1,39,10,1,0
+PR-9,ops: PillStack — correct order (sales top ops bottom),2026-05-23T03:05:54Z,1,5,5,1,0
+PR-10,ops: PillStack always shows two pills (sales top ops bottom),2026-05-23T03:08:11Z,1,32,37,1,0
+PR-11,ops: not-started pill chip — visible on dark mode,2026-05-23T03:11:27Z,1,7,1,1,0
+PR-12,ops: editable status pills with audit log (who/when),2026-05-23T03:29:55Z,1,383,53,8,0
+PR-13,ops: inline cabinet rows + status block stacked underneath,2026-05-24T19:58:33Z,1,112,60,2,0
+PR-14,ops: fix cabinet 422 + scope row-click to title only,2026-05-25T04:12:31Z,1,45,14,3,0
+PR-15,ops: prepopulate Equipment Arrivals from cabinet rows + capture received date,2026-05-25T04:42:41Z,1,135,20,3,0
+PR-16,order-entry: SF Opportunity picker + flagged quote #,2026-05-25T05:31:30Z,1,648,47,10,0
+PR-17,sf_sync: handle SF datetime with .000+0000 suffix,2026-05-25T05:42:33Z,1,8,3,1,0
+PR-18,order-entry: create BuildCycle stamped with SF Opp + Quote #,2026-05-25T05:50:13Z,1,144,2,5,0
+PR-19,order-entry: show fetch errors in Opp autocomplete,2026-05-25T05:58:17Z,1,14,1,1,0
+PR-20,sf_sync: scrape quote #s from Opp names + attachment filenames,2026-05-25T06:12:11Z,1,110,10,1,0
+PR-21,order-entry: clickable quote chips + auto-create Customer,2026-05-25T06:20:52Z,1,109,20,7,0
+PR-22,order-entry: default sales_region + provisioning_workflow on cycle create,2026-05-25T06:30:35Z,1,7,0,1,0
+PR-23,order-entry: inline cabinet builder (Host/Companion + bay rows),2026-05-25T06:41:10Z,1,326,4,5,0
+PR-24,order-entry: multi-kiosk + order-level fields + auth picklist + bar code,2026-05-25T17:29:27Z,1,642,8,8,0
+PR-25,order-entry: foundation — PATCH + full capture per lifecycle design,2026-05-25T18:18:01Z,1,570,15,10,0
+PR-26,ops: context-aware PO + Install pills,2026-05-25T18:21:57Z,1,285,27,3,0
+PR-27,ops: on-hold + cancel lifecycle,2026-05-25T18:35:33Z,1,588,3,10,0
+PR-28,order-entry: per-cabinet cycle_action (6 enum values),2026-05-25T18:51:58Z,1,144,22,9,0
+PR-29,order-entry: remove Kiosk style field,2026-05-25T18:54:00Z,1,4,24,1,0
+PR-30,order-entry: auto-create arrivals per cabinet row at submit,2026-05-25T19:03:57Z,1,26,3,1,0
+PR-31,fix: kiosk validator allows Bar Code + nullable kiosk_style,2026-05-25T19:14:05Z,1,6,2,1,0
+PR-32,ops: row actions treat 404 as cycle-already-gone,2026-05-25T19:16:56Z,1,22,3,1,0
+PR-33,ops: 422 'already canceled' drops row like 404,2026-05-25T19:21:51Z,1,9,4,1,0
+PR-34,fix: cast on_hold + canceled_at as datetime on BuildCycle,2026-05-25T19:26:21Z,1,3,0,1,0
+PR-35,ops: on-hold gains 'until' date — chip shows 'on hold until: Aug 15',2026-05-25T19:38:46Z,1,145,21,9,0
+PR-36,ops: hold UX — auto-refresh update-while-held calendar popup,2026-05-25T19:58:34Z,1,69,38,3,0
+PR-37,fix: showPicker NotAllowedError on onFocus,2026-05-25T20:01:42Z,1,146,10,2,0
+PR-38,ops: inline-edit install target chip,2026-05-25T20:06:37Z,1,125,45,2,0
+PR-39,S-04 wrap-up: PICKUP + patterns + lifecycle doc + session log,2026-05-25T20:19:15Z,1,638,70,4,0
+PR-40,PICKUP: bump valid_as_of to wrap-up SHA,2026-05-25T20:19:59Z,1,1,1,1,0
+PR-41,ops: inline-edit PO Est date pill — split sales pill into date + status zones,2026-05-25T20:47:13Z,1,86,31,2,0
+PR-42,ops: cabinet parts UI — Add Part / +1 / Mark All / Delete in StatusBlock,2026-05-25T21:04:11Z,1,642,3,9,0
+PR-43,ops: amber over-receipt warning in arrivals drawer + log shipment form,2026-05-25T21:04:25Z,1,27,2,2,0
+PR-44,fix: eager-load cabinets.parts so parts survive page refresh (regression in #42),2026-05-25T21:32:18Z,1,1,0,1,0
+PR-45,ops: editable Qty expected on arrivals (customer changed order mid-flight),2026-05-25T21:36:43Z,1,37,5,3,0
+PR-46,ops: delete shipment row from Equipment Arrivals drawer,2026-05-25T21:55:43Z,1,78,2,5,0
+PR-47,ops: device_model canonical picklist + datalist typeahead (Order Entry + Log Shipment),2026-05-25T22:13:19Z,1,81,3,3,0
+PR-48,ops: artisan backfill for legacy device_model variants → canonical (PR #47 followup),2026-05-25T22:23:35Z,1,196,0,1,0
+PR-49,ops: wire Filters popover + Group-by toggle on /operations board,2026-05-25T22:46:23Z,1,484,9,4,0
+PR-50,ops: cabinet-centric detail page redesign — /cabinets/[id] (slice 1 of 4),2026-05-25T23:23:41Z,1,1473,7,12,0
+PR-51,ops: /operations nav rewire — cabinet row -> /cabinets/[id] Opp header -> /order-entry (slice 2 of 4),2026-05-25T23:38:45Z,1,114,8,5,0
+PR-52,ops: per-row USB-C/ethernet docks + visible save indicator (cabinet detail feedback),2026-05-25T23:59:56Z,1,261,24,6,0
+PR-53,ops: cabinet detail polish — drop redundant tag sort rows ASC dynamic popover anchor,2026-05-26T00:12:10Z,1,55,10,4,0
+PR-54,ops: refresh kiosk picker + chronological kiosk_id auto-suggest in Order Entry,2026-05-26T00:30:08Z,1,393,116,5,0
+PR-55,ops: Order Entry surfaces existing kiosks under this Opp (slice 3 of 4),2026-05-26T00:43:19Z,1,205,0,4,0
+PR-56,ops: PO Received prompt — required PO# (or Signed Quote) SF-upload check popover fits,2026-05-26T00:50:52Z,1,128,14,2,0
+PR-57,ops: extend audit logging to cabinet + row + part mutations + build-cycle rollup feed,2026-05-26T01:46:50Z,1,308,32,9,0
+PR-58,fix: InlineDateEditor/InlineTextEditor popover overflow on far-right triggers (Save button cut off),2026-05-26T02:06:27Z,1,24,17,2,0
+PR-59,fix: sales-pill tooltip overlap — replace native title with positioned audit-tip,2026-05-26T02:14:16Z,1,20,7,1,0
+PR-60,fix: /operations column widths + render Signed-Quote PO as a quiet badge (not 'PO#Signed Quote'),2026-05-26T02:20:49Z,1,47,5,3,0
+PR-61,ops: wire sales + ops pill audit-tips to real field-changes data (no more stubs),2026-05-26T02:29:32Z,1,244,11,6,0
+PR-62,ops: wire StatusBlock audit-tips (Graphics + Power cords) to real cabinet data,2026-05-26T02:55:03Z,1,148,55,6,0
+PR-63,fix: audit-tip overflows left edge on /cabinets/[id] sticky header,2026-05-26T03:01:17Z,1,10,0,1,0
+PR-64,ops: auto-refresh audit-tip context after edits (no more stale tooltips),2026-05-26T03:06:32Z,1,31,2,3,0
+PR-65,fix: Order Entry quote # picker — separate Assign from Open-SF affordances,2026-05-26T03:22:32Z,1,67,29,1,0
+PR-66,ops: legacy /build-cycles/[id] auto-redirects to first cabinet's detail page,2026-05-26T03:26:33Z,1,10,1,1,0
+PR-67,ops: cabinet detail PO # editor matches Mark PO Received (Signed Quote shortcut),2026-05-26T03:31:58Z,1,69,0,3,0
+PR-68,ops: refresh vs new cabinet badges + refetch-on-focus,2026-05-26T03:41:21Z,1,93,21,3,0
+PR-69,ops: Host-before-Companion cabinet sort + pin New/Refresh badge to title row end,2026-05-26T03:57:54Z,1,48,3,3,0
+PR-70,ops: bay_style refresh (Easy Swap Bay / Drawer / Charger) + per-row picker + ops filter,2026-05-26T04:12:40Z,1,108,12,6,0
+PR-71,ops: /operations filters add device_model search + install-target month picker,2026-05-26T04:15:18Z,1,62,0,3,0
+PR-72,ops: cabinet size composite (Host-24in / Companion-30in) + auto-derive + operator override,2026-05-26T04:21:07Z,1,93,9,6,0
+PR-73,ops: backfill Laptop→Easy Swap Bay + install-target filter as date range,2026-05-26T04:29:50Z,1,132,18,4,0
+PR-74,PICKUP+session_log: S-05 close (34 PRs),2026-05-26T04:44:01Z,1,111,10,2,0
+PR-75,ops: cabinet style filter (Host-24in/30in + Companion-24in/30in),2026-05-26T04:47:13Z,1,38,0,2,0
+PR-76,docs: S-05 close-out (data-reingest-plan + patterns 16-20 + Phase 7 PICKUP),2026-05-26T05:11:37Z,1,264,15,4,0
+PR-77,PICKUP: remove duplicate External blockers block,2026-05-26T05:14:06Z,1,0,4,1,0
+PR-78,Phase 7: osw:reingest-orders artisan + plan amendments + import_signature column,2026-05-26T20:04:25Z,1,1095,35,3,0
+PR-79,Phase 8 step 2.5c-e: flags pages + manual flag UI + Playwright,2026-05-27T07:18:11Z,1,1451,100,20,0
+PR-80,docs(S-06): close-out paperwork — PICKUP + session log for Phase 8,2026-05-27T18:33:43Z,1,104,17,2,0
+PR-81,feat: /installed page — SF Asset sync + hero tiles + region/quarter/range filters,2026-05-27T19:45:56Z,1,1414,366,12,0
+PR-82,feat(orders): capture customer's expected device counts per cycle,2026-05-28T00:38:30Z,1,907,2,11,0
+PR-83,feat(orders): surface devices-expected rollup on /operations,2026-05-28T05:27:20Z,1,264,1,7,0
+PR-84,feat(orders): per-cabinet devices chip on /operations rows,2026-05-28T13:16:08Z,1,3,0,1,0
+PR-85,feat(flags): device-shortfall triggers (Phase 8),2026-05-28T13:20:19Z,1,147,1,2,0
+PR-86,fix(installed): region routing — pull correct SF address field,2026-05-28T13:27:17Z,1,48,12,1,0
+PR-87,fix(installed): use parent-kiosk asset for region detection,2026-05-28T13:29:13Z,1,15,1,1,0
+PR-88,fix(cabinets): inline-edit failure — stale UpdateCabinetRequest picklists,2026-05-28T13:40:21Z,1,29,6,2,0
+PR-89,fix(order-entry): quote PDF link broken for ContentVersion attachments,2026-05-28T18:05:07Z,1,17,3,1,0
+PR-90,fix(reingest): tighten fuzzy account match so Orange County can't link to Midland,2026-05-28T18:31:28Z,1,68,6,1,0
+PR-91,feat(admin): Phase 9 v1 — admin picklist CRUD + /admin UI,2026-05-28T20:30:06Z,1,1152,0,11,0
+PR-92,fix(picklists): wire 4 dropdowns that were developed but never exposed,2026-05-28T20:42:19Z,1,36,3,4,0
+PR-93,feat(picklists): Phase 9 v2 — live wiring (admin edits go live app-wide),2026-05-28T21:01:52Z,1,279,28,9,0
+PR-94,feat(auth): Cognito Hosted UI sign-in — wait-state until pool is provisioned,2026-05-28T22:17:21Z,1,683,27,10,0
+PR-95,chore(cleanup): polish batch — TS fix + orphan removal + installed customer-name fallback,2026-05-28T22:41:47Z,1,19,262,7,0
+PR-96,feat(kiosk): PATCH /api/kiosks/{id} + inline editors for card_reader + auth_method,2026-05-28T22:46:24Z,1,208,13,7,0
+PR-97,feat(flags): Snooze button + quick-pick popover,2026-05-28T22:48:39Z,1,111,0,2,0
+PR-98,feat(flags): per-user 'mine vs all' scope toggle,2026-05-28T22:52:22Z,1,106,22,5,0
+PR-99,docs(S-07): close-out paperwork + D-066..D-068,2026-05-28T23:13:30Z,1,111,10,2,0
+PR-100,docs(S-07): Cognito activation attempt + Morgan deploy handoff,2026-05-30T06:10:38Z,1,199,3,3,0
+PR-101,docs(PICKUP): fix stale Q-021 Cognito note,2026-05-30T06:14:03Z,1,1,1,1,0
+PR-102,docs(PICKUP): Notion mirror created + current,2026-05-30T16:14:13Z,1,1,1,1,0
+PR-103,docs: backfill build-emerged decisions (D-029 canonical home),2026-05-31T03:52:37Z,1,54,1,2,0
+PR-104,feat(auth): staff-onboarding page + server-side Cognito token exchange,2026-06-01T23:29:25Z,1,743,20,11,0
+PR-105,fix(cognito): temp-file payload for admin-create-user,2026-06-01T23:48:29Z,1,17,10,1,0
+PR-106,fix(cognito): UUID username for email-alias pool,2026-06-02T00:34:08Z,1,5,1,1,0
+PR-107,fix(cognito): pin region to pool + real navbar identity,2026-06-02T03:58:43Z,1,61,34,6,0
+PR-108,feat(closeout): ops Service/Closeout queue + Shipped→Installed,2026-06-02T04:40:36Z,1,646,11,9,0
+PR-109,feat(closeout): LA-employee overseer + self-install shortcut,2026-06-02T04:50:08Z,1,66,7,4,0
+PR-110,docs(S-08): session close-out — Cognito live + Service/Closeout,2026-06-02T04:57:07Z,1,95,5,3,0
+PR-111,Integrate devices catalog and admin features,2026-06-02T17:40:00Z,1,2378,0,29,0
+PR-112,feat(devices): catalog as device_model picklist source of truth,2026-06-02T18:22:53Z,1,133,11,9,0
+PR-113,fix(theme): unify dark mode under the OSW toggle (single source of truth),2026-06-02T18:35:15Z,1,22,1,3,0
+PR-114,feat(devices): Manufacturer Web Link on integrated detail page (parity to retire :8001),2026-06-02T18:48:12Z,1,22,0,2,0
+PR-115,fix(devices): restore :8001 fidelity on integrated detail page (model name + CPU/GPU/OS),2026-06-02T19:00:53Z,1,24,11,2,0
+PR-116,feat(backfill): osw:backfill-device-shortnames — legacy device_model → catalog short_names (D-076),2026-06-02T19:06:42Z,1,221,0,2,0
+PR-117,fix(devices): admin gate case-insensitive on role,2026-06-02T19:35:53Z,1,4,4,2,0
+PR-118,fix(auth): guard Cognito callback against double code exchange,2026-06-02T19:48:35Z,1,17,4,3,0
+PR-119,fix(devices): serve device photos via /api/media route (D-077),2026-06-02T20:10:57Z,1,31,5,3,0
+PR-120,fix(devices): media route — drop realpath containment (media dir is a symlink),2026-06-02T20:13:36Z,1,7,5,1,0
+PR-121,fix(devices): media route — plain read+Response (BinaryFileResponse hangs artisan serve),2026-06-02T20:17:03Z,1,18,1,1,0
+PR-122,fix(devices): only render media with a file deduped (no more File missing boxes),2026-06-02T20:40:34Z,1,12,3,1,0
+PR-123,feat(devices): restructure detail page to :8001 two-column layout,2026-06-02T20:54:35Z,0,321,302,1,0
+PR-124,feat(devices): restructure detail page to :8001 two-column layout,2026-06-02T20:55:58Z,1,315,305,1,0
+PR-125,fix(devices): compact detail page to fit one screen (:8001 parity),2026-06-02T21:14:17Z,1,16,7,1,0
+PR-126,fix(devices): 25px outer padding on detail page,2026-06-02T21:21:11Z,1,1,1,1,0
+PR-127,feat(devices): admin import device from output_schema JSON + images (draft → publish),2026-06-02T22:03:23Z,1,634,4,7,0
+PR-128,feat(devices): import captures release dates + re-import updates a draft,2026-06-02T22:22:24Z,1,24,5,1,0
+PR-129,feat(devices): admin-editable Commercial Info fields (dates notes MSRP),2026-06-02T22:28:21Z,1,197,9,4,0
+PR-130,Operations board: hide terminal stages + add Uploaded SF status,2026-06-03T01:55:05Z,1,79,5,8,0
+PR-131,Separate admin privilege from job role (is_admin) + roster admin toggle,2026-06-03T02:18:22Z,1,167,17,13,0
+PR-132,Region-scoped notifications/attention default + Devices page polish,2026-06-03T02:35:25Z,1,36,21,4,0
+PR-133,Admin · Picklists: pad both pages,2026-06-03T02:39:00Z,1,2,2,2,0
+PR-134,Fix FlagsList hooks crash + drop resolved/dismissed from notifications,2026-06-03T02:47:52Z,1,9,5,2,0
+PR-135,Flags: 7-day resolved grace + Not resolved reopen; remove Database nav,2026-06-03T02:57:13Z,1,47,6,7,0
+PR-136,Fix light/dark mixing + padding on Installed / Service / Order entry / Archive,2026-06-03T03:03:24Z,1,97,97,6,0
+PR-137,Notifications: resolved sort to bottom + counts reflect active only,2026-06-03T03:12:24Z,1,14,6,1,0
+PR-138,Unify dark theme on a single navy/slate palette site-wide,2026-06-03T03:19:30Z,1,12,9,1,0
+PR-139,Dark-mode the remaining white components site-wide,2026-06-03T03:26:56Z,1,247,247,22,0
+PR-140,Dark-mode bare form fields (white SF search box + dozens more),2026-06-03T03:34:19Z,1,17,1,2,0
+PR-141,Revert to neutral palette site-wide; remap Devices-merge blue to theme vars,2026-06-03T03:43:10Z,1,467,466,30,1
+PR-142,Dark-mode status pills: muted tint + light text + outline,2026-06-03T03:48:56Z,1,39,0,1,0
+PR-143,Dark-mode accent buttons: muted instead of bright fill,2026-06-03T03:53:16Z,1,18,0,1,0
+PR-144,Table is the default landing; Kanban moves to /kanban with a Table toggle,2026-06-03T03:58:15Z,1,50,14,4,0
+PR-145,Dark-mode SSO sign-in button: muted,2026-06-03T04:04:46Z,1,12,8,2,0
+PR-146,Add in-app user guide (/help) + help icon in the nav,2026-06-03T04:14:20Z,1,565,0,3,0
+PR-147,CI: typecheck/lint gate on PRs + Morgan migration runbook (Gitea/NAS + 11:11 hosting),2026-06-03T04:42:56Z,1,461,6,8,0
+PR-148,docs(migration): fill Gitea host (NAS 10.0.1.67) + reflect existing accounts,2026-06-03T04:47:22Z,1,17,9,1,0
+PR-149,docs(migration): pin confirmed Gitea URL (http://10.0.1.48:8418 v1.21.11),2026-06-03T05:05:03Z,1,17,15,1,0
+PR-150,docs(cognito): add paste-ready env blocks (backend + frontend),2026-06-03T13:13:19Z,1,33,0,1,0
+PR-151,chore: Session 9 close-out — session_log + PICKUP + decisions D-077..D-086 + gitignore,2026-06-03T15:53:58Z,1,106,1,4,0
+PR-152,security: upgrade Next.js 14.2.35 → 15.5.19 (clears all 5 npm-audit vulns),2026-06-03T20:05:38Z,1,666,549,5,0
+PR-153,security: upgrade Laravel 11.52 → 12.61 (clears 9 of 12 backend advisories incl. the high),2026-06-03T20:36:47Z,0,284,191,2,0
+PR-154,security: upgrade Laravel 11.52 → 13.13 (clears 9 of 12 backend advisories incl. the high),2026-06-03T20:42:57Z,1,452,376,2,0
+PR-155,security(api): gate open endpoints + security headers + rate limit + env CORS,2026-06-03T21:25:34Z,1,120,51,7,0
+PR-156,security(model): guard User privilege fields against mass assignment,2026-06-03T21:36:47Z,1,101,41,7,0
+PR-157,security(frontend): CSP + security headers on HTML + production checklist,2026-06-03T21:45:38Z,1,93,1,2,0
+PR-158,security(auth): move JWT from localStorage to an httpOnly cookie,2026-06-04T03:18:43Z,1,307,105,16,0
+PR-159,docs(morgan): Podman containerization handoff (Brainy-style build/ship),2026-06-04T03:23:03Z,1,316,0,2,0
+PR-160,chore: Session 10 close-out — session_log + PICKUP + decisions D-087..D-093,2026-06-04T03:33:21Z,1,123,1,3,0
+PR-161,docs: MORGAN-HANDOFF (run-with-it migration) + CHANGES-AND-HARDENING,2026-06-04T03:40:32Z,1,345,0,2,0
+PR-162,docs(morgan): refresh handoff + hardening for L13/Next15 security pass cookie auth Podman,2026-06-04T04:09:26Z,1,211,48,2,0
