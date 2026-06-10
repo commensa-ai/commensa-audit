@@ -87,9 +87,10 @@ def _aggregate(units, res, result, args, sidecar) -> dict:
     merged = [u for u in units if u["merged"]]
 
     # velocity context — context only, never a target (LOC-trap guardrail)
+    n = max(len(units), 1)  # a 0-PR repo audits to zeros, not a crash
     times = sorted(u["created_at"] for u in units)
     weeks = max((_iso(times[-1]) - _iso(times[0])) / (7 * 86400), 1 / 7) if len(times) > 1 else 1 / 7
-    sizes = sorted(u["lines_added"] for u in units)
+    sizes = sorted(u["lines_added"] for u in units) or [0]
     q = lambda p: sizes[min(int(p * len(sizes)), len(sizes) - 1)]  # noqa: E731
 
     survival_rates = {
@@ -102,7 +103,7 @@ def _aggregate(units, res, result, args, sidecar) -> dict:
         "repo": args.repo,
         "window_days": args.window,
         "rework_tax": {
-            "pct_prs_corrective": round(100 * len(corrective) / len(units), 1),
+            "pct_prs_corrective": round(100 * len(corrective) / n, 1),
             "pct_changed_lines_corrective": round(
                 100 * sum(churn(u) for u in corrective) / total_churn, 1),
             "corrective_prs": len(corrective),
@@ -122,7 +123,7 @@ def _aggregate(units, res, result, args, sidecar) -> dict:
         },
         "velocity_context": {
             "prs_per_week": round(len(units) / weeks, 1),
-            "merge_rate": round(100 * len(merged) / len(units), 1),
+            "merge_rate": round(100 * len(merged) / n, 1),
             "size_lines_added": {"p25": q(.25), "median": q(.5), "p75": q(.75), "max": sizes[-1]},
             "note": "context only — velocity is never a target (LOC trap)",
         },

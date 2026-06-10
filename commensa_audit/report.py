@@ -157,7 +157,7 @@ TEMPLATE = """<!doctype html>
   <div style="font-size:12px;opacity:.8">{% for f in fragments %}{{ f.label }} {{ f.pct }}%{% if not loop.last %} · {% endif %}{% endfor %}</div>
   <div class="lbl" style="margin-top:14px">what survived</div>
   <div class="solid" style="width:{{ survival_pct }}%"></div>
-  <div style="font-size:12px;opacity:.8;margin-top:4px">{{ survival_pct }}% of attributable merged lines still live at measurement</div>
+  <div style="font-size:12px;opacity:.8;margin-top:4px">{% if has_lines %}{{ survival_pct }}% of attributable merged lines still live at measurement{% else %}no merged PR lines to measure yet{% endif %}</div>
 </div>
 
 <div class="panel3">
@@ -290,6 +290,7 @@ def render(audit: dict, units: list[dict]) -> str:
         clusters=audit["churn_clusters"], titles=titles,
         fragments=fragments,
         survival_pct=round(100 * audit["survival"]["overall_rate"], 1),
+        has_lines=any(v is not None for v in audit["survival"]["per_unit"].values()),
         median_pct=f"{round(100 * med)}%" if med is not None else "—",
         survival_method=audit["survival"]["method"],
         evaporated=evaporated, vel=audit["velocity_context"],

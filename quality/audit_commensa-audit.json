@@ -1,0 +1,72 @@
+{
+  "repo": "commensa-ai/commensa-audit",
+  "window_days": 14,
+  "rework_tax": {
+    "pct_prs_corrective": 0.0,
+    "pct_changed_lines_corrective": 0.0,
+    "corrective_prs": 0,
+    "total_prs": 0,
+    "by_signal": {}
+  },
+  "churn_clusters": [],
+  "supersessions": {},
+  "survival": {
+    "method": "line-attribution replay of PR patches (see rework.py docstring for limits: exact-content match, trivial lines excluded, renames followed via PR file entries, direct pushes invisible)",
+    "overall_rate": 0.0,
+    "median_rate": null,
+    "per_unit": {}
+  },
+  "velocity_context": {
+    "prs_per_week": 0.0,
+    "merge_rate": 0.0,
+    "size_lines_added": {
+      "p25": 0,
+      "median": 0,
+      "p75": 0,
+      "max": 0
+    },
+    "note": "context only — velocity is never a target (LOC trap)"
+  },
+  "abandoned": {
+    "count": 0,
+    "pct_of_prs": 0.0,
+    "units": [],
+    "in_flight_open_prs": 0,
+    "method": "PRs closed without merging (GitHub state=closed, merged_at null). Invisible to merge-based metrics; open PRs are in-flight, not counted."
+  },
+  "hotspots": {
+    "top": [],
+    "min_prs": 5,
+    "suppressed_dirs": 0,
+    "method": "corrective share of PRs touching each top-level directory; a PR counts in every directory it touches; dirs with <5 PRs suppressed."
+  },
+  "ai_marked": {
+    "count": 0,
+    "pct_of_prs_lower_bound": 0.0,
+    "per_unit": {},
+    "method": "PRs with ≥1 agent marker: Co-Authored-By trailer naming a known agent identity (commit messages, capped at 250 commits/PR by the API) or a tool signature in the PR body. Lower bound — unmarked agent work is invisible; absence of a marker is not evidence of human authorship."
+  },
+  "external_norms": {
+    "metric": "Code Turnover Rate — share of merged code reverted/rewritten within 30 days",
+    "healthy": "< 15%",
+    "ai_vs_human": "AI-assisted teams measured at 1.8–2.5× human baselines (target < 1.5×)",
+    "label": "external published research, not a Commensa benchmark; methods differ from the rework tax above"
+  },
+  "classifications": {},
+  "config": {
+    "window_days": 14,
+    "title_re": "(?<![\\w-])(fix(es|ed|ing)?|revert(s|ed|ing)?|redo(ne|es|ing)?|correct(s|ed|ing|ion|ions)?|hotfix(es)?|patch(es|ed|ing)?|repair(s|ed|ing)?|undo(es|ne|ing)?)(?![\\w-])",
+    "selfcorr_min_lines": 10,
+    "selfcorr_min_share": 0.33,
+    "cluster_min_size": 3,
+    "cluster_min_edge_lines": 10,
+    "cluster_edge_min_frac": 0.25,
+    "supersede_min_frac": 0.5,
+    "supersede_min_lines": 10
+  },
+  "confidence_notes": [
+    "classification is heuristic; every PR carries the signal that fired",
+    "survival/supersession use exact-content line attribution from PR patches; squash merges, direct pushes, and moved lines limit attribution",
+    "no token, model, or energy claims — git does not record them"
+  ]
+}

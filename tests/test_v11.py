@@ -76,5 +76,26 @@ class TestAggregations(unittest.TestCase):
         self.assertEqual(h["top"], [])
 
 
+class TestZeroPrRepo(unittest.TestCase):
+    """Audit-the-auditor regression: a 0-PR repo audits to zeros, not a crash."""
+
+    def test_empty_pipeline_and_render(self):
+        import argparse
+        from commensa_audit.classify import CONFIG, classify
+        from commensa_audit.cli import _aggregate
+        from commensa_audit.report import render
+        from commensa_audit.rework import replay
+
+        res = replay([])
+        result = classify([], res, CONFIG)
+        args = argparse.Namespace(repo="x/empty", window=14,
+                                  cost_per_pr=None, ai_spend=None)
+        audit = _aggregate([], res, result, args, [])
+        self.assertEqual(audit["rework_tax"]["total_prs"], 0)
+        self.assertEqual(audit["rework_tax"]["pct_prs_corrective"], 0.0)
+        html = render(audit, [])
+        self.assertIn("0 PRs", html)
+
+
 if __name__ == "__main__":
     unittest.main()

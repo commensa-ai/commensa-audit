@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Rework Report — commensa-ai/commensa-audit</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; margin: 0; }
+  body { background:#f6f7f9; color:#1d2b4d; font:15px/1.5 ui-sans-serif,-apple-system,"Segoe UI",Inter,Helvetica,Arial,sans-serif; padding:28px 16px; }
+  .page { max-width:860px; margin:0 auto; }
+  header { display:flex; align-items:center; gap:14px; margin-bottom:6px; }
+  .word { font-size:22px; font-weight:600; letter-spacing:-0.02em; }
+  .tag  { color:#5b6770; font-size:13px; }
+  .meta { margin-left:auto; text-align:right; color:#5b6770; font-size:12.5px; }
+  .meta b { color:#1d2b4d; font-size:14px; }
+  h1 { font-size:19px; margin:22px 0 10px; letter-spacing:-0.01em; }
+  h2 { font-size:14px; text-transform:uppercase; letter-spacing:0.06em; color:#5b6770; margin-bottom:8px; }
+  .cards2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  @media (max-width:640px){ .cards2 { grid-template-columns:1fr; } }
+  .card { background:#fff; border:1px solid #e4e7ec; border-radius:14px; padding:18px 20px; }
+  .big { font-size:40px; font-weight:700; letter-spacing:-0.03em; line-height:1.1; }
+  .big small { font-size:17px; font-weight:600; color:#5b6770; letter-spacing:0; }
+  .sub { color:#5b6770; font-size:13.5px; margin-top:6px; }
+  .est { margin-top:10px; padding:8px 12px; background:#f6f7f9; border-radius:9px; font-size:13.5px; }
+  .est b { color:#1d2b4d; }
+  .norms { margin-top:10px; padding-top:8px; border-top:1px dashed #e4e7ec; color:#5b6770; font-size:12px; }
+  .strip { margin-top:14px; background:#fff; border:1px solid #e4e7ec; border-radius:12px; padding:12px 16px; display:grid; gap:6px; font-size:13.5px; }
+  .strip b { font-size:16px; }
+  .durable { background:linear-gradient(135deg,#22325a,#152138); border-radius:14px; padding:20px 24px; margin-top:14px; color:#fff; }
+  .durable .lbl { font-size:12px; letter-spacing:0.05em; text-transform:uppercase; opacity:.75; margin-bottom:6px; }
+  .barrow { display:flex; gap:6px; height:16px; margin:6px 0 4px; }
+  .frag { border-radius:8px; min-width:8px; }
+  .solid { height:16px; border-radius:8px; background:#18a06b; margin-top:12px; }
+  .panel3 { display:grid; grid-template-columns:1fr; gap:14px; margin-top:14px; }
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  th { text-align:left; color:#5b6770; font-weight:600; padding:4px 8px 4px 0; border-bottom:1px solid #e4e7ec; }
+  td { padding:5px 8px 5px 0; border-bottom:1px solid #f0f2f5; vertical-align:top; }
+  .pct { font-variant-numeric:tabular-nums; white-space:nowrap; }
+  .pill { display:inline-block; padding:1px 8px; border-radius:99px; font-size:11.5px; font-weight:600; }
+  .pill.c { background:#fdeeee; color:#b33; }
+  .pill.g { background:#e9f6f0; color:#18a06b; }
+  .quiet { color:#5b6770; }
+  .ctx { display:flex; flex-wrap:wrap; gap:18px; font-size:13px; color:#5b6770; margin-top:14px; padding:12px 16px; background:#fff; border:1px solid #e4e7ec; border-radius:12px; }
+  .ctx b { color:#1d2b4d; display:block; font-size:16px; }
+  details { margin-top:14px; }
+  summary { cursor:pointer; color:#5b6770; font-size:13px; }
+  footer { margin-top:22px; font-size:12.5px; color:#5b6770; }
+  footer ul { margin:6px 0 0 18px; padding:0; }
+  footer li { margin-bottom:3px; }
+  .cta { margin-top:16px; background:#1d2b4d; color:#fff; border-radius:14px; padding:16px 20px; display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+  .cta a { color:#7be0b4; font-weight:700; text-decoration:none; font-size:16px; }
+  .cta .fine { font-size:12px; opacity:.75; flex-basis:100%; }
+</style></head><body><div class="page">
+
+<header>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="40" height="40" role="img" aria-label="Commensa — the Durable Equals">
+  <defs><linearGradient id="t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#22325a"/><stop offset="1" stop-color="#152138"/></linearGradient></defs>
+  <rect width="200" height="200" rx="44" fill="url(#t)"/>
+  <g fill="#ffffff">
+    <rect x="46" y="74" width="26" height="18" rx="9" fill-opacity="0.92"/>
+    <rect x="80" y="74" width="30" height="18" rx="9" fill-opacity="0.55"/>
+    <rect x="118" y="74" width="14" height="18" rx="7" fill-opacity="0.35"/>
+    <rect x="140" y="74" width="14" height="18" rx="7" fill-opacity="0.20"/>
+  </g>
+  <rect x="46" y="108" width="108" height="18" rx="9" fill="#18a06b"/>
+</svg>
+  <div><div class="word">commensa</div><div class="tag">measure the durable work, not the noise.</div></div>
+  <div class="meta"><b>AI Rework Report</b><br>commensa-ai/commensa-audit<br>2026-06-10 · 0 PRs · 14-day window</div>
+</header>
+
+<h1>The waste, in two lines</h1>
+<div class="cards2">
+  <div class="card">
+    <h2>1 · Rework tax — correcting its own work</h2>
+    <div class="big">0.0%<small> of PRs</small></div>
+    <div class="sub"><b>0 of 0</b> PRs — 0.0% of all changed lines — were corrective:
+      0 said so in the title, 0 mostly deleted week-old work, 0 sat in churn chains.</div>
+    
+    <div class="norms">How to read this: external research on the related <i>Code Turnover Rate — share of merged code reverted/rewritten within 30 days</i> calls &lt; 15% healthy; AI-assisted teams measured at 1.8–2.5× human baselines (target &lt; 1.5×). <b>external published research, not a Commensa benchmark; methods differ from the rework tax above.</b></div>
+  </div>
+  <div class="card">
+    <h2>2 · Superseded — work that didn't last</h2>
+    <div class="big">0<small> PRs replaced</small></div>
+    <div class="sub">Entirely or mostly rewritten by later PRs within 14 days.
+      A different failure mode than correction; the two numbers are shown together, never merged.</div>
+  </div>
+</div>
+
+<div class="strip">
+  <div><b>0</b> attempts shipped nothing
+    <span class="quiet">— PRs closed without merging (0.0% of all PRs; the waste merge-based metrics never see)</span></div>
+  <div><b>at least 0.0%</b> agent-marked
+    <span class="quiet">— 0 of 0 PRs carry agent markers (Co-Authored-By trailers / body signatures); lower bound, absence of a marker ≠ human</span></div>
+</div>
+
+<div class="durable">
+  <div class="lbl">what the agents generated</div>
+  <div class="barrow">
+    <div class="frag" style="flex:1;background:#fff;opacity:0.92" title="kept (generative): 100.0%"></div>
+  </div>
+  <div style="font-size:12px;opacity:.8">kept (generative) 100.0%</div>
+  <div class="lbl" style="margin-top:14px">what survived</div>
+  <div class="solid" style="width:0.0%"></div>
+  <div style="font-size:12px;opacity:.8;margin-top:4px">no merged PR lines to measure yet</div>
+</div>
+
+<div class="panel3">
+  <div class="card">
+    <h2>Evidence · churn clusters — N PRs to get one thing right</h2>
+    <p class="quiet">No churn clusters — no chains of PRs substantially rewriting each other inside the window.</p>
+  </div>
+
+  <div class="card">
+    <h2>Evidence · supersession — who replaced whom</h2>
+    <p class="quiet">No PR had a majority of its lines replaced within the window.</p>
+  </div>
+
+  <div class="card">
+    <h2>Evidence · hotspots — where the rework concentrates</h2>
+    <p class="quiet">No directory has ≥5 PRs — repo too small for module-level hotspots.</p>
+  </div>
+
+  <div class="card">
+    <h2>Evidence · survival — durability of merged lines</h2>
+    <p><b>0.0%</b> overall · median per-PR —</p>
+    
+    <p class="quiet" style="margin-top:6px;font-size:12.5px">line-attribution replay of PR patches (see rework.py docstring for limits: exact-content match, trivial lines excluded, renames followed via PR file entries, direct pushes invisible)</p>
+  </div>
+</div>
+
+<div class="ctx">
+  <div><b>0.0</b>PRs / week</div>
+  <div><b>0.0%</b>merge rate</div>
+  <div><b>0</b>median PR (+lines)</div>
+  <div><b>0</b>p75 (+lines)</div>
+  <div style="align-self:center">context only — velocity is never a target (LOC trap)</div>
+</div>
+
+<details><summary>Every PR, every verdict (0 rows — transparency: each carries the signal that fired)</summary>
+  <div class="card" style="margin-top:8px"><table>
+  <tr><th>PR</th><th>title</th><th>verdict</th><th>why</th><th>survival</th></tr>
+  
+  </table></div>
+</details>
+
+<footer>
+  <b>Method &amp; confidence — we grade our own certainty; no false precision.</b>
+  <ul>
+    <li>Classification is heuristic and transparent: every PR above carries the objective signal that fired (explicit title · self-correction · churn chain). No hand labels, no model attribution, no token or energy claims — git does not record them.</li>
+    <li>Attribution is by exact line content per file. Duplicate contents are resolved most-recent-first; moved lines look like delete+add.</li><li>Trivial lines (blanks, lone braces/brackets — see TRIVIAL_RE) carry no attribution and are excluded from survival denominators.</li><li>Renames are followed via the PR files API previous_filename. Renames done outside PRs are invisible.</li><li>Commits pushed directly to the default branch (no PR) are invisible; lines they delete still count as surviving here.</li><li>PRs with missing patches (binary / &gt;3000-file diffs) contribute no line attribution; their lines_added/deleted totals still exist in units.csv.</li><li>Survival is measured at extraction time (the end of the data), which for a repo younger than --window equals &#34;now&#34;.</li>
+    <li>Abandoned attempts: PRs closed without merging (GitHub state=closed, merged_at null). Invisible to merge-based metrics; open PRs are in-flight, not counted.</li>
+    <li>Hotspots: corrective share of PRs touching each top-level directory; a PR counts in every directory it touches; dirs with &lt;5 PRs suppressed.</li>
+    <li>Agent-marked share: PRs with ≥1 agent marker: Co-Authored-By trailer naming a known agent identity (commit messages, capped at 250 commits/PR by the API) or a tool signature in the PR body. Lower bound — unmarked agent work is invisible; absence of a marker is not evidence of human authorship.</li>
+    <li>The "how to read this" norms under the rework tax are external published research, not a Commensa benchmark; methods differ from the rework tax above.</li>
+    <li>Generated locally by commensa-audit v0.2.0 (read-only GitHub access; your data never left this machine).</li>
+  </ul>
+</footer>
+
+<div class="cta">
+  <div>Want this continuously, with the cost side?</div><a href="https://commensa.ai">commensa.ai</a>
+  <div class="fine">This one-page audit is the free, open-source snapshot. The continuous version adds the spend numerator — cost per durable line, trending week over week.</div>
+</div>
+
+</div></body></html>
