@@ -2,7 +2,7 @@
 
 **What this is:** the Commensa audit CLI — repo in, one-page AI Rework Report out. Phase 0 of `../execution/launch_plan.md`. Owner: Matt Buscher. **Read SPEC.md before writing any code.**
 
-**Status:** **Report v1.1 built (Session 5, 2026-06-10)** — four additions per ../execution/tasks.md Day 2–3: abandoned-attempt rate (OSWv2: 2), module hotspots (top 5, min 5 PRs/dir), agent-marked lower bound (**OSWv2: at least 75.9%** — `markers.py`, body + commit-trailer sources), external-norms context line (labeled not-our-benchmark). 37/37 tests; fresh re-extraction both repos; v1.0 numbers + Gate B 93.3% reproduce exactly. **v1.1 red-team PASSED + Matt's forward test PASSED (2026-06-10: "report is good") — ALL GATES GREEN.** Next session = GO-PUBLIC: git init, README from ../marketing/repo_README_draft.md, MIT license, push under the `commensa` org, audit the auditor, PyPI registration. Red-team addendum + the model-trailer discovery in reviews/gateC_redteam.md; flagship-post numbers re-verified (devices-35% claim corrected to the dark-mode-cluster story).
+**Status:** **PUBLIC (Session 6, 2026-06-10): https://github.com/commensa-ai/commensa-audit** — MIT, README live, 38/38 tests, `pip install git+https` verified from a clean venv. History: release `b44cab6` → bugfix `ff2a1db` (audit-the-auditor found a real 0-PR ZeroDivisionError on its first public run — fixed, tested, self-audit report in `quality/`). jarvis artifacts kept local-only (never blessed as showcase; OSWv2 is). **Left for Matt: PyPI registration + the Day 3–4 posting** (flagship post, Show HN, cold batch #1 per ../execution/tasks.md).
 
 ## Folder map
 - `SPEC.md` — the build spec: metrics, classifier, phases A/B/C with binary gates — THE MAP
@@ -27,10 +27,10 @@
 5. Guardrails in SPEC.md are bugs if violated: read-only, local-first, no unsupported claims, stdlib+requests+jinja2 only.
 
 ## Current priority
-**v1.1 red-team (working rule 2) + Matt's forward test** on the 2026-06-10 renders in `quality/`. Red-team focus: the four new numbers' methods + labels (abandoned = closed-unmerged only; hotspots multi-dir counting + min-5 suppression; agent-marked lower-bound framing; norms line labeled external). Then tasks.md Day 2–3 go-public checklist.
+**Matt's lane (his accounts, not a build session):** (1) register `commensa-audit` on PyPI — README already shows `pip install commensa-audit`; (2) Day 3–4 posting per ../execution/tasks.md (flagship + Show HN, numbers re-verified). Build-side next: nothing queued — new work starts from a fresh design conversation or tasks.md.
 
 ## Next after Gate C
-This folder becomes its own GitHub repo (`commensa-audit`) — git init, push, then audit the repo that built the auditor (launch content). Then launch_plan.md Phase 1.
+~~This folder becomes its own GitHub repo~~ — DONE (S6): live at github.com/commensa-ai/commensa-audit, self-audit shipped in `quality/`. Now in launch_plan.md Phase 1 / tasks.md Day 3–4 territory.
 
 ## Parked ideas
 (log here during build; review weekly)
