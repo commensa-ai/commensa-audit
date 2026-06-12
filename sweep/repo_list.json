@@ -1,0 +1,1706 @@
+{
+  "protocol": "oss_sweep_protocol.md @ AI_Stewardship_Cert",
+  "tool_version": "commensa-audit 0.3.0",
+  "frozen_at_utc": "2026-06-12T21:46:48+00:00",
+  "selection_started_utc": "2026-06-12T20:37:06+00:00",
+  "parameters": {
+    "TARGET_PER_BAND": 17,
+    "WINDOW_DAYS": 90,
+    "ACTIVITY_DAYS": 180,
+    "MIN_PRS_180D": 30,
+    "SMALL_LT": 50,
+    "LARGE_GT": 150,
+    "MIN_CONTRIBUTORS": 2,
+    "BASELINE_MARKER_THRESHOLD": 0.05,
+    "BASELINE_CREATED_BEFORE": "2023-01-01",
+    "BASELINE_MIN_STARS": 100,
+    "AGENT_MIN_STARS": 5,
+    "AGENT_MARKER_QUERIES": [
+      [
+        "commits",
+        "\"Co-Authored-By: Claude\""
+      ],
+      [
+        "commits",
+        "\"Co-authored-by: openai-codex\""
+      ],
+      [
+        "commits",
+        "\"Co-authored-by: Copilot\""
+      ],
+      [
+        "issues",
+        "\"Generated with [Claude Code]\" type:pr"
+      ],
+      [
+        "issues",
+        "\"Co-authored by Cursor\" type:pr"
+      ]
+    ],
+    "BASELINE_LANGUAGES": [
+      "Python",
+      "JavaScript",
+      "TypeScript",
+      "Go",
+      "Rust",
+      "Java",
+      "C++"
+    ],
+    "DOCS_ONLY_LANGUAGES": [
+      "<none>",
+      "AsciiDoc",
+      "HTML",
+      "Markdown",
+      "Roff",
+      "TeX",
+      "reStructuredText"
+    ]
+  },
+  "counts": {
+    "agent_candidates_discovered": 827,
+    "baseline_candidates_discovered": 1396,
+    "agent_survivors_pre_band": 163,
+    "baseline_survivors_pre_band": 141,
+    "agent_final": 51,
+    "baseline_final": 51,
+    "exclusions_total": 2125,
+    "api_calls_core": 2570,
+    "api_calls_search": 1128
+  },
+  "agent_cohort": [
+    {
+      "full": "huggingface/lighteval",
+      "stars": 2443,
+      "language": "Python",
+      "default_branch": "main",
+      "created_at": "2024-01-26T13:15:39Z",
+      "prs_90d": 19,
+      "prs_180d": 32,
+      "size_band": "small",
+      "discovered_via": [
+        "commits:\"Co-authored-by: openai-codex\""
+      ],
+      "marker_share_estimate": null,
+      "selection_rank_within_band": 1,
+      "cohort": "agent"
+    },
+    {
+      "full": "AtlassianPS/ConfluencePS",
+      "stars": 162,
+      "language": "PowerShell",
+      "default_branch": "master",
+      "created_at": "2015-11-16T05:01:51Z",
+      "prs_90d": 30,
+      "prs_180d": 30,
+      "size_band": "small",
+      "discovered_via": [
+        "commits:\"Co-authored-by: Copilot\""
+      ],
+      "marker_share_estimate": null,
+      "selection_rank_within_band": 2,
+      "cohort": "agent"
+    },
+    {
+      "full": "breimanntools/aaanalysis",
+      "stars": 85,
+      "language": "Jupyter Notebook",
+      "default_branch": "master",
+      "created_at": "2022-04-22T18:37:59Z",
+      "prs_90d": 33,
+      "prs_180d": 33,
+      "size_band": "small",
+      "discovered_via": [
+        "issues:\"Generated with [Claude Code]\" type:pr"
+      ],
+      "marker_share_estimate": null,
+      "selection_rank_within_band": 3,
+      "cohort": "agent"
+    },
+    {
+      "full": "commercetools/merchant-center-application-kit",
+      "stars": 78,
+      "language": "TypeScript",
+      "default_branch": "main",
+      "created_at": "2018-10-08T14:01:18Z",
+      "prs_90d": 45,
+      "prs_180d": 92,
+      "size_band": "small",
+      "discovered_via": [
+        "issues:\"Generated with [Claude Code]\" type:pr"
+      ],
+      "marker_share_estimate": null,
+      "selection_rank_within_band": 4,
+      "cohort": "agent"
+    },
+    {
+      "full": "earth-mover/xpublish-tiles",
+      "stars": 64,
+      "language": "Python",
+      "default_branch": "main",
+      "created_at": "2025-07-21T17:45:04Z",
+      "prs_90d": 36,
+      "prs_180d": 56,
+      "size_band": "small",
+      "discovered_via": [
+        "issues:\"Generated with [Claude Code]\" type:pr"
+      ],
+      "marker_share_estimate": null,
+      "selection_rank_within_band": 5,
+      "cohort": "agent"
+    },
+    {
+      "full": "lmnr-ai/lmnr-python",
+      "stars": 57,
+      "language": "Python",
+      "default_branch": "main",
+      "created_at": "2024-06-14T14:36:47Z",
+      "prs_90d": 20,
+      "prs_180d": 59,
+      "size_band": "small",
+      "discovered_via": [
+        "issues:\"Co-authored by Cursor\" type:pr"
+      ],
+      "marker_share_estimate": null,
+      "selection_rank_within_band": 6,
+      "cohort": "agent"
+    },
+    {
+      "full": "openshift/certman-operator",
+      "stars": 57,
+      "language": "Go",
+      "default_branch": "master",
+      "created_at": "2019-03-13T19:25:15Z",
+      "prs_90d": 31,
+      "prs_180d": 44,
+      "size_band": "small",
+      "discovered_via": [
+        "issues:\"Co-authored by Cursor\" type:pr"
+      ],
+      "marker_share_estimate": null,
+      "selection_rank_within_band": 7,
+      "cohort": "agent"
+    },
+    {
+      "full": "parallel-web/parallel-agent-skills",
+      "stars": 57,
+      "language": "TypeScript",
+      "default_branch": "main",
+      "created_at": "2026-02-06T18:42:38Z",
+      "prs_90d": 24,
+      "prs_180d": 32,
+      "size_band": "small",
+      "discovered_via": [
+        "issues:\"Generated with [Claude Code]\" type:pr"
+      ],
+      "marker_share_estimate": null,
+      "selection_rank_within_band": 8,
+      "cohort": "agent"
+    },
+    {
+      "full": "WecoAI/weco-cli",
+      "stars": 55,
+      "language": "Python",
+      "default_branch": "main",
+      "created_at": "2025-04-03T11:32:04Z",
+      "prs_90d": 28,
+      "prs_180d": 49,
+      "size_band": "small",
+      "discovered_via": [
+        "issues:\"Generated with [Claude Code]\" type:pr"
+      ],
+      "marker_share_estimate": null,
+      "selection_rank_within_band": 9,
+      "cohort": "agent"
+    },
+    {
+      "full": "openshift/managed-upgrade-operator",
+      "stars": 52,
+      "language": "Go",
+      "default_branch": "master",
+      "created_at": "2020-04-27T22:43:09Z",
+      "prs_90d": 40,
+      "prs_180d": 50,
+      "size_band": "small",
+      "discovered_via": [
+        "issues:\"Co-authored by Cursor\" type:pr"
+      ],
+      "marker_share_estimate": null,
+      "selection_rank_within_band": 10,
+      "cohort": "agent"
+    },
+    {
+      "full": "openshift/route-monitor-operator",
+      "stars": 39,
+      "language": "Go",
+      "default_branch": "master",
+      "created_at": "2020-09-01T01:32:02Z",
+      "prs_90d": 46,
+      "prs_180d": 77,
+      "size_band": "small",
+      "discovered_via": [
+        "issues:\"Co-authored by Cursor\" type:pr"
+      ],
+      "marker_share_estimate": null,
+      "selection_rank_within_band": 11,
+      "cohort": "agent"
+    },
+    {
+      "full": "openshift/cloud-ingress-operator",
+      "stars": 35,
+      "language": "Go",
+      "default_branch": "master",
+      "created_at": "2019-12-10T20:04:46Z",
+      "prs_90d": 33,
+      "prs_180d": 44,
+      "size_band": "small",
+      "discovered_via": [
+        "issues:\"Co-authored by Cursor\" type:pr"
+      ],
+      "marker_share_estimate": null,
+      "selection_rank_within_band": 12,
+      "cohort": "agent"
+    },
+    {
+      "full": "openshift/rbac-permissions-operator",
+      "stars": 35,
+      "language": "Go",
+      "default_branch": "master",
+      "created_at": "2019-06-14T22:15:37Z",
+      "prs_90d": 49,
+      "prs_180d": 54,
+      "size_band": "small",
+      "discovered_via": [
+        "issues:\"Co-authored by Cursor\" type:pr"
+      ],
+      "marker_share_estimate": null,
+      "selection_rank_within_band": 13,
+      "cohort": "agent"
+    },
+    {
+      "full": "openshift/aws-account-operator",
+      "stars": 31,
+      "language": "Go",
+      "default_branch": "master",
+      "created_at": "2019-03-08T21:34:46Z",
+      "prs_90d": 43,
+      "prs_180d": 63,
+      "size_band": "small",
+      "discovered_via": [
+        "issues:\"Co-authored by Cursor\" type:pr"
+      ],
+      "marker_share_estimate": null,
+      "selection_rank_within_band": 14,
+      "cohort": "agent"
+    },
+    {
+      "full": "openshift/splunk-forwarder-operator",
+      "stars": 31,
+      "language": "Go",
+      "default_branch": "master",
+      "created_at": "2019-10-16T19:19:29Z",
+      "prs_90d": 29,
+      "prs_180d": 36,
+      "size_band": "small",
+      "discovered_via": [
+        "issues:\"Co-authored by Cursor\" type:pr"
+      ],
+      "marker_share_estimate": null,
+      "selection_rank_within_band": 15,
+      "cohort": "agent"
+    },
+    {
+      "full": "openshift/managed-velero-operator",
+      "stars": 30,
+      "language": "Go",
+      "default_branch": "master",
+      "created_at": "2019-08-06T19:57:14Z",
+      "prs_90d": 41,
+      "prs_180d": 45,
+      "size_band": "small",
+      "discovered_via": [
+        "issues:\"Co-authored by Cursor\" type:pr"
+      ],
+      "marker_share_estimate": null,
+      "selection_rank_within_band": 16,
+      "cohort": "agent"
+    },
+    {
+      "full": "openshift/pagerduty-operator",
+      "stars": 21,
+      "language": "Go",
+      "default_branch": "master",
+      "created_at": "2019-03-13T18:30:13Z",
+      "prs_90d": 32,
+      "prs_180d": 57,
+      "size_band": "small",
+      "discovered_via": [
+        "issues:\"Co-authored by Cursor\" type:pr"
+      ],
+      "marker_share_estimate": null,
+      "selection_rank_within_band": 17,
+      "cohort": "agent"
+    },
+    {
+      "full": "huggingface/ml-intern",
+      "stars": 10435,
+      "language": "Python",
+      "default_branch": "main",
+      "created_at": "2025-10-30T13:43:09Z",
+      "prs_90d": 133,
+      "prs_180d": 158,
+      "size_band": "medium",
+      "discovered_via": [
+        "commits:\"Co-authored-by: openai-codex\""
+      ],
+      "marker_share_estimate": null,
+      "selection_rank_within_band": 1,
+      "cohort": "agent"
+    },
+    {
+      "full": "scikit-image/scikit-image",
+      "stars": 6527,
+      "language": "Python",
+      "default_branch": "main",
+      "created_at": "2011-07-07T22:07:20Z",
+      "prs_90d": 55,
+      "prs_180d": 98,
+      "size_band": "medium",
+      "discovered_via": [
+        "issues:\"Co-authored by Cursor\" type:pr"
+      ],
+      "marker_share_estimate": null,
+      "selection_rank_within_band": 2,
+      "cohort": "agent"
+    },
+    {
+      "full": "NVIDIA-NeMo/Guardrails",
+      "stars": 6415,
+      "language": "Python",
+      "default_branch": "develop",
+      "created_at": "2023-04-18T12:32:47Z",
+      "prs_90d": 127,
+      "prs_180d": 243,
+      "size_band": "medium",
+      "discovered_via": [
+        "issues:\"Generated with [Claude Code]\" type:pr"
+      ],
+      "marker_share_estimate": null,
+      "selection_rank_within_band": 3,
+      "cohort": "agent"
+    },
+    {
+      "full": "jMonkeyEngine/jmonkeyengine",
+      "stars": 4235,
+      "language": "Java",
+      "default_branch": "master",
+      "created_at": "2014-03-20T22:29:28Z",
+      "prs_90d": 141,
+      "prs_180d": 189,
+      "size_band": "medium",
+      "discovered_via": [
+        "commits:\"Co-authored-by: Copilot\""
+      ],
+      "marker_share_estimate": null,
+      "selection_rank_within_band": 4,
+      "cohort": "agent"
+    },
+    {
+      "full": "coursier/coursier",
+      "stars": 2125,
+      "language": "Scala",
+      "default_branch": "main",
+      "created_at": "2015-06-16T18:32:53Z",
+      "prs_90d": 63,
+      "prs_180d": 92,
+      "size_band": "medium",
+      "discovered_via": [
+        "commits:\"Co-authored-by: openai-codex\""
+      ],
+      "marker_share_estimate": null,
+      "selection_rank_within_band": 5,
+      "cohort": "agent"
+    },
+    {
+      "full": "hazelgrove/hazel",
+      "stars": 1100,
+      "language": "Reason",
+      "default_branch": "dev",
+      "created_at": "2017-01-27T02:14:05Z",
+      "prs_90d": 62,
+      "prs_180d": 107,
+      "size_band": "medium",
+      "discovered_via": [
+        "issues:\"Generated with [Claude Code]\" type:pr"
+      ],
+      "marker_share_estimate": null,
+      "selection_rank_within_band": 6,
+      "cohort": "agent"
+    },
+    {
+      "full": "apache/phoenix",
+      "stars": 1059,
+      "language": "Java",
+      "default_branch": "master",
+      "created_at": "2014-06-04T07:00:08Z",
+      "prs_90d": 78,
+      "prs_180d": 136,
+      "size_band": "medium",
+      "discovered_via": [
+        "issues:\"Co-authored by Cursor\" type:pr"
+      ],
+      "marker_share_estimate": null,
+      "selection_rank_within_band": 7,
+      "cohort": "agent"
+    },
+    {
+      "full": "teelur/budget-board",
+      "stars": 804,
+      "language": "C#",
+      "default_branch": "main",
+      "created_at": "2020-06-16T22:46:29Z",
+      "prs_90d": 90,
+      "prs_180d": 166,
+      "size_band": "medium",
+      "discovered_via": [
+        "commits:\"Co-authored-by: Copilot\""
+      ],
+      "marker_share_estimate": null,
+      "selection_rank_within_band": 8,
+      "cohort": "agent"
+    },
+    {
+      "full": "socfortress/CoPilot",
+      "stars": 498,
+      "language": "Python",
+      "default_branch": "main",
+      "created_at": "2023-07-10T21:30:45Z",
+      "prs_90d": 93,
+      "prs_180d": 200,
+      "size_band": "medium",
+      "discovered_via": [
+        "issues:\"Generated with [Claude Code]\" type:pr"
+      ],
+      "marker_share_estimate": null,
+      "selection_rank_within_band": 9,
+      "cohort": "agent"
+    },
+    {
+      "full": "GaTech-RL2/EgoVerse",
+      "stars": 419,
+      "language": "Python",
+      "default_branch": "main",
+      "created_at": "2025-02-11T21:44:48Z",
+      "prs_90d": 85,
+      "prs_180d": 191,
+      "size_band": "medium",
+      "discovered_via": [
+        "issues:\"Co-authored by Cursor\" type:pr"
+      ],
+      "marker_share_estimate": null,
+      "selection_rank_within_band": 10,
+      "cohort": "agent"
+    },
+    {
+      "full": "389ds/389-ds-base",
+      "stars": 286,
+      "language": "C",
+      "default_branch": "main",
+      "created_at": "2020-09-12T12:54:14Z",
+      "prs_90d": 119,
+      "prs_180d": 221,
+      "size_band": "medium",
+      "discovered_via": [
+        "issues:\"Co-authored by Cursor\" type:pr"
+      ],
+      "marker_share_estimate": null,
+      "selection_rank_within_band": 11,
+      "cohort": "agent"
+    },
+    {
+      "full": "chebpy/chebpy",
+      "stars": 151,
+      "language": "Python",
+      "default_branch": "master",
+      "created_at": "2016-05-13T13:35:19Z",
+      "prs_90d": 64,
+      "prs_180d": 132,
+      "size_band": "medium",
+      "discovered_via": [
+        "commits:\"Co-authored-by: Copilot\""
+      ],
+      "marker_share_estimate": null,
+      "selection_rank_within_band": 12,
+      "cohort": "agent"
+    },
+    {
+      "full": "openwong2kim/wmux",
+      "stars": 141,
+      "language": "TypeScript",
+      "default_branch": "main",
+      "created_at": "2026-03-20T02:54:57Z",
+      "prs_90d": 149,
+      "prs_180d": 149,
+      "size_band": "medium",
+      "discovered_via": [
+        "issues:\"Generated with [Claude Code]\" type:pr"
+      ],
+      "marker_share_estimate": null,
+      "selection_rank_within_band": 13,
+      "cohort": "agent"
+    },
+    {
+      "full": "Simon-He95/vue-tui",
+      "stars": 117,
+      "language": "TypeScript",
+      "default_branch": "main",
+      "created_at": "2026-04-30T16:01:22Z",
+      "prs_90d": 88,
+      "prs_180d": 88,
+      "size_band": "medium",
+      "discovered_via": [
+        "commits:\"Co-authored-by: Copilot\""
+      ],
+      "marker_share_estimate": null,
+      "selection_rank_within_band": 14,
+      "cohort": "agent"
+    },
+    {
+      "full": "thefrederiksen/cc-director",
+      "stars": 92,
+      "language": "C#",
+      "default_branch": "main",
+      "created_at": "2026-02-08T14:22:07Z",
+      "prs_90d": 60,
+      "prs_180d": 60,
+      "size_band": "medium",
+      "discovered_via": [
+        "issues:\"Generated with [Claude Code]\" type:pr"
+      ],
+      "marker_share_estimate": null,
+      "selection_rank_within_band": 15,
+      "cohort": "agent"
+    },
+    {
+      "full": "windy10v10ai/game",
+      "stars": 68,
+      "language": "Lua",
+      "default_branch": "develop",
+      "created_at": "2020-12-03T15:39:53Z",
+      "prs_90d": 133,
+      "prs_180d": 204,
+      "size_band": "medium",
+      "discovered_via": [
+        "commits:\"Co-Authored-By: Claude\""
+      ],
+      "marker_share_estimate": null,
+      "selection_rank_within_band": 16,
+      "cohort": "agent"
+    },
+    {
+      "full": "hermetoproject/hermeto",
+      "stars": 54,
+      "language": "Python",
+      "default_branch": "main",
+      "created_at": "2022-10-10T17:06:07Z",
+      "prs_90d": 105,
+      "prs_180d": 212,
+      "size_band": "medium",
+      "discovered_via": [
+        "issues:\"Co-authored by Cursor\" type:pr"
+      ],
+      "marker_share_estimate": null,
+      "selection_rank_within_band": 17,
+      "cohort": "agent"
+    },
+    {
+      "full": "microsoft/vscode",
+      "stars": 186214,
+      "language": "TypeScript",
+      "default_branch": "main",
+      "created_at": "2015-09-03T20:23:38Z",
+      "prs_90d": 4760,
+      "prs_180d": 8441,
+      "size_band": "large",
+      "discovered_via": [
+        "commits:\"Co-authored-by: Copilot\""
+      ],
+      "marker_share_estimate": null,
+      "selection_rank_within_band": 1,
+      "cohort": "agent"
+    },
+    {
+      "full": "vllm-project/vllm",
+      "stars": 82710,
+      "language": "Python",
+      "default_branch": "main",
+      "created_at": "2023-02-09T11:23:20Z",
+      "prs_90d": 2769,
+      "prs_180d": 5370,
+      "size_band": "large",
+      "discovered_via": [
+        "issues:\"Co-authored by Cursor\" type:pr"
+      ],
+      "marker_share_estimate": null,
+      "selection_rank_within_band": 2,
+      "cohort": "agent"
+    },
+    {
+      "full": "BerriAI/litellm",
+      "stars": 50183,
+      "language": "Python",
+      "default_branch": "litellm_internal_staging",
+      "created_at": "2023-07-27T00:09:52Z",
+      "prs_90d": 2032,
+      "prs_180d": 4593,
+      "size_band": "large",
+      "discovered_via": [
+        "issues:\"Co-authored by Cursor\" type:pr"
+      ],
+      "marker_share_estimate": null,
+      "selection_rank_within_band": 3,
+      "cohort": "agent"
+    },
+    {
+      "full": "remotion-dev/remotion",
+      "stars": 49923,
+      "language": "TypeScript",
+      "default_branch": "main",
+      "created_at": "2020-06-23T19:49:10Z",
+      "prs_90d": 733,
+      "prs_180d": 1193,
+      "size_band": "large",
+      "discovered_via": [
+        "commits:\"Co-authored-by: Copilot\""
+      ],
+      "marker_share_estimate": null,
+      "selection_rank_within_band": 4,
+      "cohort": "agent"
+    },
+    {
+      "full": "llvm/llvm-project",
+      "stars": 38785,
+      "language": "LLVM",
+      "default_branch": "main",
+      "created_at": "2016-12-07T09:39:33Z",
+      "prs_90d": 11418,
+      "prs_180d": 20845,
+      "size_band": "large",
+      "discovered_via": [
+        "issues:\"Co-authored by Cursor\" type:pr"
+      ],
+      "marker_share_estimate": null,
+      "selection_rank_within_band": 5,
+      "cohort": "agent"
+    },
+    {
+      "full": "actualbudget/actual",
+      "stars": 26977,
+      "language": "TypeScript",
+      "default_branch": "master",
+      "created_at": "2022-04-29T02:41:34Z",
+      "prs_90d": 502,
+      "prs_180d": 872,
+      "size_band": "large",
+      "discovered_via": [
+        "issues:\"Generated with [Claude Code]\" type:pr"
+      ],
+      "marker_share_estimate": null,
+      "selection_rank_within_band": 6,
+      "cohort": "agent"
+    },
+    {
+      "full": "esengine/DeepSeek-Reasonix",
+      "stars": 21556,
+      "language": "Go",
+      "default_branch": "main-v2",
+      "created_at": "2026-04-21T08:27:02Z",
+      "prs_90d": 1916,
+      "prs_180d": 1916,
+      "size_band": "large",
+      "discovered_via": [
+        "issues:\"Co-authored by Cursor\" type:pr"
+      ],
+      "marker_share_estimate": null,
+      "selection_rank_within_band": 7,
+      "cohort": "agent"
+    },
+    {
+      "full": "gradle/gradle",
+      "stars": 18662,
+      "language": "Groovy",
+      "default_branch": "master",
+      "created_at": "2009-09-09T18:27:19Z",
+      "prs_90d": 677,
+      "prs_180d": 1274,
+      "size_band": "large",
+      "discovered_via": [
+        "issues:\"Co-authored by Cursor\" type:pr"
+      ],
+      "marker_share_estimate": null,
+      "selection_rank_within_band": 8,
+      "cohort": "agent"
+    },
+    {
+      "full": "windmill-labs/windmill",
+      "stars": 16744,
+      "language": "Rust",
+      "default_branch": "main",
+      "created_at": "2022-05-05T02:21:17Z",
+      "prs_90d": 960,
+      "prs_180d": 1743,
+      "size_band": "large",
+      "discovered_via": [
+        "commits:\"Co-Authored-By: Claude\""
+      ],
+      "marker_share_estimate": null,
+      "selection_rank_within_band": 9,
+      "cohort": "agent"
+    },
+    {
+      "full": "MetaMask/metamask-extension",
+      "stars": 13140,
+      "language": "TypeScript",
+      "default_branch": "main",
+      "created_at": "2015-09-06T16:34:48Z",
+      "prs_90d": 1538,
+      "prs_180d": 2692,
+      "size_band": "large",
+      "discovered_via": [
+        "issues:\"Co-authored by Cursor\" type:pr"
+      ],
+      "marker_share_estimate": null,
+      "selection_rank_within_band": 10,
+      "cohort": "agent"
+    },
+    {
+      "full": "nearai/ironclaw",
+      "stars": 12444,
+      "language": "Rust",
+      "default_branch": "main",
+      "created_at": "2026-02-03T06:57:10Z",
+      "prs_90d": 1794,
+      "prs_180d": 2238,
+      "size_band": "large",
+      "discovered_via": [
+        "issues:\"Generated with [Claude Code]\" type:pr"
+      ],
+      "marker_share_estimate": null,
+      "selection_rank_within_band": 11,
+      "cohort": "agent"
+    },
+    {
+      "full": "dotnet/orleans",
+      "stars": 10786,
+      "language": "C#",
+      "default_branch": "main",
+      "created_at": "2014-12-19T14:32:50Z",
+      "prs_90d": 197,
+      "prs_180d": 279,
+      "size_band": "large",
+      "discovered_via": [
+        "commits:\"Co-authored-by: Copilot\""
+      ],
+      "marker_share_estimate": null,
+      "selection_rank_within_band": 12,
+      "cohort": "agent"
+    },
+    {
+      "full": "yugabyte/yugabyte-db",
+      "stars": 10336,
+      "language": "C",
+      "default_branch": "master",
+      "created_at": "2017-10-05T21:56:00Z",
+      "prs_90d": 235,
+      "prs_180d": 390,
+      "size_band": "large",
+      "discovered_via": [
+        "issues:\"Co-authored by Cursor\" type:pr"
+      ],
+      "marker_share_estimate": null,
+      "selection_rank_within_band": 13,
+      "cohort": "agent"
+    },
+    {
+      "full": "github/copilot-sdk",
+      "stars": 9395,
+      "language": "Java",
+      "default_branch": "main",
+      "created_at": "2026-01-14T00:23:22Z",
+      "prs_90d": 346,
+      "prs_180d": 599,
+      "size_band": "large",
+      "discovered_via": [
+        "commits:\"Co-authored-by: Copilot\""
+      ],
+      "marker_share_estimate": null,
+      "selection_rank_within_band": 14,
+      "cohort": "agent"
+    },
+    {
+      "full": "inventree/InvenTree",
+      "stars": 7140,
+      "language": "Python",
+      "default_branch": "master",
+      "created_at": "2017-03-23T01:44:10Z",
+      "prs_90d": 435,
+      "prs_180d": 707,
+      "size_band": "large",
+      "discovered_via": [
+        "commits:\"Co-authored-by: Copilot\""
+      ],
+      "marker_share_estimate": null,
+      "selection_rank_within_band": 15,
+      "cohort": "agent"
+    },
+    {
+      "full": "debpalash/OmniVoice-Studio",
+      "stars": 6879,
+      "language": "Python",
+      "default_branch": "main",
+      "created_at": "2026-04-09T21:40:26Z",
+      "prs_90d": 276,
+      "prs_180d": 276,
+      "size_band": "large",
+      "discovered_via": [
+        "issues:\"Generated with [Claude Code]\" type:pr"
+      ],
+      "marker_share_estimate": null,
+      "selection_rank_within_band": 16,
+      "cohort": "agent"
+    },
+    {
+      "full": "aptos-labs/aptos-core",
+      "stars": 6434,
+      "language": "Rust",
+      "default_branch": "main",
+      "created_at": "2022-02-23T05:43:17Z",
+      "prs_90d": 628,
+      "prs_180d": 1089,
+      "size_band": "large",
+      "discovered_via": [
+        "issues:\"Co-authored by Cursor\" type:pr"
+      ],
+      "marker_share_estimate": null,
+      "selection_rank_within_band": 17,
+      "cohort": "agent"
+    }
+  ],
+  "baseline_cohort": [
+    {
+      "full": "EbookFoundation/free-programming-books",
+      "stars": 390136,
+      "language": "Python",
+      "default_branch": "main",
+      "created_at": "2013-10-11T06:50:37Z",
+      "prs_90d": 42,
+      "prs_180d": 67,
+      "size_band": "small",
+      "discovered_via": [
+        "repos:language:Python"
+      ],
+      "marker_share_estimate": 0.047619047619047616,
+      "selection_rank_within_band": 1,
+      "cohort": "baseline"
+    },
+    {
+      "full": "Snailclimb/JavaGuide",
+      "stars": 156340,
+      "language": "JavaScript",
+      "default_branch": "main",
+      "created_at": "2018-05-07T13:27:00Z",
+      "prs_90d": 42,
+      "prs_180d": 63,
+      "size_band": "small",
+      "discovered_via": [
+        "repos:language:JavaScript"
+      ],
+      "marker_share_estimate": 0.0,
+      "selection_rank_within_band": 2,
+      "cohort": "baseline"
+    },
+    {
+      "full": "krahets/hello-algo",
+      "stars": 126661,
+      "language": "Java",
+      "default_branch": "main",
+      "created_at": "2022-11-04T11:08:34Z",
+      "prs_90d": 21,
+      "prs_180d": 31,
+      "size_band": "small",
+      "discovered_via": [
+        "repos:language:Java"
+      ],
+      "marker_share_estimate": 0.0,
+      "selection_rank_within_band": 3,
+      "cohort": "baseline"
+    },
+    {
+      "full": "microsoft/TypeScript",
+      "stars": 109211,
+      "language": "TypeScript",
+      "default_branch": "main",
+      "created_at": "2014-06-17T15:28:39Z",
+      "prs_90d": 29,
+      "prs_180d": 105,
+      "size_band": "small",
+      "discovered_via": [
+        "repos:language:TypeScript"
+      ],
+      "marker_share_estimate": 0.0,
+      "selection_rank_within_band": 4,
+      "cohort": "baseline"
+    },
+    {
+      "full": "fatedier/frp",
+      "stars": 107292,
+      "language": "Go",
+      "default_branch": "dev",
+      "created_at": "2015-12-21T15:24:59Z",
+      "prs_90d": 39,
+      "prs_180d": 92,
+      "size_band": "small",
+      "discovered_via": [
+        "repos:language:Go"
+      ],
+      "marker_share_estimate": 0.0,
+      "selection_rank_within_band": 5,
+      "cohort": "baseline"
+    },
+    {
+      "full": "microsoft/Web-Dev-For-Beginners",
+      "stars": 95870,
+      "language": "JavaScript",
+      "default_branch": "main",
+      "created_at": "2020-11-10T02:44:00Z",
+      "prs_90d": 21,
+      "prs_180d": 54,
+      "size_band": "small",
+      "discovered_via": [
+        "repos:language:JavaScript"
+      ],
+      "marker_share_estimate": 0.0,
+      "selection_rank_within_band": 6,
+      "cohort": "baseline"
+    },
+    {
+      "full": "syncthing/syncthing",
+      "stars": 85265,
+      "language": "Go",
+      "default_branch": "main",
+      "created_at": "2013-11-26T09:48:21Z",
+      "prs_90d": 49,
+      "prs_180d": 72,
+      "size_band": "small",
+      "discovered_via": [
+        "repos:language:Go"
+      ],
+      "marker_share_estimate": 0.02040816326530612,
+      "selection_rank_within_band": 7,
+      "cohort": "baseline"
+    },
+    {
+      "full": "junegunn/fzf",
+      "stars": 80930,
+      "language": "Go",
+      "default_branch": "master",
+      "created_at": "2013-10-23T16:04:23Z",
+      "prs_90d": 21,
+      "prs_180d": 43,
+      "size_band": "small",
+      "discovered_via": [
+        "repos:language:Go"
+      ],
+      "marker_share_estimate": 0.0,
+      "selection_rank_within_band": 8,
+      "cohort": "baseline"
+    },
+    {
+      "full": "typicode/json-server",
+      "stars": 75602,
+      "language": "JavaScript",
+      "default_branch": "main",
+      "created_at": "2013-11-27T13:21:13Z",
+      "prs_90d": 6,
+      "prs_180d": 48,
+      "size_band": "small",
+      "discovered_via": [
+        "repos:language:JavaScript"
+      ],
+      "marker_share_estimate": 0.0,
+      "selection_rank_within_band": 9,
+      "cohort": "baseline"
+    },
+    {
+      "full": "Eugeny/tabby",
+      "stars": 72086,
+      "language": "TypeScript",
+      "default_branch": "master",
+      "created_at": "2016-12-23T09:06:10Z",
+      "prs_90d": 42,
+      "prs_180d": 56,
+      "size_band": "small",
+      "discovered_via": [
+        "repos:language:TypeScript"
+      ],
+      "marker_share_estimate": 0.047619047619047616,
+      "selection_rank_within_band": 10,
+      "cohort": "baseline"
+    },
+    {
+      "full": "apache/echarts",
+      "stars": 66574,
+      "language": "TypeScript",
+      "default_branch": "master",
+      "created_at": "2013-04-03T03:18:59Z",
+      "prs_90d": 21,
+      "prs_180d": 40,
+      "size_band": "small",
+      "discovered_via": [
+        "repos:language:TypeScript"
+      ],
+      "marker_share_estimate": 0.047619047619047616,
+      "selection_rank_within_band": 11,
+      "cohort": "baseline"
+    },
+    {
+      "full": "Asabeneh/30-Days-Of-Python",
+      "stars": 64657,
+      "language": "Python",
+      "default_branch": "master",
+      "created_at": "2019-11-19T17:24:16Z",
+      "prs_90d": 3,
+      "prs_180d": 78,
+      "size_band": "small",
+      "discovered_via": [
+        "repos:language:Python"
+      ],
+      "marker_share_estimate": 0.0,
+      "selection_rank_within_band": 12,
+      "cohort": "baseline"
+    },
+    {
+      "full": "FuelLabs/sway",
+      "stars": 61636,
+      "language": "Rust",
+      "default_branch": "master",
+      "created_at": "2021-01-19T20:54:33Z",
+      "prs_90d": 34,
+      "prs_180d": 69,
+      "size_band": "small",
+      "discovered_via": [
+        "repos:language:Rust"
+      ],
+      "marker_share_estimate": 0.0,
+      "selection_rank_within_band": 13,
+      "cohort": "baseline"
+    },
+    {
+      "full": "lodash/lodash",
+      "stars": 61232,
+      "language": "JavaScript",
+      "default_branch": "main",
+      "created_at": "2012-04-07T04:11:46Z",
+      "prs_90d": 24,
+      "prs_180d": 38,
+      "size_band": "small",
+      "discovered_via": [
+        "repos:language:JavaScript"
+      ],
+      "marker_share_estimate": 0.041666666666666664,
+      "selection_rank_within_band": 14,
+      "cohort": "baseline"
+    },
+    {
+      "full": "jquery/jquery",
+      "stars": 59832,
+      "language": "JavaScript",
+      "default_branch": "main",
+      "created_at": "2009-04-03T15:20:14Z",
+      "prs_90d": 24,
+      "prs_180d": 54,
+      "size_band": "small",
+      "discovered_via": [
+        "repos:language:JavaScript"
+      ],
+      "marker_share_estimate": 0.0,
+      "selection_rank_within_band": 15,
+      "cohort": "baseline"
+    },
+    {
+      "full": "pmndrs/zustand",
+      "stars": 58272,
+      "language": "TypeScript",
+      "default_branch": "main",
+      "created_at": "2019-04-09T09:10:06Z",
+      "prs_90d": 29,
+      "prs_180d": 77,
+      "size_band": "small",
+      "discovered_via": [
+        "repos:language:TypeScript"
+      ],
+      "marker_share_estimate": 0.0,
+      "selection_rank_within_band": 16,
+      "cohort": "baseline"
+    },
+    {
+      "full": "ultralytics/yolov5",
+      "stars": 57518,
+      "language": "Python",
+      "default_branch": "master",
+      "created_at": "2020-05-18T03:45:11Z",
+      "prs_90d": 42,
+      "prs_180d": 53,
+      "size_band": "small",
+      "discovered_via": [
+        "repos:language:Python"
+      ],
+      "marker_share_estimate": 0.023809523809523808,
+      "selection_rank_within_band": 17,
+      "cohort": "baseline"
+    },
+    {
+      "full": "react/react",
+      "stars": 245803,
+      "language": "JavaScript",
+      "default_branch": "main",
+      "created_at": "2013-05-24T16:15:54Z",
+      "prs_90d": 116,
+      "prs_180d": 297,
+      "size_band": "medium",
+      "discovered_via": [
+        "repos:language:JavaScript"
+      ],
+      "marker_share_estimate": 0.034482758620689655,
+      "selection_rank_within_band": 1,
+      "cohort": "baseline"
+    },
+    {
+      "full": "yt-dlp/yt-dlp",
+      "stars": 170116,
+      "language": "Python",
+      "default_branch": "master",
+      "created_at": "2020-10-26T04:22:55Z",
+      "prs_90d": 73,
+      "prs_180d": 218,
+      "size_band": "medium",
+      "discovered_via": [
+        "repos:language:Python"
+      ],
+      "marker_share_estimate": 0.0136986301369863,
+      "selection_rank_within_band": 2,
+      "cohort": "baseline"
+    },
+    {
+      "full": "iptv-org/iptv",
+      "stars": 117977,
+      "language": "TypeScript",
+      "default_branch": "master",
+      "created_at": "2018-11-14T22:00:57Z",
+      "prs_90d": 78,
+      "prs_180d": 168,
+      "size_band": "medium",
+      "discovered_via": [
+        "repos:language:TypeScript"
+      ],
+      "marker_share_estimate": 0.0,
+      "selection_rank_within_band": 3,
+      "cohort": "baseline"
+    },
+    {
+      "full": "rustdesk/rustdesk",
+      "stars": 116071,
+      "language": "Rust",
+      "default_branch": "master",
+      "created_at": "2020-09-28T15:36:08Z",
+      "prs_90d": 121,
+      "prs_180d": 261,
+      "size_band": "medium",
+      "discovered_via": [
+        "repos:language:Rust"
+      ],
+      "marker_share_estimate": 0.049586776859504134,
+      "selection_rank_within_band": 4,
+      "cohort": "baseline"
+    },
+    {
+      "full": "tauri-apps/tauri",
+      "stars": 107802,
+      "language": "Rust",
+      "default_branch": "dev",
+      "created_at": "2019-07-13T09:09:37Z",
+      "prs_90d": 120,
+      "prs_180d": 226,
+      "size_band": "medium",
+      "discovered_via": [
+        "repos:language:Rust"
+      ],
+      "marker_share_estimate": 0.0,
+      "selection_rank_within_band": 5,
+      "cohort": "baseline"
+    },
+    {
+      "full": "microsoft/terminal",
+      "stars": 103556,
+      "language": "C++",
+      "default_branch": "main",
+      "created_at": "2017-08-11T18:38:22Z",
+      "prs_90d": 83,
+      "prs_180d": 184,
+      "size_band": "medium",
+      "discovered_via": [
+        "repos:language:C++"
+      ],
+      "marker_share_estimate": 0.0,
+      "selection_rank_within_band": 6,
+      "cohort": "baseline"
+    },
+    {
+      "full": "tailwindlabs/tailwindcss",
+      "stars": 95507,
+      "language": "TypeScript",
+      "default_branch": "main",
+      "created_at": "2017-10-06T14:59:14Z",
+      "prs_90d": 108,
+      "prs_180d": 177,
+      "size_band": "medium",
+      "discovered_via": [
+        "repos:language:TypeScript"
+      ],
+      "marker_share_estimate": 0.0,
+      "selection_rank_within_band": 7,
+      "cohort": "baseline"
+    },
+    {
+      "full": "spring-projects/spring-boot",
+      "stars": 80896,
+      "language": "Java",
+      "default_branch": "main",
+      "created_at": "2012-10-19T15:02:57Z",
+      "prs_90d": 84,
+      "prs_180d": 87,
+      "size_band": "medium",
+      "discovered_via": [
+        "repos:language:Java"
+      ],
+      "marker_share_estimate": 0.0,
+      "selection_rank_within_band": 8,
+      "cohort": "baseline"
+    },
+    {
+      "full": "jesseduffield/lazygit",
+      "stars": 79220,
+      "language": "Go",
+      "default_branch": "master",
+      "created_at": "2018-05-19T00:53:06Z",
+      "prs_90d": 109,
+      "prs_180d": 169,
+      "size_band": "medium",
+      "discovered_via": [
+        "repos:language:Go"
+      ],
+      "marker_share_estimate": 0.0,
+      "selection_rank_within_band": 9,
+      "cohort": "baseline"
+    },
+    {
+      "full": "coder/code-server",
+      "stars": 77921,
+      "language": "TypeScript",
+      "default_branch": "main",
+      "created_at": "2019-02-27T16:50:41Z",
+      "prs_90d": 55,
+      "prs_180d": 93,
+      "size_band": "medium",
+      "discovered_via": [
+        "repos:language:TypeScript"
+      ],
+      "marker_share_estimate": 0.0,
+      "selection_rank_within_band": 10,
+      "cohort": "baseline"
+    },
+    {
+      "full": "caddyserver/caddy",
+      "stars": 73272,
+      "language": "Go",
+      "default_branch": "master",
+      "created_at": "2015-01-13T19:45:03Z",
+      "prs_90d": 81,
+      "prs_180d": 149,
+      "size_band": "medium",
+      "discovered_via": [
+        "repos:language:Go"
+      ],
+      "marker_share_estimate": 0.0,
+      "selection_rank_within_band": 11,
+      "cohort": "baseline"
+    },
+    {
+      "full": "OpenBB-finance/OpenBB",
+      "stars": 69021,
+      "language": "Python",
+      "default_branch": "develop",
+      "created_at": "2020-12-20T10:46:38Z",
+      "prs_90d": 55,
+      "prs_180d": 114,
+      "size_band": "medium",
+      "discovered_via": [
+        "repos:language:Python"
+      ],
+      "marker_share_estimate": 0.01818181818181818,
+      "selection_rank_within_band": 12,
+      "cohort": "baseline"
+    },
+    {
+      "full": "TheAlgorithms/Java",
+      "stars": 65828,
+      "language": "Java",
+      "default_branch": "master",
+      "created_at": "2016-07-16T10:21:02Z",
+      "prs_90d": 59,
+      "prs_180d": 141,
+      "size_band": "medium",
+      "discovered_via": [
+        "repos:language:Java"
+      ],
+      "marker_share_estimate": 0.0,
+      "selection_rank_within_band": 13,
+      "cohort": "baseline"
+    },
+    {
+      "full": "facebook/docusaurus",
+      "stars": 65187,
+      "language": "TypeScript",
+      "default_branch": "main",
+      "created_at": "2017-06-20T16:13:53Z",
+      "prs_90d": 134,
+      "prs_180d": 201,
+      "size_band": "medium",
+      "discovered_via": [
+        "repos:language:TypeScript"
+      ],
+      "marker_share_estimate": 0.04477611940298507,
+      "selection_rank_within_band": 14,
+      "cohort": "baseline"
+    },
+    {
+      "full": "dani-garcia/vaultwarden",
+      "stars": 62272,
+      "language": "Rust",
+      "default_branch": "main",
+      "created_at": "2018-02-17T22:40:20Z",
+      "prs_90d": 54,
+      "prs_180d": 100,
+      "size_band": "medium",
+      "discovered_via": [
+        "repos:language:Rust"
+      ],
+      "marker_share_estimate": 0.0,
+      "selection_rank_within_band": 15,
+      "cohort": "baseline"
+    },
+    {
+      "full": "scrapy/scrapy",
+      "stars": 62216,
+      "language": "Python",
+      "default_branch": "master",
+      "created_at": "2010-02-22T02:01:14Z",
+      "prs_90d": 104,
+      "prs_180d": 144,
+      "size_band": "medium",
+      "discovered_via": [
+        "repos:language:Python"
+      ],
+      "marker_share_estimate": 0.028846153846153848,
+      "selection_rank_within_band": 16,
+      "cohort": "baseline"
+    },
+    {
+      "full": "sharkdp/bat",
+      "stars": 59242,
+      "language": "Rust",
+      "default_branch": "master",
+      "created_at": "2018-04-21T10:52:23Z",
+      "prs_90d": 55,
+      "prs_180d": 94,
+      "size_band": "medium",
+      "discovered_via": [
+        "repos:language:Rust"
+      ],
+      "marker_share_estimate": 0.03636363636363636,
+      "selection_rank_within_band": 17,
+      "cohort": "baseline"
+    },
+    {
+      "full": "freeCodeCamp/freeCodeCamp",
+      "stars": 446699,
+      "language": "TypeScript",
+      "default_branch": "main",
+      "created_at": "2014-12-24T17:49:19Z",
+      "prs_90d": 626,
+      "prs_180d": 1554,
+      "size_band": "large",
+      "discovered_via": [
+        "repos:language:TypeScript"
+      ],
+      "marker_share_estimate": 0.0,
+      "selection_rank_within_band": 1,
+      "cohort": "baseline"
+    },
+    {
+      "full": "nilbuild/developer-roadmap",
+      "stars": 356856,
+      "language": "TypeScript",
+      "default_branch": "master",
+      "created_at": "2017-03-15T13:45:52Z",
+      "prs_90d": 192,
+      "prs_180d": 344,
+      "size_band": "large",
+      "discovered_via": [
+        "repos:language:TypeScript"
+      ],
+      "marker_share_estimate": 0.0,
+      "selection_rank_within_band": 2,
+      "cohort": "baseline"
+    },
+    {
+      "full": "tensorflow/tensorflow",
+      "stars": 195622,
+      "language": "C++",
+      "default_branch": "master",
+      "created_at": "2015-11-07T01:19:20Z",
+      "prs_90d": 3838,
+      "prs_180d": 6837,
+      "size_band": "large",
+      "discovered_via": [
+        "repos:language:C++"
+      ],
+      "marker_share_estimate": 0.0070349140177175615,
+      "selection_rank_within_band": 3,
+      "cohort": "baseline"
+    },
+    {
+      "full": "huggingface/transformers",
+      "stars": 161545,
+      "language": "Python",
+      "default_branch": "main",
+      "created_at": "2018-10-29T13:56:00Z",
+      "prs_90d": 795,
+      "prs_180d": 1634,
+      "size_band": "large",
+      "discovered_via": [
+        "repos:language:Python"
+      ],
+      "marker_share_estimate": 0.033962264150943396,
+      "selection_rank_within_band": 4,
+      "cohort": "baseline"
+    },
+    {
+      "full": "vercel/next.js",
+      "stars": 139958,
+      "language": "JavaScript",
+      "default_branch": "canary",
+      "created_at": "2016-10-05T23:32:51Z",
+      "prs_90d": 1065,
+      "prs_180d": 2148,
+      "size_band": "large",
+      "discovered_via": [
+        "repos:language:JavaScript"
+      ],
+      "marker_share_estimate": 0.03755868544600939,
+      "selection_rank_within_band": 5,
+      "cohort": "baseline"
+    },
+    {
+      "full": "kubernetes/kubernetes",
+      "stars": 122970,
+      "language": "Go",
+      "default_branch": "master",
+      "created_at": "2014-06-06T22:56:04Z",
+      "prs_90d": 803,
+      "prs_180d": 1776,
+      "size_band": "large",
+      "discovered_via": [
+        "repos:language:Go"
+      ],
+      "marker_share_estimate": 0.0062266500622665,
+      "selection_rank_within_band": 6,
+      "cohort": "baseline"
+    },
+    {
+      "full": "electron/electron",
+      "stars": 121611,
+      "language": "C++",
+      "default_branch": "main",
+      "created_at": "2013-04-12T01:47:36Z",
+      "prs_90d": 1262,
+      "prs_180d": 1995,
+      "size_band": "large",
+      "discovered_via": [
+        "repos:language:C++"
+      ],
+      "marker_share_estimate": 0.000792393026941363,
+      "selection_rank_within_band": 7,
+      "cohort": "baseline"
+    },
+    {
+      "full": "nodejs/node",
+      "stars": 117737,
+      "language": "JavaScript",
+      "default_branch": "main",
+      "created_at": "2014-11-26T19:57:11Z",
+      "prs_90d": 632,
+      "prs_180d": 1143,
+      "size_band": "large",
+      "discovered_via": [
+        "repos:language:JavaScript"
+      ],
+      "marker_share_estimate": 0.0031645569620253164,
+      "selection_rank_within_band": 8,
+      "cohort": "baseline"
+    },
+    {
+      "full": "rust-lang/rust",
+      "stars": 113786,
+      "language": "Rust",
+      "default_branch": "main",
+      "created_at": "2010-06-16T20:39:03Z",
+      "prs_90d": 2042,
+      "prs_180d": 3984,
+      "size_band": "large",
+      "discovered_via": [
+        "repos:language:Rust"
+      ],
+      "marker_share_estimate": 0.0004897159647404506,
+      "selection_rank_within_band": 9,
+      "cohort": "baseline"
+    },
+    {
+      "full": "mrdoob/three.js",
+      "stars": 113003,
+      "language": "JavaScript",
+      "default_branch": "dev",
+      "created_at": "2010-03-23T18:58:01Z",
+      "prs_90d": 397,
+      "prs_180d": 768,
+      "size_band": "large",
+      "discovered_via": [
+        "repos:language:JavaScript"
+      ],
+      "marker_share_estimate": 0.0025188916876574307,
+      "selection_rank_within_band": 10,
+      "cohort": "baseline"
+    },
+    {
+      "full": "godotengine/godot",
+      "stars": 112440,
+      "language": "C++",
+      "default_branch": "master",
+      "created_at": "2014-01-04T16:05:36Z",
+      "prs_90d": 948,
+      "prs_180d": 2109,
+      "size_band": "large",
+      "discovered_via": [
+        "repos:language:C++"
+      ],
+      "marker_share_estimate": 0.008438818565400843,
+      "selection_rank_within_band": 11,
+      "cohort": "baseline"
+    },
+    {
+      "full": "axios/axios",
+      "stars": 109079,
+      "language": "JavaScript",
+      "default_branch": "v1.x",
+      "created_at": "2014-08-18T22:30:27Z",
+      "prs_90d": 247,
+      "prs_180d": 304,
+      "size_band": "large",
+      "discovered_via": [
+        "repos:language:JavaScript"
+      ],
+      "marker_share_estimate": 0.008097165991902834,
+      "selection_rank_within_band": 12,
+      "cohort": "baseline"
+    },
+    {
+      "full": "supabase/supabase",
+      "stars": 104097,
+      "language": "TypeScript",
+      "default_branch": "master",
+      "created_at": "2019-10-12T05:56:49Z",
+      "prs_90d": 1739,
+      "prs_180d": 2969,
+      "size_band": "large",
+      "discovered_via": [
+        "repos:language:TypeScript"
+      ],
+      "marker_share_estimate": 0.025301897642323174,
+      "selection_rank_within_band": 13,
+      "cohort": "baseline"
+    },
+    {
+      "full": "immich-app/immich",
+      "stars": 103175,
+      "language": "TypeScript",
+      "default_branch": "main",
+      "created_at": "2022-02-03T15:56:27Z",
+      "prs_90d": 706,
+      "prs_180d": 1455,
+      "size_band": "large",
+      "discovered_via": [
+        "repos:language:TypeScript"
+      ],
+      "marker_share_estimate": 0.007082152974504249,
+      "selection_rank_within_band": 14,
+      "cohort": "baseline"
+    },
+    {
+      "full": "angular/angular",
+      "stars": 100319,
+      "language": "TypeScript",
+      "default_branch": "main",
+      "created_at": "2014-09-18T16:12:01Z",
+      "prs_90d": 998,
+      "prs_180d": 2001,
+      "size_band": "large",
+      "discovered_via": [
+        "repos:language:TypeScript"
+      ],
+      "marker_share_estimate": 0.001002004008016032,
+      "selection_rank_within_band": 15,
+      "cohort": "baseline"
+    },
+    {
+      "full": "mui/material-ui",
+      "stars": 98399,
+      "language": "JavaScript",
+      "default_branch": "master",
+      "created_at": "2014-08-18T19:11:54Z",
+      "prs_90d": 448,
+      "prs_180d": 783,
+      "size_band": "large",
+      "discovered_via": [
+        "repos:language:JavaScript"
+      ],
+      "marker_share_estimate": 0.024553571428571428,
+      "selection_rank_within_band": 16,
+      "cohort": "baseline"
+    },
+    {
+      "full": "ant-design/ant-design",
+      "stars": 98337,
+      "language": "TypeScript",
+      "default_branch": "master",
+      "created_at": "2015-04-24T15:37:24Z",
+      "prs_90d": 619,
+      "prs_180d": 1188,
+      "size_band": "large",
+      "discovered_via": [
+        "repos:language:TypeScript"
+      ],
+      "marker_share_estimate": 0.025848142164781908,
+      "selection_rank_within_band": 17,
+      "cohort": "baseline"
+    }
+  ]
+}
