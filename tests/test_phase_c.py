@@ -97,6 +97,47 @@ class TestReport(unittest.TestCase):
         self.assertIn("No PR had a majority", h)
         self.assertIn("repo too small for module-level hotspots", h)
 
+    def test_zero_pr_survival_honest_in_all_three_surfaces(self):
+        # Regression (S7 smoke find): a 0-merged-line repo must read "no data",
+        # never "0% survived". S6 fixed only the headline; the Evidence·survival
+        # panel (report.py) and the CLI summary (cli.py) still printed "0.0% overall"
+        # / "survival: 0%", which reads as "everything was discarded" — the opposite.
+        from commensa_audit.cli import _survival_summary
+        audit, _ = _fixture()
+        units = []  # 0-PR repo: no merged-line attribution exists
+        audit["classifications"] = {}
+        audit["churn_clusters"] = []
+        audit["supersessions"] = {}
+        audit["hotspots"]["top"] = []
+        audit["rework_tax"].update(total_prs=0, corrective_prs=0,
+                                   pct_prs_corrective=0.0, pct_changed_lines_corrective=0.0)
+        audit["rework_tax"].pop("estimated_rework_cost_usd", None)
+        audit["abandoned"].update(count=0, pct_of_prs=0.0, units=[], in_flight_open_prs=0)
+        audit["ai_marked"].update(count=0, pct_of_prs_lower_bound=0.0, per_unit={})
+        audit["velocity_context"].update(prs_per_week=0.0, merge_rate=0.0,
+                                         size_lines_added=dict(p25=0, median=0, p75=0, max=0))
+        # the 0/1 fallback overall_rate is exactly what made "0%" leak
+        audit["survival"].update(overall_rate=0.0, median_rate=None, per_unit={})
+
+        honest = "no merged PR lines to measure yet"
+        h = render(audit, units)
+        # Surfaces 1 (headline) + 2 (Evidence·survival panel): both honest, no percent claim
+        self.assertEqual(h.count(honest), 2,
+                         "honest empty-state must appear in BOTH report survival surfaces")
+        # the survival panel's "<b>X%</b> overall · median per-PR …" phrasing must be gone:
+        # 'overall' appears only there, so its absence proves no percent-survival claim remains
+        self.assertNotIn("overall", h)
+
+        # Surface 3: CLI stdout summary
+        summary = _survival_summary(audit["survival"])
+        self.assertEqual(summary, f"overall line survival: {honest}")
+        self.assertNotIn("0%", summary)
+
+        # guard the other direction — the normal (has-lines) path still shows the percent
+        self.assertIn("overall", self.html)   # renders "<b>70.0%</b> overall · median per-PR 70%"
+        self.assertEqual(_survival_summary({"per_unit": {"PR-1": 0.7}, "overall_rate": 0.7}),
+                         "overall line survival: 70%")
+
     # ---- v1.1 additions ----
 
     def test_abandoned_line_in_headline_area(self):

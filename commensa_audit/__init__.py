@@ -5,4 +5,4 @@ engine consumes units.csv (one row per unit of work), never a host API.
 Any future host (Gitea first) is one new extractor emitting the same CSV.
 """
 
-__version__ = "0.2.0"
+__version__ = "0.2.1"

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "commensa-audit"
-version = "0.2.0"
+version = "0.2.1"
 description = "Commensa audit CLI — point it at a GitHub repo, get a one-page AI Rework Report."
 readme = "README.md"
 license = { file = "LICENSE" }

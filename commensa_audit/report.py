@@ -190,7 +190,7 @@ TEMPLATE = """<!doctype html>
 
   <div class="card">
     <h2>Evidence · survival — durability of merged lines</h2>
-    <p><b>{{ survival_pct }}%</b> overall · median per-PR {{ median_pct }}{% if evaporated %} — lowest survivors:{% endif %}</p>
+    <p>{% if has_lines %}<b>{{ survival_pct }}%</b> overall · median per-PR {{ median_pct }}{% if evaporated %} — lowest survivors:{% endif %}{% else %}no merged PR lines to measure yet{% endif %}</p>
     {% if evaporated %}<table><tr><th>PR</th><th>title</th><th>added</th><th>survived</th></tr>
     {% for e in evaporated %}<tr><td class="pct">{{ e.uid }}</td><td>{{ e.title }}</td><td class="pct">{{ e.added }}</td><td class="pct">{{ e.pct }}%</td></tr>{% endfor %}
     </table>{% endif %}

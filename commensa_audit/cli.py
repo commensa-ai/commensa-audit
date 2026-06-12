@@ -239,6 +239,17 @@ def _iso(s: str) -> float:
     return datetime.fromisoformat(s.replace("Z", "+00:00")).timestamp()
 
 
+def _survival_summary(survival: dict) -> str:
+    """One-liner for the stdout summary. With no merged-line attribution the
+    overall_rate is a 0/1 fallback — printing it as '0%' reads as 'everything
+    was discarded' rather than 'no data', so guard on the same has_lines signal
+    the report uses (report.py:render)."""
+    has_lines = any(v is not None for v in survival["per_unit"].values())
+    return ("overall line survival: "
+            + (f"{survival['overall_rate']:.0%}" if has_lines
+               else "no merged PR lines to measure yet"))
+
+
 def main(argv=None) -> int:
     args = build_parser().parse_args(argv)
     token = args.token or os.environ.get("GH_TOKEN") or os.environ.get("GITHUB_TOKEN")
@@ -279,7 +290,7 @@ def main(argv=None) -> int:
           f"and {rt['pct_changed_lines_corrective']}% of changed lines were corrective")
     print(f"churn clusters: {len(audit['churn_clusters'])}  ·  "
           f"superseded PRs: {len(audit['supersessions'])}  ·  "
-          f"overall line survival: {audit['survival']['overall_rate']:.0%}")
+          f"{_survival_summary(audit['survival'])}")
     print(f"audit  -> {audit_path}")
     print(f"report -> {report_path}")
     return 0
