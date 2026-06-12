@@ -21,6 +21,30 @@ from .rework import replay
 from .units import read_units_csv, write_units_csv
 
 
+DEFAULT_MAX_PRS = 500  # safety cap so a naive run on a huge repo isn't unbounded
+
+
+def _since_date(s: str) -> str:
+    """argparse type: accept only an ISO YYYY-MM-DD date."""
+    from datetime import datetime
+    try:
+        datetime.strptime(s, "%Y-%m-%d")
+    except ValueError:
+        raise argparse.ArgumentTypeError(f"--since must be YYYY-MM-DD, got {s!r}")
+    return s
+
+
+def _non_negative_int(s: str) -> int:
+    """argparse type for --max-prs: an int >= 0 (0 = no cap)."""
+    try:
+        v = int(s)
+    except ValueError:
+        raise argparse.ArgumentTypeError(f"--max-prs must be an integer, got {s!r}")
+    if v < 0:
+        raise argparse.ArgumentTypeError(f"--max-prs must be >= 0 (0 = no cap), got {v}")
+    return v
+
+
 def build_parser() -> argparse.ArgumentParser:
     ap = argparse.ArgumentParser(
         prog="commensa-audit",
@@ -40,6 +64,14 @@ def build_parser() -> argparse.ArgumentParser:
                       help="estimated all-in cost per PR for the dollar line")
     cost.add_argument("--ai-spend", type=float, metavar="USD",
                       help="total AI spend over the audited period for the dollar line")
+    ap.add_argument("--since", type=_since_date, default=None, metavar="YYYY-MM-DD",
+                    help="only audit PRs created on/after this UTC date "
+                         "(default: all history)")
+    ap.add_argument("--max-prs", type=_non_negative_int, default=DEFAULT_MAX_PRS,
+                    metavar="N",
+                    help=f"cap to the N newest PRs (default {DEFAULT_MAX_PRS}; "
+                         f"0 = no cap). Combine with --since for cheap windowed "
+                         f"audits of large repos")
     ap.add_argument("--out", default=".", metavar="DIR",
                     help="output directory (default: current dir)")
     ap.add_argument("--reuse", action="store_true",
@@ -66,15 +98,26 @@ def _extract(args, token) -> tuple[list[dict], list[dict]]:
         if i == 1 or i % 25 == 0 or i == total:
             print(f"  PR {i}/{total}", file=sys.stderr)
 
-    print(f"extracting PRs + file patches from {args.repo} (read-only)…", file=sys.stderr)
+    scope = ", ".join(
+        b for b in (f"since {args.since}" if args.since else "",
+                    f"newest {args.max_prs}" if args.max_prs else "") if b)
+    scope = f" [{scope}]" if scope else ""
+    print(f"extracting PRs + file patches from {args.repo} (read-only){scope}…",
+          file=sys.stderr)
     units, sidecar = [], []
     with open(sidecar_path, "w", encoding="utf-8") as f:
-        for unit, side in extractor.units(progress=progress, with_files=True):
+        for unit, side in extractor.units(progress=progress, with_files=True,
+                                          since=args.since, max_prs=args.max_prs):
             units.append(unit)
             sidecar.append(side)
             f.write(json.dumps(side, ensure_ascii=False) + "\n")
     write_units_csv(units_path, units)
-    print(f"wrote {len(units)} units -> {units_path}", file=sys.stderr)
+    print(f"wrote {len(units)} units -> {units_path} "
+          f"({extractor.requests} GitHub API calls)", file=sys.stderr)
+    if extractor.capped:
+        print(f"NOTE: capped at the newest {args.max_prs} PRs — this repo has more. "
+              f"Raise with --max-prs N (default {DEFAULT_MAX_PRS}), or --max-prs 0 "
+              f"for no cap.", file=sys.stderr)
     return units, sidecar
 
 

@@ -44,6 +44,8 @@ class GitHubExtractor:
         if "/" not in repo:
             raise ValueError(f"--repo must be owner/name, got {repo!r}")
         self.repo = repo
+        self.requests = 0   # HTTP round-trips made — for API-budget reporting
+        self.capped = False  # set True when max_prs truncated the listing
         self.session = session or requests.Session()
         self.session.headers.update({
             "Accept": "application/vnd.github+json",
@@ -59,6 +61,7 @@ class GitHubExtractor:
         for attempt in range(MAX_RETRIES + 1):
             try:
                 resp = self.session.get(url, params=params, timeout=30)
+                self.requests += 1
             except (requests.Timeout, requests.ConnectionError) as e:
                 if attempt < MAX_RETRIES:
                     time.sleep(2 ** attempt)
@@ -81,17 +84,48 @@ class GitHubExtractor:
 
     # -- extraction --------------------------------------------------------
 
-    def list_pull_numbers(self) -> list[int]:
-        """All PR numbers in the repo (open + closed), ascending."""
+    def select_pull_numbers(self, since: str | None = None,
+                            max_prs: int | None = None) -> list[int]:
+        """PR numbers (open + closed) to audit, returned ascending.
+
+        Default (since=None, max_prs in {None, 0}): every PR in the repo —
+        unchanged, the Gate A behaviour (same request params, full pagination).
+        A positive max_prs keeps the N newest; `since` keeps PRs created on/after
+        an inclusive YYYY-MM-DD UTC date. When either limit is active the listing
+        switches to newest-first (sort=created&direction=desc) and pagination
+        early-stops as soon as the cap is reached or the first PR older than
+        `since` appears — so a large repo costs ~N list rows + their detail
+        calls, not its whole history. Sets self.capped=True iff max_prs truncated
+        the result (more PRs existed than were returned).
+        """
+        self.capped = False
+        cap = max_prs if (max_prs and max_prs > 0) else None  # 0/None/neg ⇒ no cap
+        limited = since is not None or cap is not None
         numbers: list[int] = []
         url = f"{API_ROOT}/repos/{self.repo}/pulls"
         params: dict | None = {"state": "all", "per_page": PER_PAGE}
+        if limited:
+            params |= {"sort": "created", "direction": "desc"}
         while url:
             resp = self._get(url, params=params)
-            numbers.extend(pr["number"] for pr in resp.json())
+            page = resp.json()
+            for i, pr in enumerate(page):
+                if since is not None and (pr.get("created_at") or "")[:10] < since:
+                    return sorted(numbers)  # desc order ⇒ every remaining PR is older
+                numbers.append(pr["number"])
+                if cap is not None and len(numbers) >= cap:
+                    # truncated iff more PRs remain — in this page or a next one
+                    self.capped = (i < len(page) - 1) or bool(
+                        resp.links.get("next", {}).get("url"))
+                    return sorted(numbers)
             url = resp.links.get("next", {}).get("url")
             params = None  # the Link URL already carries the query string
         return sorted(numbers)
+
+    def list_pull_numbers(self) -> list[int]:
+        """All PR numbers in the repo (open + closed), ascending. Back-compat
+        alias for select_pull_numbers() with no limits."""
+        return self.select_pull_numbers()
 
     def fetch_pull(self, number: int) -> dict:
         resp = self._get(f"{API_ROOT}/repos/{self.repo}/pulls/{number}")
@@ -127,14 +161,18 @@ class GitHubExtractor:
         return messages
 
     def units(self, progress: Callable[[int, int], None] | None = None,
-              with_files: bool = False) -> Iterator[dict | tuple[dict, dict]]:
+              with_files: bool = False, since: str | None = None,
+              max_prs: int | None = None) -> Iterator[dict | tuple[dict, dict]]:
         """Yield one units.csv row per PR, ascending by PR number.
 
         with_files=True additionally fetches each PR's file list + patches and
         yields (unit_row, sidecar_row) tuples — the Phase B detail the rework
         model replays. The sidecar keeps the raw (unsanitized) title and
-        merged_at; units.csv keeps its locked Gate A schema."""
-        numbers = self.list_pull_numbers()
+        merged_at; units.csv keeps its locked Gate A schema.
+
+        since / max_prs scope the audit to the newest PRs (see
+        select_pull_numbers); both default to None = the whole repo."""
+        numbers = self.select_pull_numbers(since=since, max_prs=max_prs)
         total = len(numbers)
         for i, number in enumerate(numbers, 1):
             pr = self.fetch_pull(number)

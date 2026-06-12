@@ -29,6 +29,19 @@ pip install git+https://github.com/commensa-ai/commensa-audit
 
 Output: `report_<repo>.html` (self-contained, forwardable), `audit_<repo>.json` (raw numbers), `units.csv` (per-PR data).
 
+### Scoping large repos
+
+By default the audit covers the **newest 500 PRs** — a safety cap so a naive run on a huge repo stays fast and bounded. When it truncates, the run prints a notice telling you how to raise it. Two optional flags control the window (both newest-first):
+
+```
+commensa-audit --repo frappe/erpnext --since 2026-03-14 --max-prs 150
+```
+
+- `--since YYYY-MM-DD` — only PRs created on/after this UTC date
+- `--max-prs N` — cap to the N newest PRs (default `500`; use `--max-prs 0` for no cap)
+
+Both early-stop pagination, so `--max-prs 150` costs ~150 PRs' worth of API calls, not the repo's entire history. Run with no flags on a repo under 500 PRs and you get everything, exactly as before.
+
 ## Privacy, by architecture
 
 - **Read-only.** GET requests only; a token with read scope is sufficient.
