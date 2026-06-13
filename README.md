@@ -34,7 +34,7 @@ Output: `report_<repo>.html` (self-contained, forwardable), `audit_<repo>.json` 
 By default the audit covers the **newest 500 PRs** — a safety cap so a naive run on a huge repo stays fast and bounded. When it truncates, the run prints a notice telling you how to raise it. Two optional flags control the window (both newest-first):
 
 ```
-commensa-audit --repo frappe/erpnext --since 2026-03-14 --max-prs 150
+commensa-audit --repo owner/name --since 2026-03-14 --max-prs 150
 ```
 
 - `--since YYYY-MM-DD` — only PRs created on/after this UTC date
