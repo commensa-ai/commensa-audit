@@ -1,0 +1,41 @@
+# commensa-audit — Commit Mode (`--local-clone`) Build Spec
+
+> Phase D. Triggered by LaptopsAnytime (self-hosted cgit/Gitea, direct-commit workflow, no PRs — GBrain confirmed) but built because it's broadly needed: it unlocks every non-GitHub, non-PR, self-hosted prospect. Hand to a Claude Code session. Same gate discipline as SPEC.md (A/B/C). Read THESIS.md + context/measurement_architecture.md first for the why.
+
+## The core design insight (Matt, 2026-06-13 — load-bearing)
+**Drift measurement is AUTHOR-AGNOSTIC.** What survived, how many rewrites, how many commits hit the same region — measured from the code's behavior over time, not from who/what wrote it. So the tool measures *the management of the work*, regardless of whether AI, human, or human-committing-AI-as-themselves produced it. This is a bigger, more robust claim than "we measure AI rework."
+- **Attribution (who/what wrote it) is the WEAK, OPTIONAL signal.** Co-Authored-By trailers only catch AI work that announces itself. When a human commits AI-written code under their own name (Dan's workflow), markers read ~0% AI — a known, permanent undercount. Report agent-marked as an explicit lower bound; NEVER rely on it for the before/after.
+- **Drift (what happened to the work) is the STRONG, UNIVERSAL core.** Works on any repo, any author mix, marker or no marker.
+
+## What commit-mode is
+Read the LOCAL `.git` clone (already on the machine via GitKraken/any client). No host API, no network — pure git. Unit = the commit (vs the PR in GitHub-mode). Everything else — the line-attribution replay engine, corrective classification, survival — already exists and operates the same on commits as on PRs; feed it commits.
+
+## Metrics (commit-mode)
+- **Rework tax (commit version):** share of commits / changed-lines that are corrective. Corrective signal cascade, same shape as PR-mode: explicit message (fix/revert/redo/correct) → self-correction (a commit predominantly deleting lines added by a recent commit, within --window) → churn-cluster membership.
+- **Survival:** line-attribution replay over commit history (engine already does this — point it at commits). Same self-gate: suppress below ~N attributable units.
+- **Same-region churn (NEW, commit-native — Matt's "how many commits on the same section"):** count commits repeatedly touching the same file / line-range within --window. The purest drift signal; doesn't exist in PR-mode. Report hottest regions.
+- **Agent-marked (optional, lower bound):** Co-Authored-By trailers in commit messages. Documented to undercount when humans commit AI work as their own. Not used for before/after.
+- Velocity context (commits/week, size dist) — context only, never a target (LOC-trap rule holds).
+
+## THE NATURAL-EXPERIMENT FEATURE: `--split-date`
+The headline capability. `--split-date YYYY-MM-DD` (or `--before/--after`) partitions the commit history at a boundary and computes ALL metrics for each period, then reports the delta. **The calendar boundary is the treatment variable — no authorship label needed.** This is how the Dan/LA human→AI before/after gets measured: split at the ~45-day line, compare drift before vs after. Generalizes to any "we changed how we work on date X" question.
+
+## Build phases & binary gates
+- **Gate D-A — extractor fidelity.** Build the local-clone commit extractor (read `.git` via `git log`/plumbing, no network). GATE: its per-commit facts (sha, author, date, files, +/- lines) match `git log --numstat` on a known repo, exactly.
+- **Gate D-B — cross-mode agreement.** Run commit-mode on **order-sheet-web-v2** (which has BOTH PRs and commits — we already have its PR-mode audit). GATE: commit-mode's drift metrics roughly track PR-mode's on the same repo (same rework story, no wild divergence). This validates commit-mode against the known-good PR result. Document expected differences (squash merges collapse commits, etc.).
+- **Gate D-C — the natural experiment.** Run on Dan's LA repo (local clone) with `--split-date` at the ~45-day human→AI boundary. GATE: produces an honest before/after on rework, survival, same-region churn; Matt reads it and the delta is interpretable. THIS is the acceptance test and the first data point of the LA case study.
+
+## Guardrails (bugs if violated)
+- Read-only, local-only, **no network at all** in this mode (it's a local clone) — strongest version of the privacy story.
+- stdlib only (no host API client needed); reuse the existing engine.
+- Honest limits in output: squash merges collapse history; rebases rewrite it; `--split-date` deltas are descriptive, not causal (the before/after is a natural experiment, n=1 repo — hypothesis-generating, document it); agent-marked is a lower bound and undercounts human-committed AI work.
+- Same-region churn and survival self-gate on minimum volume; print n/a below threshold.
+
+## Out of scope for Phase D
+Tokens/cost (that's the harness, separate), sentiment, multi-repo rollups, GitHub-mode changes. Just: local clone in, commit-mode drift out, with --split-date.
+
+## Why this is worth building now (not a one-off)
+1. Unlocks the LA/Dan natural experiment (the case study + first before/after data).
+2. Unlocks EVERY self-hosted / Gitea / GitLab / non-PR prospect — and our own infra is self-hosted, so this is clearly a large real-world slice, not an edge case.
+3. Establishes that drift is author-agnostic and measurable without markers — the more robust, more general product claim.
+4. `--split-date` is a reusable "did our workflow change help?" feature any customer wants.
