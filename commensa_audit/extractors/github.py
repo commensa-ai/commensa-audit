@@ -193,6 +193,19 @@ class GitHubExtractor:
                                            "additions", "deletions", "patch")}
                     for f in self.fetch_pull_files(number)
                 ]
+                # M-A: detect_markers returns {markers, model}; PR-mode
+                # passes the PR author identity (a User dict) so a PR opened
+                # by a bot account (e.g. dependabot[bot]) flags via identity
+                # scan. The platform-exclusion guardrail still protects
+                # GitHub web-UI commits if surfaced elsewhere.
+                pr_user = (pr.get("user") or {})
+                author_id = (f"{pr_user.get('login')} <{pr_user.get('login')}@users.noreply.github.com>"
+                             if pr_user.get("login") else None)
+                marker_result = detect_markers(
+                    pr.get("body"),
+                    self.fetch_commit_messages(number),
+                    author_identity=author_id,
+                )
                 sidecar = {
                     "unit_id": unit["unit_id"],
                     "number": number,
@@ -203,8 +216,8 @@ class GitHubExtractor:
                     "state": pr.get("state"),          # open | closed
                     "closed_at": pr.get("closed_at"),
                     # marker strings only — bodies/messages stay off disk (local-first, lean sidecar)
-                    "ai_markers": detect_markers(pr.get("body"),
-                                                 self.fetch_commit_messages(number)),
+                    "ai_markers": marker_result["markers"],
+                    "ai_model":   marker_result["model"],
                     "files": files,
                 }
                 yield unit, sidecar

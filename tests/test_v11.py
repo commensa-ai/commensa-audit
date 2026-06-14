@@ -7,28 +7,39 @@ from commensa_audit.markers import detect_markers
 
 
 class TestMarkers(unittest.TestCase):
+    """M-A: detect_markers now returns {markers, model}. These tests pin
+    the existing semantics for the markers list (PR-mode byte-identical)
+    and add coverage for the new structured `model` field."""
+
     def test_claude_code_trailer(self):
         msgs = ["fix: thing\n\nCo-Authored-By: Claude Fable 5 <noreply@anthropic.com>"]
-        found = detect_markers(None, msgs)
-        self.assertEqual(len(found), 1)
-        self.assertIn("Co-Authored-By", found[0])
+        r = detect_markers(None, msgs)
+        self.assertEqual(len(r["markers"]), 1)
+        self.assertIn("Co-Authored-By", r["markers"][0])
+        # model extraction — Fable 5 is a recognized tier
+        self.assertEqual(r["model"], {"family": "claude", "tier": "fable", "version": "5"})
 
     def test_human_coauthor_not_flagged(self):
         msgs = ["feat: thing\n\nCo-Authored-By: Jane Doe <jane@example.com>"]
-        self.assertEqual(detect_markers(None, msgs), [])
+        self.assertEqual(detect_markers(None, msgs), {"markers": [], "model": None})
 
     def test_body_signature(self):
         body = "Adds X.\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)"
-        found = detect_markers(body, [])
-        self.assertTrue(found)
+        r = detect_markers(body, [])
+        self.assertTrue(r["markers"])
+        self.assertEqual(r["model"], {"family": "claude"})
 
     def test_copilot_and_dedup(self):
         msgs = ["a\n\nCo-authored-by: GitHub Copilot <copilot@github.com>",
                 "b\n\nco-authored-by: GitHub Copilot <copilot@github.com>"]
-        self.assertEqual(len(detect_markers(None, msgs)), 1)
+        r = detect_markers(None, msgs)
+        self.assertEqual(len(r["markers"]), 1)
+        self.assertEqual(r["model"], {"family": "copilot"})
 
     def test_clean_pr(self):
-        self.assertEqual(detect_markers("normal PR description", ["normal commit"]), [])
+        self.assertEqual(
+            detect_markers("normal PR description", ["normal commit"]),
+            {"markers": [], "model": None})
 
 
 def _mk(uid, merged, state, files=(), markers=()):

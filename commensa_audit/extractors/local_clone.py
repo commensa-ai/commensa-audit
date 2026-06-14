@@ -141,6 +141,12 @@ class LocalCloneExtractor:
                        if with_files else
                        self.commits(no_merges=no_merges,
                                     since=since, until=until))
+        # Agent markers (Co-Authored-By trailers) live in the commit BODY,
+        # not the subject. Pull full messages once and scan them in-memory;
+        # only the marker RESULT is persisted (bodies stay off disk).
+        messages_by_sha = (self._collect_messages(no_merges=no_merges,
+                                                  since=since, until=until)
+                           if with_files else {})
         for c in commit_iter:
             uid = "SHA-" + c["sha"][:12]
             unit = {
@@ -169,8 +175,18 @@ class LocalCloneExtractor:
                 "merged": True,
                 "state": "closed",                # commits are landed
                 "closed_at": c["committer_date"],
-                # marker strings only — bodies/messages stay off disk
-                "ai_markers": detect_markers(None, [c["subject"]]),
+                # marker strings only — bodies/messages stay off disk.
+                # Scan the FULL message (subject + body) so Co-Authored-By
+                # trailers in the body are seen (theo: ~88% Claude-marked,
+                # all in the body — subject-only scan reported 0). M-A:
+                # also pass author/committer identity (catches bot accounts
+                # like cursor-bot, copilot[bot]), with platform exclusion
+                # protecting GitHub web-UI commits from being flagged.
+                **_marker_fields(detect_markers(
+                    messages_by_sha.get(c["sha"], c["subject"]),
+                    [messages_by_sha.get(c["sha"], c["subject"])],
+                    author_identity=f'{c["author_name"]} <{c["author_email"]}>',
+                    committer_identity=f'{c["committer_name"]} <{c["committer_email"]}>')),
                 "files": [{
                     "filename": f["path"],
                     "status": ("renamed" if f["rename_from"]
@@ -213,8 +229,12 @@ class LocalCloneExtractor:
         committer_date, tail   = _eat_line(tail)
         # Subject — git inserts a trailing \n before the numstat block, so
         # split on the FIRST newline; tail now holds the NUL-record stream.
+        # MERGE/empty commits have NO numstat, so under -z the subject is
+        # terminated by the commit-boundary NUL, not a newline — cut the
+        # subject at the first NUL so it never leaks into the title (theo
+        # 41-merge repo surfaced this; see BUILD_LOG D-B hotfix).
         subject_bytes, _, tail = tail.partition(b"\n")
-        subject = subject_bytes.decode("utf-8")
+        subject = subject_bytes.split(b"\x00", 1)[0].decode("utf-8")
 
         # Numstat records are NUL-terminated. The trailing commit boundary
         # adds one extra NUL (so we filter empties).
@@ -309,6 +329,34 @@ class LocalCloneExtractor:
             out[new_path] = patch_text
         return out
 
+    # -- pass 3: full commit messages (markers live in the BODY) ---------
+
+    MSG_SENTINEL = "@@@COMMENSA_MSG@@@"
+
+    def _collect_messages(self, *, no_merges: bool, since: str | None,
+                          until: str | None) -> dict[str, str]:
+        """Single git log pass returning {sha: full_message}.
+
+        Full message = subject + body, because Co-Authored-By trailers (the
+        canonical agent marker) live in the body. Scanned in-memory only;
+        never persisted — only the marker RESULT is stored, preserving the
+        bodies-off-disk privacy stance."""
+        pretty = f"{self.MSG_SENTINEL}%n%H%n%B"
+        cmd = self._git_args("log", f"--pretty=format:{pretty}")
+        if no_merges:
+            cmd.append("--no-merges")
+        if since is not None:
+            cmd.extend(["--since", since])
+        if until is not None:
+            cmd.extend(["--until", until])
+        out = subprocess.run(cmd, capture_output=True, check=True).stdout
+        text = out.decode("utf-8", errors="replace")
+        messages: dict[str, str] = {}
+        for chunk in text.split(self.MSG_SENTINEL + "\n")[1:]:
+            sha, _, body = chunk.partition("\n")
+            messages[sha.strip()] = body.rstrip("\n")
+        return messages
+
     # -- utility ---------------------------------------------------------
 
     @staticmethod
@@ -337,3 +385,10 @@ def _eat_line(tail: bytes) -> tuple[str, bytes]:
     """Consume up to the next \\n; return (decoded line, remaining bytes)."""
     head, _, rest = tail.partition(b"\n")
     return head.decode("utf-8"), rest
+
+
+def _marker_fields(result: dict) -> dict:
+    """Unpack ``{markers, model}`` from detect_markers into the sidecar's
+    ``ai_markers`` (backward-compatible list of strings) + ``ai_model``
+    (structured family/tier/version dict, new in M-A)."""
+    return {"ai_markers": result["markers"], "ai_model": result["model"]}

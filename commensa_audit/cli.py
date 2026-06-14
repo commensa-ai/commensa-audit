@@ -289,18 +289,27 @@ def _hotspots(units, cls, side, min_prs: int = 5, top_n: int = 5) -> dict:
 
 def _ai_marked(units, side) -> dict:
     """v1.1 §3 — LOWER BOUND share of PRs carrying agent markers
-    (Co-Authored-By agent trailers in commits + body signatures)."""
+    (Co-Authored-By + Assisted-by/Generated-by/On-behalf-of trailers,
+    body signatures, and author/committer identity matches). M-A: also
+    surfaces per-unit structured model {family, tier, version} when
+    parseable."""
     marked = {u["unit_id"]: m for u in units
               if (m := side.get(u["unit_id"], {}).get("ai_markers"))}
+    models = {uid: m for uid in marked
+              if (m := side.get(uid, {}).get("ai_model"))}
     return {
         "count": len(marked),
         "pct_of_prs_lower_bound": round(100 * len(marked) / max(len(units), 1), 1),
         "per_unit": marked,
-        "method": "PRs with ≥1 agent marker: Co-Authored-By trailer naming a known "
-                  "agent identity (commit messages, capped at 250 commits/PR by the "
-                  "API) or a tool signature in the PR body. Lower bound — unmarked "
-                  "agent work is invisible; absence of a marker is not evidence of "
-                  "human authorship.",
+        "per_unit_model": models,
+        "method": "PRs with ≥1 agent marker: Co-Authored-By / Assisted-by / "
+                  "Generated-by / On-behalf-of trailer naming a known agent "
+                  "identity (commit messages, capped at 250 commits/PR by the "
+                  "API), a body signature, or an author/committer identity "
+                  "matching an agent allowlist (GitHub web-UI commits are "
+                  "explicitly EXCLUDED). Lower bound — unmarked agent work is "
+                  "invisible; absence of a marker is not evidence of human "
+                  "authorship.",
     }
 
 
