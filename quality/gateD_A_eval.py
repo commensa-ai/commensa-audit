@@ -3,13 +3,15 @@
 Spec (COMMIT_MODE_SPEC.md): the extractor's per-commit facts (sha, author,
 date, files, +/- lines) must match `git log --numstat` exactly on a known repo.
 
-This script:
-  1. Runs `git log --numstat` independently (the truth source).
-  2. Runs LocalCloneExtractor on the same repo.
-  3. Structural deep-compare every field on every commit.
+D-B refresh (2026-06-13): the spec's encoding hardening step requires
+`-c core.quotePath=false` and parsing `-z`. The gate's truth-source git
+command therefore uses those same flags; the integrity of the comparison
+comes from the truth-source parser being an INDEPENDENT implementation of
+the extractor parser (different code paths, both consuming the same raw
+git bytes). 0 divergence = exact match.
 
-Exit 0 = gate passed (zero divergence). Exit 1 = any divergence; prints
-the first 10 mismatches with field-level diffs.
+Exit 0 = gate passed. Exit 1 = any divergence; prints the first 10
+mismatches with field-level diffs.
 
 Default target: commensa-audit itself (this repo).
 """
@@ -22,56 +24,77 @@ import subprocess
 import sys
 from pathlib import Path
 
-# Make commensa_audit importable when invoked directly
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from commensa_audit.extractors.local_clone import LocalCloneExtractor
 
-NUMSTAT_LINE = re.compile(r"^(-|\d+)\t(-|\d+)\t(.+)$")
+NUMSTAT_RE = re.compile(r"^(-|\d+)\t(-|\d+)\t(.*)$", re.DOTALL)
 SENTINEL = "@@@GATE_TRUTH@@@"
+SENTINEL_BYTES = SENTINEL.encode("utf-8") + b"\n"
 
 
 def truth_from_git(repo: Path, *, no_merges: bool = False) -> list[dict]:
-    """Run `git log --numstat` independently and produce comparison dicts."""
+    """Independent parse of `git log -z -c core.quotePath=false --numstat`.
+
+    Deliberately distinct from LocalCloneExtractor's parser — this is the
+    "ground truth" arm of the gate. Both arms see the same raw git bytes;
+    a mismatch can only come from a parser bug on either side.
+    """
     pretty = (f"{SENTINEL}%n"
               f"%H%n%P%n"
               f"%aN%n%aE%n%aI%n"
               f"%cN%n%cE%n%cI%n"
               f"%s")
-    cmd = ["git", "-C", str(repo), "log",
+    cmd = ["git", "-C", str(repo),
+           "-c", "core.quotePath=false",
+           "log", "-z",
            f"--pretty=format:{pretty}", "--numstat"]
     if no_merges:
         cmd.append("--no-merges")
-    out = subprocess.run(cmd, capture_output=True, text=True, check=True).stdout
+    raw = subprocess.run(cmd, capture_output=True, check=True).stdout
 
-    commits = []
-    for chunk in out.split(SENTINEL + "\n")[1:]:
-        lines = chunk.split("\n")
-        sha = lines[0]
-        parents = lines[1].split() if lines[1] else []
-        meta = {
-            "sha": sha, "parents": parents,
-            "author_name": lines[2], "author_email": lines[3],
-            "author_date": lines[4],
-            "committer_name": lines[5], "committer_email": lines[6],
-            "committer_date": lines[7],
-            "subject": lines[8],
-            "files": [],
-        }
-        for line in lines[9:]:
-            if not line:
-                continue
-            m = NUMSTAT_LINE.match(line)
+    commits: list[dict] = []
+    for chunk in raw.split(SENTINEL_BYTES)[1:]:
+        # Independent parser: walk byte-by-byte, NOT calling extractor methods.
+        meta_lines: list[str] = []
+        tail = chunk
+        for _ in range(9):
+            head, sep, tail = tail.partition(b"\n")
+            meta_lines.append(head.decode("utf-8"))
+        sha, parents_line, aN, aE, aI, cN, cE, cI, subject = meta_lines
+        parents = parents_line.split() if parents_line else []
+
+        # NUL-delimited numstat records; drop trailing empties
+        records = [r for r in tail.split(b"\x00") if r]
+        files: list[dict] = []
+        i = 0
+        while i < len(records):
+            rec = records[i].decode("utf-8")
+            m = NUMSTAT_RE.match(rec)
             if not m:
+                i += 1
                 continue
-            adds, dels, raw_path = m.groups()
-            meta["files"].append({"adds": adds, "dels": dels, "raw_path": raw_path})
-        commits.append(meta)
+            adds, dels, path = m.groups()
+            if path == "" and i + 2 <= len(records) - 1:
+                old = records[i + 1].decode("utf-8")
+                new = records[i + 2].decode("utf-8")
+                files.append({"adds": adds, "dels": dels,
+                              "raw_path": f"{old} => {new}"})
+                i += 3
+            else:
+                files.append({"adds": adds, "dels": dels, "raw_path": path})
+                i += 1
+
+        commits.append({
+            "sha": sha, "parents": parents,
+            "author_name": aN, "author_email": aE, "author_date": aI,
+            "committer_name": cN, "committer_email": cE, "committer_date": cI,
+            "subject": subject, "files": files,
+        })
     return commits
 
 
 def extractor_to_truth_form(c: dict) -> dict:
-    """Project the extractor dict into the truth-shape for byte comparison."""
     files = []
     for f in c["files"]:
         if f["binary"]:
@@ -91,7 +114,6 @@ def extractor_to_truth_form(c: dict) -> dict:
 
 
 def diff_one(truth: dict, extracted: dict) -> list[tuple]:
-    """Return list of (field_path, truth_value, extracted_value) tuples."""
     diffs = []
     for k in ("sha", "parents", "author_name", "author_email", "author_date",
               "committer_name", "committer_email", "committer_date", "subject"):
@@ -119,6 +141,7 @@ def main():
     print(f"Gate D-A — local-clone extractor fidelity")
     print(f"repo        : {repo}")
     print(f"no_merges   : {args.no_merges}")
+    print(f"flags       : -c core.quotePath=false -z (independent parsers)")
 
     truth = truth_from_git(repo, no_merges=args.no_merges)
     extracted = [extractor_to_truth_form(c)
@@ -150,7 +173,8 @@ def main():
         print(f"\nGATE D-A: FAIL — {len(diff_records)}/{len(truth)} commits differ")
         return 1
 
-    print(f"\nGATE D-A: PASS — {matched}/{len(truth)} commits match `git log --numstat` exactly")
+    print(f"\nGATE D-A: PASS — {matched}/{len(truth)} commits match `git log --numstat` "
+          f"exactly (under -z + quotePath=false)")
     return 0
 
 

@@ -158,5 +158,95 @@ class TestBadInputs(unittest.TestCase):
             LocalCloneExtractor("/nope/does/not/exist")
 
 
+class TestEncodingHardening(unittest.TestCase):
+    """D-A review finding: default git quoting silently corrupts non-ASCII
+    paths while --numstat fidelity stays green. -c core.quotePath=false + -z
+    round-trips them exactly. These tests pin that behavior."""
+
+    def test_non_ascii_filename_round_trips_verbatim(self):
+        repo = _make_repo()
+        path = "café/résumé.txt"
+        _commit(repo, "non-ASCII path", {path: "x\n"})
+        c = list(LocalCloneExtractor(repo).commits())[0]
+        self.assertEqual(len(c["files"]), 1)
+        self.assertEqual(c["files"][0]["path"], path)
+        self.assertEqual(c["files"][0]["raw_path"], path)
+        self.assertFalse(c["files"][0]["binary"])
+        # Defensive: ensure no C-quoting leaked through (would look like \303\251)
+        self.assertNotIn("\\", c["files"][0]["path"])
+
+    def test_emoji_filename_round_trips(self):
+        repo = _make_repo()
+        path = "fire-🔥/notes.txt"
+        _commit(repo, "emoji path", {path: "burn\n"})
+        c = list(LocalCloneExtractor(repo).commits())[0]
+        self.assertEqual(c["files"][0]["path"], path)
+
+    def test_filename_with_spaces_and_punctuation(self):
+        repo = _make_repo()
+        path = "docs (draft) v2/notes & ideas.md"
+        _commit(repo, "punctuation path", {path: "x\n"})
+        c = list(LocalCloneExtractor(repo).commits())[0]
+        self.assertEqual(c["files"][0]["path"], path)
+
+
+class TestEnginePatchIntegration(unittest.TestCase):
+    """Phase D-B: per-file unified-diff `patch` text must round-trip into
+    sidecar entries so patches.parse_patch / rework.py work unchanged."""
+
+    def test_patch_text_attached_when_with_files(self):
+        from commensa_audit.patches import parse_patch
+        repo = _make_repo()
+        _commit(repo, "add",    {"f.txt": "1\n2\n3\n"})
+        _commit(repo, "modify", {"f.txt": "1\n2\nNEW\n4\n"})
+        cs = list(LocalCloneExtractor(repo).commits_with_patches())
+        latest = cs[0]
+        f = latest["files"][0]
+        self.assertIn("patch", f)
+        self.assertIsNotNone(f["patch"])
+        self.assertIn("diff --git", f["patch"])
+        # parse_patch must read it as a standard unified diff
+        events = list(parse_patch(f["patch"]))
+        kinds = [k for k, _ in events]
+        self.assertIn("+", kinds)
+        self.assertIn("-", kinds)
+
+    def test_units_emission_matches_csv_schema(self):
+        """units() yields rows that conform to units.py's locked schema."""
+        from commensa_audit.units import UNIT_FIELDS
+        repo = _make_repo()
+        _commit(repo, "feat: add core", {"core.py": "x = 1\n"})
+        _commit(repo, "fix: typo in core", {"core.py": "y = 1\n"})
+        units = list(LocalCloneExtractor(repo).units())
+        self.assertEqual(len(units), 2)
+        for u in units:
+            self.assertEqual(sorted(u.keys()), sorted(UNIT_FIELDS))
+            self.assertEqual(u["merged"], 1)         # commits are landed
+            self.assertTrue(u["unit_id"].startswith("SHA-"))
+
+    def test_units_with_files_emits_sidecar(self):
+        """units(with_files=True) returns (unit, sidecar) tuples; sidecar
+        carries the file list with patch text."""
+        repo = _make_repo()
+        _commit(repo, "init",  {"a.py": "x = 1\n"})
+        _commit(repo, "tweak", {"a.py": "x = 2\n"})
+        out = list(LocalCloneExtractor(repo).units(with_files=True))
+        self.assertEqual(len(out), 2)
+        unit, sidecar = out[0]
+        self.assertEqual(unit["unit_id"], sidecar["unit_id"])
+        self.assertTrue(sidecar["merged"])
+        self.assertEqual(len(sidecar["files"]), 1)
+        self.assertEqual(sidecar["files"][0]["filename"], "a.py")
+        self.assertIn("@@", sidecar["files"][0]["patch"])  # unified-diff hunk marker
+
+    def test_looks_revert_carried_into_unit(self):
+        """A commit whose subject begins with Revert ... must read looks_revert=1
+        on the unit row (matches Phase A's gate semantics for PR titles)."""
+        repo = _make_repo()
+        _commit(repo, "Revert \"feat: broken\"", {"x.py": "z = 0\n"})
+        u = next(LocalCloneExtractor(repo).units())
+        self.assertEqual(u["looks_revert"], 1)
+
+
 if __name__ == "__main__":
     unittest.main()

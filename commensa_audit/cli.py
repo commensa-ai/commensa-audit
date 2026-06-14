@@ -17,6 +17,7 @@ import sys
 from . import __version__
 from .classify import CONFIG, classify
 from .extractors.github import GitHubExtractor
+from .extractors.local_clone import LocalCloneExtractor
 from .rework import replay
 from .units import read_units_csv, write_units_csv
 
@@ -48,14 +49,20 @@ def _non_negative_int(s: str) -> int:
 def build_parser() -> argparse.ArgumentParser:
     ap = argparse.ArgumentParser(
         prog="commensa-audit",
-        description="Point it at a GitHub repo, get an AI Rework Report. "
-                    "(Phase B build: emits units.csv, prs.jsonl, audit JSON; "
-                    "HTML report lands in Phase C.)")
-    ap.add_argument("--repo", required=True, metavar="owner/name",
-                    help="GitHub repository to audit (read-only)")
+        description="Point it at a GitHub repo (PR-mode) OR a local git clone "
+                    "(commit-mode), get an AI Rework Report. Drift measurement is "
+                    "author-agnostic — what survived, what was rewritten — so the "
+                    "same engine reads both modes.")
+    # PR-mode (network) vs commit-mode (local-only) — exactly one is required.
+    source = ap.add_mutually_exclusive_group(required=True)
+    source.add_argument("--repo", metavar="owner/name",
+                        help="GitHub repository to audit (PR-mode, read-only)")
+    source.add_argument("--local-clone", metavar="PATH", dest="local_clone",
+                        help="local git clone to audit (commit-mode, "
+                             "read-only, NO network)")
     ap.add_argument("--token", default=None,
                     help="GitHub token (default: $GH_TOKEN or $GITHUB_TOKEN); "
-                         "read scope is sufficient")
+                         "read scope is sufficient. Ignored in commit-mode.")
     ap.add_argument("--window", type=int, default=CONFIG["window_days"], metavar="DAYS",
                     help=f"self-correction/churn/supersession window in days "
                          f"(default {CONFIG['window_days']})")
@@ -92,6 +99,9 @@ def _extract(args, token) -> tuple[list[dict], list[dict]]:
             sidecar = [json.loads(line) for line in f if line.strip()]
         return units, sidecar
 
+    if args.local_clone:
+        return _extract_local(args, units_path, sidecar_path)
+
     extractor = GitHubExtractor(args.repo, token=token)
 
     def progress(i, total):
@@ -118,6 +128,31 @@ def _extract(args, token) -> tuple[list[dict], list[dict]]:
         print(f"NOTE: capped at the newest {args.max_prs} PRs — this repo has more. "
               f"Raise with --max-prs N (default {DEFAULT_MAX_PRS}), or --max-prs 0 "
               f"for no cap.", file=sys.stderr)
+    return units, sidecar
+
+
+def _extract_local(args, units_path: str, sidecar_path: str) -> tuple[list[dict], list[dict]]:
+    """Commit-mode extraction: local git clone, no network. The extractor's
+    units() yields (unit_row, sidecar_row) tuples mirroring the GitHub shape,
+    so the engine downstream consumes them unchanged."""
+    extractor = LocalCloneExtractor(args.local_clone)
+    scope = f" [since {args.since}]" if args.since else ""
+    print(f"extracting commits from local clone {args.local_clone} "
+          f"(read-only, no network){scope}…", file=sys.stderr)
+    units, sidecar = [], []
+    n = 0
+    with open(sidecar_path, "w", encoding="utf-8") as f:
+        for unit, side in extractor.units(with_files=True, since=args.since):
+            units.append(unit)
+            sidecar.append(side)
+            f.write(json.dumps(side, ensure_ascii=False) + "\n")
+            n += 1
+            if n == 1 or n % 50 == 0:
+                print(f"  commit {n}", file=sys.stderr)
+    print(f"  commit {n} (done)", file=sys.stderr)
+    write_units_csv(units_path, units)
+    print(f"wrote {len(units)} units -> {units_path} "
+          f"(2 local git invocations, no API calls)", file=sys.stderr)
     return units, sidecar
 
 
@@ -295,8 +330,13 @@ def _survival_summary(survival: dict) -> str:
 
 def main(argv=None) -> int:
     args = build_parser().parse_args(argv)
+    # commit-mode: derive a repo-style label from the path basename so the
+    # rest of the pipeline (audit JSON, report header) treats it like any repo.
+    if args.local_clone and not args.repo:
+        # abspath first so "." resolves to the actual directory name
+        args.repo = os.path.basename(os.path.abspath(args.local_clone)) or "local"
     token = args.token or os.environ.get("GH_TOKEN") or os.environ.get("GITHUB_TOKEN")
-    if not token and not args.reuse:
+    if not token and not args.reuse and not args.local_clone:
         print("warning: no token — unauthenticated GitHub API is limited to 60 req/hr, "
               "which a repo with >25 PRs will exhaust (two requests per PR)", file=sys.stderr)
 
